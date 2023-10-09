@@ -3,8 +3,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import DetailScreen from './src/screens/DetailScreen';
-import IndexScreen from './src/screens/IndexScreen';
+import Screens from './src/screens';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -17,8 +16,8 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={IndexScreen} />
-        <Stack.Screen name="DetailScreen" component={DetailScreen} />
+        <Stack.Screen name="Home" component={Screens.IndexScreen} />
+        <Stack.Screen name="DetailScreen" component={Screens.DetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
