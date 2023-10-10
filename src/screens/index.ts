@@ -2,8 +2,10 @@ import DetailScreen from './DetailScreen';
 import IndexScreen from './IndexScreen';
 import SplashScreen from './SplashScreen';
 
-export default {
+const Screens = {
   IndexScreen,
   DetailScreen,
   SplashScreen,
 };
+
+export default Screens;
