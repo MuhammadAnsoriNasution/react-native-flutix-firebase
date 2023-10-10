@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, View } from 'react-native';
 import { RootStackParamList } from '../../App';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'HomeScreen'>;
 export default function IndexScreen({ navigation }: Props) {
   return (
     <View>

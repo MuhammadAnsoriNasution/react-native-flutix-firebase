@@ -6,7 +6,7 @@ import * as React from 'react';
 import Screens from './src/screens';
 
 export type RootStackParamList = {
-  Home: undefined;
+  HomeScreen: undefined;
   DetailScreen: undefined;
   SplashScreen: undefined;
 };
@@ -16,10 +16,16 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Screens.IndexScreen} />
+      <Stack.Navigator initialRouteName="SplashScreen">
+        <Stack.Screen
+          name="SplashScreen"
+          component={Screens.SplashScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen name="HomeScreen" component={Screens.IndexScreen} />
         <Stack.Screen name="DetailScreen" component={Screens.DetailScreen} />
-        <Stack.Screen name="SplashScreen" component={Screens.SplashScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
