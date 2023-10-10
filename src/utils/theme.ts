@@ -13,6 +13,7 @@ const greyColor2 = '#BEBEBE';
 const greyColor3 = '#ADADAD';
 const secondary = '#F6F6F6';
 const secondary2 = '#DDDCDC';
+const whiteColor = '#ffffff';
 
 const styles = StyleSheet.create({
   blackTextFont: {
@@ -53,5 +54,7 @@ export default {
   greyColor,
   redColor,
   secondary2,
+  blackColor,
+  whiteColor,
   styles,
 };
