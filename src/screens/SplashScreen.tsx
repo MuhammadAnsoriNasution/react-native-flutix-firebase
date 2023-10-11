@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import images from '../assets/images';
+import * as images from '../assets/images';
 import theme from '../utils/theme';
 
 export default function SplashScreen() {
