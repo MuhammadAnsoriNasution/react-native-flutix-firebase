@@ -1,11 +1,20 @@
-import DetailScreen from './DetailScreen';
-import IndexScreen from './IndexScreen';
-import SplashScreen from './SplashScreen';
-
-const Screens = {
-  IndexScreen,
-  DetailScreen,
-  SplashScreen,
-};
-
-export default Screens;
+export { default as AccountConfirmation } from './AccountConfirmation';
+export { default as CheckoutScreen } from './CheckoutScreen';
+export { default as DetailScreen } from './DetailScreen';
+export { default as EditProfileScreen } from './EditProfileScreen';
+export { default as IndexScreen } from './IndexScreen';
+export { default as MainScreen } from './MainScreen';
+export { default as MovieDetailScreen } from './MovieDetailScreen';
+export { default as MovieScreen } from './MovieScreen';
+export { default as PreferenceScreen } from './PreferenceScreen';
+export { default as ProfileScreen } from './ProfileScreen';
+export { default as SelectScheduleScreen } from './SelectScheduleScreen';
+export { default as SelectSeatScreen } from './SelectSeatScreen';
+export { default as SignInScreen } from './SignInScreen';
+export { default as SignUpScreen } from './SignUpScreen';
+export { default as SplashScreen } from './SplashScreen';
+export { default as SuccessScreen } from './SuccessScreen';
+export { default as TicketDetailScreen } from './TicketDetailScreen';
+export { default as TicketScreen } from './TicketScreen';
+export { default as TopUpScreen } from './TopUpScreen';
+export { default as WalletScreen } from './WalletScreen';
