@@ -3,12 +3,15 @@ import React from 'react';
 import { RootStackParamList } from '../routes';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'CheckoutScreen'>;
+type Props = NativeStackScreenProps<
+  RootStackParamList,
+  'AccountConfirmationScreen'
+>;
 
-export default function CheckoutScreen({}: Props) {
+export default function AccountConfirmationScreen({}: Props) {
   return (
     <View>
-      <Text>CheckoutScreen</Text>
+      <Text>AccountConfirmation</Text>
     </View>
   );
 }

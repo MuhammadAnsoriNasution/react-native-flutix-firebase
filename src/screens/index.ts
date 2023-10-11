@@ -1,8 +1,6 @@
-export { default as AccountConfirmation } from './AccountConfirmation';
+export { default as AccountConfirmationScreen } from './AccountConfirmationScreen';
 export { default as CheckoutScreen } from './CheckoutScreen';
-export { default as DetailScreen } from './DetailScreen';
 export { default as EditProfileScreen } from './EditProfileScreen';
-export { default as IndexScreen } from './IndexScreen';
 export { default as MainScreen } from './MainScreen';
 export { default as MovieDetailScreen } from './MovieDetailScreen';
 export { default as MovieScreen } from './MovieScreen';

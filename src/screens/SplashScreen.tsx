@@ -11,8 +11,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as images from '../assets/images';
 import theme from '../utils/theme';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../routes';
 
-export default function SplashScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, 'SplashScreen'>;
+
+export default function SplashScreen({ navigation }: Props) {
   return (
     <>
       <SafeAreaView style={styles.safeArea}>
@@ -26,12 +30,15 @@ export default function SplashScreen() {
             </Text>
           </View>
           <View style={styles.wrapperAction}>
-            <Pressable style={styles.btnStarted}>
+            <Pressable
+              style={styles.btnStarted}
+              onPress={() => navigation.navigate('SignUpScreen')}>
               <Text style={styles.btnStartedLabel}>Get Started</Text>
             </Pressable>
             <View style={styles.wrapperQuestion}>
               <Text style={styles.question}>Already have an account?</Text>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('SignInScreen')}>
                 <Text style={styles.questionAction}>Sign In</Text>
               </TouchableOpacity>
             </View>

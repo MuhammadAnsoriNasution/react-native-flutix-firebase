@@ -1,10 +1,15 @@
-import { View, Text } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
+import { Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { RootStackParamList } from '../routes';
 
-export default function SignUpScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
+
+export default function SignUpScreen({}: Props) {
   return (
-    <View>
+    <SafeAreaView>
       <Text>SignUpScreen</Text>
-    </View>
+    </SafeAreaView>
   );
 }

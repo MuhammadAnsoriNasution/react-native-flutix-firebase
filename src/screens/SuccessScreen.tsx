@@ -1,7 +1,11 @@
 import { View, Text } from 'react-native';
 import React from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../routes';
 
-export default function SuccessScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, 'SuccessScreen'>;
+
+export default function SuccessScreen({}: Props) {
   return (
     <View>
       <Text>SuccessScreen</Text>

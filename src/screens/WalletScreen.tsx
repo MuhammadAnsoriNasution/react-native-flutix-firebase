@@ -1,7 +1,12 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-export default function WalletScreen() {
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../routes';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'WalletScreen'>;
+
+export default function WalletScreen({}: Props) {
   return (
     <View>
       <Text>WalletScreen</Text>
