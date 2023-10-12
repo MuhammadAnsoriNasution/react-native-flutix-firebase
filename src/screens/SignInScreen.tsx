@@ -1,7 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
@@ -9,7 +16,7 @@ import * as images from './../assets/images';
 import TextInput from '../components/atoms/input/TextInput';
 type Props = NativeStackScreenProps<RootStackParamList, 'SignInScreen'>;
 
-export default function SignInScreen({}: Props) {
+export default function SignInScreen({ navigation }: Props) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -42,6 +49,18 @@ export default function SignInScreen({}: Props) {
             <Text style={styles.questionAction}>Get Now</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.columnCenter}>
+          <Pressable style={styles.btnSubmit}>
+            <Text style={styles.labelBtnSubmit}>P</Text>
+          </Pressable>
+          <View style={styles.wrapperQuestion}>
+            <Text style={styles.questionLabel}>Start fresh now? </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SignUpScreen')}>
+              <Text style={styles.questionAction}>Sign Up</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -71,6 +90,7 @@ const styles = StyleSheet.create({
   wrapperQuestion: {
     display: 'flex',
     flexDirection: 'row',
+    marginBottom: 40,
   },
   questionLabel: {
     ...theme.styles.greyTextFont,
@@ -84,4 +104,22 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 22,
   },
+  columnCenter: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 52,
+  },
+  btnSubmit: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: theme.greyColor,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  labelBtnSubmit: {},
 });
