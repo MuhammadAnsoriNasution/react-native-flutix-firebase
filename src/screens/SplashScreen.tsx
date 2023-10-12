@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import {
   Image,
@@ -10,9 +11,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as images from '../assets/images';
-import theme from '../utils/theme';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes';
+import theme from '../utils/theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SplashScreen'>;
 
