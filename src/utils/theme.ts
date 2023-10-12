@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import fontFamily from '../assets/fonts';
 
 const defaultMargin = 24;
+
 const mainColor = '#503E9D';
 const accentColor1 = '#2C1F63';
 const accentColor2 = '#FBD460';

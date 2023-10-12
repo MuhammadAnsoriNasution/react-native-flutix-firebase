@@ -11,9 +11,18 @@ import theme from '../../../utils/theme';
 
 interface Props extends TextInputProps {
   label: string;
+  errorColor?: string;
 }
-export default function TextInput({ label, style, ...props }: Props) {
-  const [isFocus, setIsFocus] = useState(false);
+export default function TextInput({
+  label,
+  style,
+  errorColor,
+  ...props
+}: Props) {
+  const [isFocus, setIsFocus] = useState(
+    props.value !== '' || props.value !== undefined ? false : true,
+  );
+
   const refInput = useRef<TextInputR>(null);
   return (
     <View style={[styles.container, style]}>
@@ -26,28 +35,38 @@ export default function TextInput({ label, style, ...props }: Props) {
           styles.label,
           {
             top: isFocus ? -9 : 15,
-            color: isFocus ? theme.accentColor2 : theme.greyColor2,
+            color:
+              errorColor !== undefined
+                ? errorColor
+                : isFocus
+                ? theme.accentColor2
+                : theme.greyColor2,
           },
         ]}>
         {label}
       </Text>
-      <View
+
+      <TextInputR
+        ref={refInput}
         style={[
-          styles.wrapperInput,
-          { borderColor: isFocus ? theme.accentColor2 : theme.greyColor2 },
-        ]}>
-        <TextInputR
-          ref={refInput}
-          style={[styles.textinput]}
-          {...props}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => {
-            if (props.value === '' || props.value === undefined) {
-              setIsFocus(false);
-            }
-          }}
-        />
-      </View>
+          styles.textinput,
+          {
+            borderColor:
+              errorColor !== undefined
+                ? errorColor
+                : isFocus
+                ? theme.accentColor2
+                : theme.greyColor2,
+          },
+        ]}
+        {...props}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => {
+          if (props.value === '' || props.value === undefined) {
+            setIsFocus(false);
+          }
+        }}
+      />
     </View>
   );
 }
@@ -57,7 +76,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   wrapperInput: {
-    position: 'relative',
     borderWidth: 1,
     borderColor: theme.greyColor2,
     padding: 13,
@@ -76,5 +94,10 @@ const styles = StyleSheet.create({
   textinput: {
     ...theme.styles.blackTextFont,
     fontSize: 16,
+    borderWidth: 1,
+    borderColor: theme.greyColor2,
+    padding: 13,
+    borderRadius: 6,
+    zIndex: 0,
   },
 });
