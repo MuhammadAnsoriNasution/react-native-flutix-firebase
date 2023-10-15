@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import {
   Image,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,6 +15,7 @@ import theme from '../utils/theme';
 import * as images from './../assets/images';
 import TextInput from '../components/atoms/input/TextInput';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import QuestionWithAction from '../components/atoms/QuestionWithAction';
 type Props = NativeStackScreenProps<RootStackParamList, 'SignInScreen'>;
 
 export default function SignInScreen({ navigation }: Props) {
@@ -24,49 +25,48 @@ export default function SignInScreen({ navigation }: Props) {
   });
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Image source={images.logo} style={styles.logo} />
-        <Text style={styles.title}>{'Welcome Back,\nExplorer!'}</Text>
-        <TextInput
-          label="Email Address"
-          style={{ marginBottom: 27 }}
-          value={formData.email}
-          onChangeText={e =>
-            setFormData(p => ({ password: p.password, email: e }))
-          }
-        />
-        <TextInput
-          label="Password"
-          style={{ marginBottom: 6 }}
-          secureTextEntry={true}
-          value={formData.password}
-          onChangeText={e =>
-            setFormData(p => ({ email: p.email, password: e }))
-          }
-        />
-        <View style={styles.wrapperQuestion}>
-          <Text style={styles.questionLabel}>Forgot Password? </Text>
-          <TouchableOpacity>
-            <Text style={styles.questionAction}>Get Now</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.columnCenter}>
-          <Pressable style={styles.btnSubmit} disabled>
-            <IconAntDesign
-              name="arrowright"
-              size={24}
-              color={theme.greyColor2}
+      <ScrollView>
+        <View style={styles.container}>
+          <Image source={images.logo} style={styles.logo} />
+          <Text style={styles.title}>{'Welcome Back,\nExplorer!'}</Text>
+          <TextInput
+            label="Email Address"
+            style={{ marginBottom: 27 }}
+            value={formData.email}
+            onChangeText={e =>
+              setFormData(p => ({ password: p.password, email: e }))
+            }
+          />
+          <TextInput
+            label="Password"
+            style={{ marginBottom: 6 }}
+            secureTextEntry={true}
+            value={formData.password}
+            onChangeText={e =>
+              setFormData(p => ({ email: p.email, password: e }))
+            }
+          />
+          <QuestionWithAction
+            question="Forgot Password? "
+            onPress={() => console.log('')}
+            actionLabel="Get Now"
+          />
+          <View style={styles.columnCenter}>
+            <Pressable style={styles.btnSubmit} disabled>
+              <IconAntDesign
+                name="arrowright"
+                size={24}
+                color={theme.greyColor2}
+              />
+            </Pressable>
+            <QuestionWithAction
+              actionLabel="Sign Up"
+              question="Start fresh now? "
+              onPress={() => navigation.navigate('SignUpScreen')}
             />
-          </Pressable>
-          <View style={styles.wrapperQuestion}>
-            <Text style={styles.questionLabel}>Start fresh now? </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('SignUpScreen')}>
-              <Text style={styles.questionAction}>Sign Up</Text>
-            </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -92,23 +92,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 51,
   },
-  wrapperQuestion: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: 40,
-  },
-  questionLabel: {
-    ...theme.styles.greyTextFont,
-    fontSize: 12,
-    fontWeight: '400',
-    lineHeight: 22,
-  },
-  questionAction: {
-    ...theme.styles.purpleTextFont,
-    fontSize: 12,
-    fontWeight: '500',
-    lineHeight: 22,
-  },
   columnCenter: {
     display: 'flex',
     flexDirection: 'column',
@@ -116,6 +99,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 52,
+    marginTop: 40,
+    paddingBottom: 40,
   },
   btnSubmit: {
     width: 50,

@@ -6,11 +6,11 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as images from '../assets/images';
+import QuestionWithAction from '../components/atoms/QuestionWithAction';
 import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
 
@@ -35,13 +35,11 @@ export default function SplashScreen({ navigation }: Props) {
               onPress={() => navigation.navigate('SignUpScreen')}>
               <Text style={styles.btnStartedLabel}>Get Started</Text>
             </Pressable>
-            <View style={styles.wrapperQuestion}>
-              <Text style={styles.question}>Already have an account?</Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('SignInScreen')}>
-                <Text style={styles.questionAction}>Sign In</Text>
-              </TouchableOpacity>
-            </View>
+            <QuestionWithAction
+              question="Already have an account? "
+              actionLabel="Sign In"
+              onPress={() => navigation.navigate('SignInScreen')}
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -99,21 +97,5 @@ const styles = StyleSheet.create({
   },
   btnStartedLabel: {
     ...theme.styles.whiteTextFont,
-  },
-  wrapperQuestion: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    justifyContent: 'center',
-  },
-  question: {
-    ...theme.styles.greyTextFont,
-    fontSize: 14,
-    fontWeight: '400',
-  },
-  questionAction: {
-    ...theme.styles.purpleTextFont,
-    fontWeight: '500',
   },
 });
