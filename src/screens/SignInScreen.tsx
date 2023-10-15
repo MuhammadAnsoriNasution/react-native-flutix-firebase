@@ -14,6 +14,7 @@ import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
 import * as images from './../assets/images';
 import TextInput from '../components/atoms/input/TextInput';
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 type Props = NativeStackScreenProps<RootStackParamList, 'SignInScreen'>;
 
 export default function SignInScreen({ navigation }: Props) {
@@ -50,8 +51,12 @@ export default function SignInScreen({ navigation }: Props) {
           </TouchableOpacity>
         </View>
         <View style={styles.columnCenter}>
-          <Pressable style={styles.btnSubmit}>
-            <Text style={styles.labelBtnSubmit}>P</Text>
+          <Pressable style={styles.btnSubmit} disabled>
+            <IconAntDesign
+              name="arrowright"
+              size={24}
+              color={theme.greyColor2}
+            />
           </Pressable>
           <View style={styles.wrapperQuestion}>
             <Text style={styles.questionLabel}>Start fresh now? </Text>
