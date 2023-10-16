@@ -13,9 +13,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
 import * as images from './../assets/images';
-import TextInput from '../components/atoms/input/TextInput';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import QuestionWithAction from '../components/atoms/QuestionWithAction';
+import { QuestionWithAction, Input } from '../components/atoms';
+
 type Props = NativeStackScreenProps<RootStackParamList, 'SignInScreen'>;
 
 export default function SignInScreen({ navigation }: Props) {
@@ -29,7 +29,7 @@ export default function SignInScreen({ navigation }: Props) {
         <View style={styles.container}>
           <Image source={images.logo} style={styles.logo} />
           <Text style={styles.title}>{'Welcome Back,\nExplorer!'}</Text>
-          <TextInput
+          <Input.TextInput
             label="Email Address"
             style={{ marginBottom: 27 }}
             value={formData.email}
@@ -37,7 +37,7 @@ export default function SignInScreen({ navigation }: Props) {
               setFormData(p => ({ password: p.password, email: e }))
             }
           />
-          <TextInput
+          <Input.TextInput
             label="Password"
             style={{ marginBottom: 6 }}
             secureTextEntry={true}

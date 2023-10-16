@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HeaderPage from '../components/atoms/HeaderPage';
+import { HeaderPage } from '../components/atoms';
 import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
 import { StyleSheet } from 'react-native';

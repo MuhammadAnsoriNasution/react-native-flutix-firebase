@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as images from '../assets/images';
-import QuestionWithAction from '../components/atoms/QuestionWithAction';
+import { QuestionWithAction } from '../components/atoms';
 import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
 
