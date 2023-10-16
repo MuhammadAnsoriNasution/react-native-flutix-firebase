@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   goBack: {
     position: 'absolute',
     left: 0,
+    zIndex: 1,
   },
   wrapperTitle: {
     width: '100%',
