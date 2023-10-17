@@ -1,1 +1,2 @@
-export * as atoms from './atoms';
+export * as Atoms from './atoms';
+export * as Moleculs from './moleculs';
