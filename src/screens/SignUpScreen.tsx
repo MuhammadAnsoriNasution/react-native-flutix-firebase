@@ -30,7 +30,10 @@ export default function SignUpScreen({ navigation }: Props) {
           <TextInput label="Password" secureTextEntry />
           <TextInput label="Confirm Password" secureTextEntry />
         </View>
-        <Button.ButtonRoundedIcon name="arrowright" />
+        <Button.ButtonRoundedIcon
+          name="arrowright"
+          onPress={() => navigation.navigate('PreferenceScreen')}
+        />
       </View>
     </SafeAreaView>
   );
