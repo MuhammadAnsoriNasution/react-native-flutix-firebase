@@ -7,7 +7,7 @@ interface Props extends PressableProps {
   name: 'arrowright' | 'wallet';
 }
 
-export default function ButtonRounded({ name, ...props }: Props) {
+export default function ButtonRoundedIcon({ name, ...props }: Props) {
   return (
     <Pressable
       style={[

@@ -1,11 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { HeaderPage } from '../components/atoms';
+import { Button, HeaderPage } from '../components/atoms';
 import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
-
+import * as images from '../assets/images';
+import { TextInput } from '../components/atoms/input';
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
 export default function SignUpScreen({ navigation }: Props) {
@@ -15,6 +16,22 @@ export default function SignUpScreen({ navigation }: Props) {
         onPress={() => navigation.goBack()}
         title={'Create New\nYour Account'}
       />
+      <View style={styles.container}>
+        <View style={styles.wrapperUserPic}>
+          <Image source={images.user_pic} style={styles.userPic} />
+          <TouchableOpacity style={styles.btnAdd}>
+            <Image source={images.btn_add_photo} style={styles.btnAddImage} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.wrapperInput}>
+          <TextInput label="Full Name" />
+          <TextInput label="Email Address" />
+          <TextInput label="Password" secureTextEntry />
+          <TextInput label="Confirm Password" secureTextEntry />
+        </View>
+        <Button.ButtonRoundedIcon name="arrowright" />
+      </View>
     </SafeAreaView>
   );
 }
@@ -23,5 +40,36 @@ const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: theme.whiteColor,
     flex: 1,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  wrapperUserPic: {
+    position: 'relative',
+    marginTop: 22,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  userPic: {
+    width: 90,
+    height: 90,
+  },
+  btnAdd: {
+    position: 'absolute',
+    bottom: -10,
+  },
+  btnAddImage: {
+    height: 24,
+    width: 24,
+  },
+  wrapperInput: {
+    width: '100%',
+    marginTop: 47,
+    display: 'flex',
+    gap: 27,
+    paddingHorizontal: theme.defaultMargin,
+    marginBottom: 30,
   },
 });

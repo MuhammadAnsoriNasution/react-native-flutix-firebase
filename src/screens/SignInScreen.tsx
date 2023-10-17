@@ -44,7 +44,7 @@ export default function SignInScreen({ navigation }: Props) {
             actionLabel="Get Now"
           />
           <View style={styles.columnCenter}>
-            <Button.ButtonRounded name="arrowright" disabled={true} />
+            <Button.ButtonRoundedIcon name="arrowright" disabled={true} />
             <QuestionWithAction
               actionLabel="Sign Up"
               question="Start fresh now? "
