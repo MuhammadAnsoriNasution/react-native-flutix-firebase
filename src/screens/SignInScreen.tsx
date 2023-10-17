@@ -3,8 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Input, QuestionWithAction } from '../components/atoms';
-import ButtonRounded from '../components/atoms/button/ButtonRounded';
+import { Button, Input, QuestionWithAction } from '../components/atoms';
 import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
 import * as images from './../assets/images';
@@ -45,7 +44,7 @@ export default function SignInScreen({ navigation }: Props) {
             actionLabel="Get Now"
           />
           <View style={styles.columnCenter}>
-            <ButtonRounded name="arrowright" disabled={true} />
+            <Button.ButtonRounded name="arrowright" disabled={true} />
             <QuestionWithAction
               actionLabel="Sign Up"
               question="Start fresh now? "
