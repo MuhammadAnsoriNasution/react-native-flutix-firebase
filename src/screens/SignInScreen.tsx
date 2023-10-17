@@ -1,20 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Input, QuestionWithAction } from '../components/atoms';
+import ButtonRounded from '../components/atoms/button/ButtonRounded';
 import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
 import * as images from './../assets/images';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import { QuestionWithAction, Input } from '../components/atoms';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignInScreen'>;
 
@@ -52,13 +45,7 @@ export default function SignInScreen({ navigation }: Props) {
             actionLabel="Get Now"
           />
           <View style={styles.columnCenter}>
-            <Pressable style={styles.btnSubmit} disabled>
-              <IconAntDesign
-                name="arrowright"
-                size={24}
-                color={theme.greyColor2}
-              />
-            </Pressable>
+            <ButtonRounded name="arrowright" disabled={true} />
             <QuestionWithAction
               actionLabel="Sign Up"
               question="Start fresh now? "
