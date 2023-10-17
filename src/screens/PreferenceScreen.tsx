@@ -60,7 +60,10 @@ export default function PreferenceScreen({ navigation }: Props) {
           onSelect={selectLang}
         />
         <View style={styles.wrapperNext}>
-          <Atoms.Button.ButtonRoundedIcon name="arrowright" />
+          <Atoms.Button.ButtonRoundedIcon
+            name="arrowright"
+            onPress={() => navigation.navigate('AccountConfirmationScreen')}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

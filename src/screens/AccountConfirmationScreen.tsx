@@ -1,7 +1,9 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import { RootStackParamList } from '../routes';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
+import { StyleSheet, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { RootStackParamList } from '../routes';
+import theme from '../utils/theme';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -10,8 +12,15 @@ type Props = NativeStackScreenProps<
 
 export default function AccountConfirmationScreen({}: Props) {
   return (
-    <View>
+    <SafeAreaView style={styles.safeArea}>
       <Text>AccountConfirmation</Text>
-    </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: theme.whiteColor,
+  },
+});
