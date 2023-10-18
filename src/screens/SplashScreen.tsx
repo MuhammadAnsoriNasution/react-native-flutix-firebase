@@ -1,15 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import {
-  Image,
-  Pressable,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as images from '../assets/images';
+import { Atoms } from '../components';
 import { QuestionWithAction } from '../components/atoms';
 import { RootStackParamList } from '../routes';
 import theme from '../utils/theme';
@@ -30,11 +24,10 @@ export default function SplashScreen({ navigation }: Props) {
             </Text>
           </View>
           <View style={styles.wrapperAction}>
-            <Pressable
-              style={styles.btnStarted}
-              onPress={() => navigation.navigate('SignUpScreen')}>
-              <Text style={styles.btnStartedLabel}>Get Started</Text>
-            </Pressable>
+            <Atoms.Button.RectButton
+              onPress={() => navigation.navigate('SignUpScreen')}
+              label="Get Started"
+            />
             <QuestionWithAction
               question="Already have an account? "
               actionLabel="Sign In"
@@ -87,15 +80,5 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 19,
     width: '100%',
-  },
-  btnStarted: {
-    backgroundColor: theme.mainColor,
-    paddingTop: 11,
-    paddingBottom: 13,
-    alignItems: 'center',
-    borderRadius: 8,
-  },
-  btnStartedLabel: {
-    ...theme.styles.whiteTextFont,
   },
 });
