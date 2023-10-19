@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Input, QuestionWithAction } from '../components/atoms';
-import { RootStackParamList } from '../routes';
+import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 import * as images from './../assets/images';
 

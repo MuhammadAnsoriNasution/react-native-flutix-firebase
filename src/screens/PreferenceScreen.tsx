@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Atoms, Moleculs } from '../components/index';
-import { RootStackParamList } from '../routes';
+import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PreferenceScreen'>;

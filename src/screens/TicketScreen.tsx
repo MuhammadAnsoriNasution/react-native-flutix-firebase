@@ -1,14 +1,14 @@
-import { View, Text } from 'react-native';
 import React from 'react';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../routes';
+import { Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { HomeTabScreenProps } from '../routes/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'TicketScreen'>;
+type Props = HomeTabScreenProps<'TicketScreen'>;
 
 export default function TicketScreen({}: Props) {
   return (
-    <View>
+    <SafeAreaView>
       <Text>TicketScreen</Text>
-    </View>
+    </SafeAreaView>
   );
 }

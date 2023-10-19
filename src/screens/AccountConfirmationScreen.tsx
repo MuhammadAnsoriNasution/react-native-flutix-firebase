@@ -3,7 +3,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Atoms } from '../components';
-import { RootStackParamList } from '../routes';
+import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 import * as images from '../assets/images';
 type Props = NativeStackScreenProps<
@@ -29,7 +29,9 @@ export default function AccountConfirmationScreen({ navigation }: Props) {
         <Atoms.Gap height={110} />
         <Atoms.Button.RectButton
           background="green"
-          onPress={() => navigation.navigate('MainScreen')}
+          onPress={() =>
+            navigation.navigate('MainScreen', { screen: 'MovieScreen' })
+          }
           label="Create My Account"
         />
       </View>

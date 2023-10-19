@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as images from '../assets/images';
 import { Atoms } from '../components';
 import { QuestionWithAction } from '../components/atoms';
-import { RootStackParamList } from '../routes';
+import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SplashScreen'>;

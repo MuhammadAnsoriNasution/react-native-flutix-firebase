@@ -1,15 +1,15 @@
-import { View, Text } from 'react-native';
 import React from 'react';
+import { Text } from 'react-native';
 
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../routes';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { HomeTabScreenProps } from '../routes/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'MovieScreen'>;
+type Props = HomeTabScreenProps<'MovieScreen'>;
 
 export default function MovieScreen({}: Props) {
   return (
-    <View>
+    <SafeAreaView>
       <Text>MovieScreen</Text>
-    </View>
+    </SafeAreaView>
   );
 }

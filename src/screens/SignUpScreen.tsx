@@ -3,7 +3,7 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, HeaderPage } from '../components/atoms';
-import { RootStackParamList } from '../routes';
+import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 import * as images from '../assets/images';
 import { TextInput } from '../components/atoms/input';

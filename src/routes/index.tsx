@@ -2,27 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import * as Screens from '../screens';
-
-export type RootStackParamList = {
-  AccountConfirmationScreen: undefined;
-  CheckoutScreen: undefined;
-  EditProfileScreen: undefined;
-  MainScreen: undefined;
-  MovieDetailScreen: undefined;
-  MovieScreen: undefined;
-  PreferenceScreen: undefined;
-  ProfileScreen: undefined;
-  SelectScheduleScreen: undefined;
-  SelectSeatScreen: undefined;
-  SignInScreen: undefined;
-  SignUpScreen: undefined;
-  SplashScreen: undefined;
-  SuccessScreen: undefined;
-  TicketDetailScreen: undefined;
-  TicketScreen: undefined;
-  TopUpScreen: undefined;
-  WalletScreen: undefined;
-};
+import BottomTabs from './BottomTabs';
+import { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -53,7 +34,7 @@ export default function Routes() {
         />
         <Stack.Screen
           name="MainScreen"
-          component={Screens.MainScreen}
+          component={BottomTabs}
           options={{
             headerShown: false,
           }}
@@ -65,13 +46,7 @@ export default function Routes() {
             headerShown: false,
           }}
         />
-        <Stack.Screen
-          name="MovieScreen"
-          component={Screens.MovieScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
+
         <Stack.Screen
           name="PreferenceScreen"
           component={Screens.PreferenceScreen}
@@ -131,13 +106,6 @@ export default function Routes() {
         <Stack.Screen
           name="TicketDetailScreen"
           component={Screens.TicketDetailScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="TicketScreen"
-          component={Screens.TicketScreen}
           options={{
             headerShown: false,
           }}
