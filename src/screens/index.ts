@@ -16,3 +16,4 @@ export { default as TicketDetailScreen } from './TicketDetailScreen';
 export { default as TicketScreen } from './TicketScreen';
 export { default as TopUpScreen } from './TopUpScreen';
 export { default as WalletScreen } from './WalletScreen';
+export { default as EmptyScreen } from './EmptyScreen';

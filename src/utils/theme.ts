@@ -14,6 +14,7 @@ const greyColor2 = '#BEBEBE';
 const greyColor3 = '#ADADAD';
 const secondary = '#F6F6F6';
 const secondary2 = '#DDDCDC';
+const secondary3 = '#E0E0E0';
 const whiteColor = '#ffffff';
 
 const styles = StyleSheet.create({
@@ -57,5 +58,6 @@ export default {
   secondary2,
   blackColor,
   whiteColor,
+  secondary3,
   styles,
 };
