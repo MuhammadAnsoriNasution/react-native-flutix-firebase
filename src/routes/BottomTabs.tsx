@@ -11,6 +11,7 @@ import { HomeTabParamList } from './types';
 import theme from '../utils/theme';
 import * as images from '../assets/images';
 import { Atoms } from '../components';
+import fontFamily from '../assets/fonts';
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 
 function BottomTabs() {
@@ -41,18 +42,25 @@ function BottomTabs() {
         },
         headerStyle: styles.navigator,
         tabBarStyle: {
+          height: 65,
           backgroundColor: 'transparent',
           borderTopWidth: 0,
         },
         tabBarItemStyle: {
           backgroundColor: theme.whiteColor,
+          paddingBottom: 14,
+          margin: 0,
         },
         tabBarActiveTintColor: theme.blackColor,
         tabBarInactiveTintColor: theme.secondary3,
         tabBarLabelStyle: {
-          ...theme.styles.blackTextFont,
+          fontFamily: fontFamily.raleWay[500],
           fontSize: 11,
-          fontWeight: '500',
+        },
+        tabBarIconStyle: {
+          margin: 0,
+          marginBottom: 0,
+          marginTop: 10,
         },
       })}>
       <Tab.Screen
