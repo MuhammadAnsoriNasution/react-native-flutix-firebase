@@ -10,10 +10,10 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import * as images from '../assets/images';
-import { HomeTabScreenProps } from '../routes/types';
-import theme from '../utils/theme';
 import { Atoms } from '../components';
+import { HomeTabScreenProps } from '../routes/types';
 import { MovieTypes } from '../types/movie';
+import theme from '../utils/theme';
 
 type Props = HomeTabScreenProps<'MovieScreen'>;
 
@@ -28,6 +28,7 @@ export default function MovieScreen({}: Props) {
       backdropPath: '',
     },
   ];
+  const genre = ['Horor', 'Music', 'Action', 'Drama', 'War', 'Crime'];
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -59,6 +60,21 @@ export default function MovieScreen({}: Props) {
               );
             }}
           />
+        </View>
+
+        {/* Genre */}
+        <View style={styles.wrapperGenre}>
+          <Text style={styles.genreTitle}>Browse Movie</Text>
+          <View style={styles.genreList}>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={genre}
+              renderItem={({ item, index }) => (
+                <Atoms.Card.Genre genre={item} isFirst={index === 0} />
+              )}
+            />
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -120,5 +136,22 @@ const styles = StyleSheet.create({
     marginLeft: 24,
     ...theme.styles.blackTextFont,
     fontSize: 16,
+  },
+  wrapperGenre: {
+    marginVertical: 30,
+    display: 'flex',
+    gap: 12,
+    flexDirection: 'column',
+    paddingHorizontal: theme.defaultMargin,
+  },
+  genreTitle: {
+    ...theme.styles.blackTextFont,
+    fontSize: 16,
+  },
+
+  genreList: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
 });
