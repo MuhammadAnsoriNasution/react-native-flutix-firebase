@@ -28,3 +28,4 @@ export { default as ticket_done } from './ticket_done.png';
 export { default as top_up_done } from './top_up_done.png';
 export { default as top_up } from './top_up.png';
 export { default as user_pic } from './user_pic.png';
+export { default as poster } from './poster.png';

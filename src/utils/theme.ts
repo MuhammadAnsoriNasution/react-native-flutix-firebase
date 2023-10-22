@@ -4,17 +4,19 @@ import fontFamily from '../assets/fonts';
 const defaultMargin = 24;
 
 const mainColor = '#503E9D';
+const mainColor2 = '#5F558B';
 const accentColor1 = '#2C1F63';
 const accentColor2 = '#FBD460';
 const greenColor = '#3E9D9D';
 const redColor = '#FF5C83';
-const blackColor = '#000';
+const blackColor = '#000000';
 const greyColor = '#E4E4E4';
 const greyColor2 = '#BEBEBE';
 const greyColor3 = '#ADADAD';
 const secondary = '#F6F6F6';
 const secondary2 = '#DDDCDC';
 const secondary3 = '#E0E0E0';
+const secondary4 = '#F6F7F9';
 const whiteColor = '#ffffff';
 
 const styles = StyleSheet.create({
@@ -59,5 +61,7 @@ export default {
   blackColor,
   whiteColor,
   secondary3,
+  mainColor2,
+  secondary4,
   styles,
 };
