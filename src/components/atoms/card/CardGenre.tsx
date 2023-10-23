@@ -23,7 +23,7 @@ export default function CardGenre({ genre, isFirst }: Props) {
       <View style={styles.wrapperIcon}>
         <Image source={getImageFromGenre(genre)} style={styles.icon} />
       </View>
-      <Text style={styles.label}>Action</Text>
+      <Text style={styles.label}>{genre}</Text>
     </TouchableOpacity>
   );
 }

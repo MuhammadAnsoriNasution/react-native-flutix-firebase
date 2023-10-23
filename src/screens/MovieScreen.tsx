@@ -1,7 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   FlatList,
   Image,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -27,13 +29,37 @@ export default function MovieScreen({}: Props) {
       posterPath: '',
       backdropPath: '',
     },
+    {
+      id: 2,
+      title: 'Halo',
+      voteAverage: 0,
+      overview: '',
+      posterPath: '',
+      backdropPath: '',
+    },
+    {
+      id: 3,
+      title: 'Halo',
+      voteAverage: 0,
+      overview: '',
+      posterPath: '',
+      backdropPath: '',
+    },
+    {
+      id: 4,
+      title: 'Halo',
+      voteAverage: 0,
+      overview: '',
+      posterPath: '',
+      backdropPath: '',
+    },
   ];
   const genre = ['Horor', 'Music', 'Action', 'Drama', 'War', 'Crime'];
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar backgroundColor={theme.mainColor} />
-      <View style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.wrapperUserPic}>
             <Image source={images.user_pic} style={styles.userPic} />
@@ -76,7 +102,27 @@ export default function MovieScreen({}: Props) {
             />
           </View>
         </View>
-      </View>
+
+        {/* Coming Soon */}
+        <View
+          style={[styles.wrapperPlaying, { marginBottom: 100, marginTop: 0 }]}>
+          <Text style={styles.playingLabel}>Now Playing</Text>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={movies}
+            renderItem={({ item, index }) => {
+              return (
+                <Atoms.Card.CardComingSoon
+                  movie={item}
+                  isFirst={index === 0}
+                  isLast={index === movies.length - 1}
+                />
+              );
+            }}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

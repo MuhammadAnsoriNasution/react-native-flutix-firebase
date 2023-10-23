@@ -19,10 +19,6 @@ interface Props {
   isLast: boolean;
 }
 export default function CardMovie({ isFirst, isLast, movie }: Props) {
-  console.log(
-    colorconvert(theme.blackColor, 0.6),
-    colorconvert(theme.blackColor, 0),
-  );
   return (
     <TouchableOpacity
       style={[
