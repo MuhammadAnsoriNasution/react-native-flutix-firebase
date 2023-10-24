@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import * as Screens from '../screens';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, PixelRatio, Platform, StyleSheet, View } from 'react-native';
 
 import { HomeTabParamList } from './types';
 import theme from '../utils/theme';
@@ -42,7 +42,9 @@ function BottomTabs() {
         },
         headerStyle: styles.navigator,
         tabBarStyle: {
-          height: 65,
+          height: PixelRatio.getPixelSizeForLayoutSize(
+            Platform.OS === 'android' ? 25 : 35,
+          ),
           backgroundColor: 'transparent',
           borderTopWidth: 0,
         },

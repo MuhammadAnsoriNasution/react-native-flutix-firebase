@@ -3,13 +3,13 @@ import React from 'react';
 import {
   FlatList,
   Image,
+  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import * as images from '../assets/images';
 import { Atoms } from '../components';
@@ -57,73 +57,81 @@ export default function MovieScreen({}: Props) {
   const genre = ['Horor', 'Music', 'Action', 'Drama', 'War', 'Crime'];
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar backgroundColor={theme.mainColor} />
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <View style={styles.wrapperUserPic}>
-            <Image source={images.user_pic} style={styles.userPic} />
+    <>
+      <SafeAreaView style={{ flex: 0, backgroundColor: theme.accentColor1 }} />
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar backgroundColor={theme.accentColor1} />
+        <ScrollView
+          style={styles.container}
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <View style={styles.wrapperUserPic}>
+              <Image source={images.user_pic} style={styles.userPic} />
+            </View>
+            <View style={styles.wrapperUserInfo}>
+              <Text style={styles.name}>Angga Risky</Text>
+              <Text style={styles.totalAmount}>IDR 22.523</Text>
+            </View>
           </View>
-          <View style={styles.wrapperUserInfo}>
-            <Text style={styles.name}>Angga Risky</Text>
-            <Text style={styles.totalAmount}>IDR 22.523</Text>
-          </View>
-        </View>
-        {/* Now Playing */}
-        <View style={styles.wrapperPlaying}>
-          <Text style={styles.playingLabel}>Now Playing</Text>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            data={movies}
-            renderItem={({ item, index }) => {
-              return (
-                <Atoms.Card.CardMovie
-                  movie={item}
-                  isFirst={index === 0}
-                  isLast={index === movies.length - 1}
-                />
-              );
-            }}
-          />
-        </View>
-
-        {/* Genre */}
-        <View style={styles.wrapperGenre}>
-          <Text style={styles.genreTitle}>Browse Movie</Text>
-          <View style={styles.genreList}>
+          {/* Now Playing */}
+          <View style={styles.wrapperPlaying}>
+            <Text style={styles.playingLabel}>Now Playing</Text>
             <FlatList
-              horizontal
               showsHorizontalScrollIndicator={false}
-              data={genre}
-              renderItem={({ item, index }) => (
-                <Atoms.Card.Genre genre={item} isFirst={index === 0} />
-              )}
+              horizontal
+              data={movies}
+              renderItem={({ item, index }) => {
+                return (
+                  <Atoms.Card.CardMovie
+                    movie={item}
+                    isFirst={index === 0}
+                    isLast={index === movies.length - 1}
+                  />
+                );
+              }}
             />
           </View>
-        </View>
 
-        {/* Coming Soon */}
-        <View
-          style={[styles.wrapperPlaying, { marginBottom: 100, marginTop: 0 }]}>
-          <Text style={styles.playingLabel}>Now Playing</Text>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            data={movies}
-            renderItem={({ item, index }) => {
-              return (
-                <Atoms.Card.CardComingSoon
-                  movie={item}
-                  isFirst={index === 0}
-                  isLast={index === movies.length - 1}
-                />
-              );
-            }}
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          {/* Genre */}
+          <View style={styles.wrapperGenre}>
+            <Text style={styles.genreTitle}>Browse Movie</Text>
+            <View style={styles.genreList}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={genre}
+                renderItem={({ item, index }) => (
+                  <Atoms.Card.Genre genre={item} isFirst={index === 0} />
+                )}
+              />
+            </View>
+          </View>
+
+          {/* Coming Soon */}
+          <View
+            style={[
+              styles.wrapperPlaying,
+              { marginBottom: 100, marginTop: 0 },
+            ]}>
+            <Text style={styles.playingLabel}>Now Playing</Text>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              data={movies}
+              renderItem={({ item, index }) => {
+                return (
+                  <Atoms.Card.CardComingSoon
+                    movie={item}
+                    isFirst={index === 0}
+                    isLast={index === movies.length - 1}
+                  />
+                );
+              }}
+            />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 }
 
@@ -134,7 +142,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: theme.mainColor,
+    backgroundColor: theme.whiteColor,
   },
   header: {
     paddingHorizontal: 24,
