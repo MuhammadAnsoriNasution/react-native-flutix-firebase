@@ -19,7 +19,7 @@ import theme from '../utils/theme';
 
 type Props = HomeTabScreenProps<'MovieScreen'>;
 
-export default function MovieScreen({}: Props) {
+export default function MovieScreen({ navigation }: Props) {
   const movies: MovieTypes[] = [
     {
       id: 1,
@@ -75,7 +75,7 @@ export default function MovieScreen({}: Props) {
           </View>
           {/* Now Playing */}
           <View style={styles.wrapperPlaying}>
-            <Text style={styles.playingLabel}>Now Playing</Text>
+            <Atoms.Typhograpy.TitleCard title="Now Playing" />
             <FlatList
               showsHorizontalScrollIndicator={false}
               horizontal
@@ -83,6 +83,7 @@ export default function MovieScreen({}: Props) {
               renderItem={({ item, index }) => {
                 return (
                   <Atoms.Card.CardMovie
+                    onPress={() => navigation.navigate('MovieDetailScreen')}
                     movie={item}
                     isFirst={index === 0}
                     isLast={index === movies.length - 1}
@@ -94,7 +95,8 @@ export default function MovieScreen({}: Props) {
 
           {/* Genre */}
           <View style={styles.wrapperGenre}>
-            <Text style={styles.genreTitle}>Browse Movie</Text>
+            {/* <Text style={styles.genreTitle}>Browse Movie</Text> */}
+            <Atoms.Typhograpy.TitleCard title="Browse Movie" />
             <View style={styles.genreList}>
               <FlatList
                 horizontal
@@ -110,7 +112,7 @@ export default function MovieScreen({}: Props) {
           {/* Coming Soon */}
           <View
             style={[styles.wrapperPlaying, { marginBottom: 30, marginTop: 0 }]}>
-            <Text style={styles.playingLabel}>Now Playing</Text>
+            <Atoms.Typhograpy.TitleCard title="Coming Soon" />
             <FlatList
               showsHorizontalScrollIndicator={false}
               horizontal
@@ -133,7 +135,7 @@ export default function MovieScreen({}: Props) {
               styles.wrapperPlaying,
               { marginBottom: 100, marginTop: 0 },
             ]}>
-            <Text style={styles.playingLabel}>Get Lucky Day</Text>
+            <Atoms.Typhograpy.TitleCard title="Get Lucky Day" />
             <View style={{ marginHorizontal: theme.defaultMargin }}>
               <Atoms.Card.CardLucky
                 title="Student Holiday"
@@ -209,7 +211,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 12,
     flexDirection: 'column',
-    paddingHorizontal: theme.defaultMargin,
   },
   genreTitle: {
     ...theme.styles.blackTextFont,
@@ -220,5 +221,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
+    paddingHorizontal: theme.defaultMargin,
   },
 });

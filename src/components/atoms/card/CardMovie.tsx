@@ -7,20 +7,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { Atoms } from '../..';
 import * as images from '../../../assets/images';
 import { MovieTypes } from '../../../types/movie';
-import theme from '../../../utils/theme';
-import RatingStart from '../RatingStart';
 import { colorconvert } from '../../../utils/colorconvert';
-import LinearGradient from 'react-native-linear-gradient';
+import theme from '../../../utils/theme';
 interface Props {
   movie: MovieTypes;
   isFirst: boolean;
   isLast: boolean;
+  onPress: () => void;
 }
-export default function CardMovie({ isFirst, isLast, movie }: Props) {
+export default function CardMovie({ isFirst, isLast, movie, onPress }: Props) {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         styles.container,
         { marginLeft: isFirst ? 24 : 16, marginRight: isLast ? 24 : 0 },
@@ -39,7 +41,7 @@ export default function CardMovie({ isFirst, isLast, movie }: Props) {
           style={{ flex: 1 }}>
           <View style={styles.wrapperInfo}>
             <Text style={styles.title}>{movie.title}</Text>
-            <RatingStart voteAverage={8} starSize={0} color={''} />
+            <Atoms.RatingStart voteAverage={8} starSize={0} color={''} />
           </View>
         </LinearGradient>
       </ImageBackground>
