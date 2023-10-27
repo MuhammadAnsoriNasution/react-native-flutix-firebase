@@ -5,6 +5,7 @@ const defaultMargin = 24;
 
 const mainColor = '#503E9D';
 const mainColor2 = '#5F558B';
+const mainColor3 = '#A99BE3';
 const accentColor1 = '#2C1F63';
 const accentColor2 = '#FBD460';
 const greenColor = '#3E9D9D';
@@ -65,5 +66,6 @@ export default {
   mainColor2,
   secondary4,
   secondary5,
+  mainColor3,
   styles,
 };

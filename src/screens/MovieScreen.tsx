@@ -109,10 +109,7 @@ export default function MovieScreen({}: Props) {
 
           {/* Coming Soon */}
           <View
-            style={[
-              styles.wrapperPlaying,
-              { marginBottom: 100, marginTop: 0 },
-            ]}>
+            style={[styles.wrapperPlaying, { marginBottom: 30, marginTop: 0 }]}>
             <Text style={styles.playingLabel}>Now Playing</Text>
             <FlatList
               showsHorizontalScrollIndicator={false}
@@ -128,6 +125,22 @@ export default function MovieScreen({}: Props) {
                 );
               }}
             />
+          </View>
+
+          {/* Coming Soon */}
+          <View
+            style={[
+              styles.wrapperPlaying,
+              { marginBottom: 100, marginTop: 0 },
+            ]}>
+            <Text style={styles.playingLabel}>Get Lucky Day</Text>
+            <View style={{ marginHorizontal: theme.defaultMargin }}>
+              <Atoms.Card.CardLucky
+                title="Student Holiday"
+                tnc="Maximal only for two people"
+                discount="50%"
+              />
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>

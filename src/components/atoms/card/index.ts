@@ -2,3 +2,4 @@ export { default as SelecttableCard } from './SelecttableCard';
 export { default as CardMovie } from './CardMovie';
 export { default as Genre } from './CardGenre';
 export { default as CardComingSoon } from './CardComingSoon';
+export { default as CardLucky } from './CardLucky';

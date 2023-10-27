@@ -82,7 +82,6 @@ function BottomTabs() {
         }}
         component={Screens.EmptyScreen}
         options={{
-          headerShown: false,
           tabBarButton: props => (
             <Atoms.Button.FloatTabButton
               bgColor={theme.whiteColor}
