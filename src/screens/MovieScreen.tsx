@@ -1,18 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-  FlatList,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 
 import * as images from '../assets/images';
-import { Atoms } from '../components';
+import { Atoms, Moleculs } from '../components';
 import { HomeTabScreenProps } from '../routes/types';
 import { MovieTypes } from '../types/movie';
 import theme from '../utils/theme';
@@ -58,107 +49,90 @@ export default function MovieScreen({ navigation }: Props) {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 0, backgroundColor: theme.accentColor1 }} />
-      <SafeAreaView style={styles.safeArea}>
-        <StatusBar backgroundColor={theme.accentColor1} />
-        <ScrollView
-          style={styles.container}
-          showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <View style={styles.wrapperUserPic}>
-              <Image source={images.user_pic} style={styles.userPic} />
-            </View>
-            <View style={styles.wrapperUserInfo}>
-              <Text style={styles.name}>Angga Risky</Text>
-              <Text style={styles.totalAmount}>IDR 22.523</Text>
-            </View>
+      <Moleculs.ContainerScreen barStyle="light-content">
+        <View style={styles.header}>
+          <View style={styles.wrapperUserPic}>
+            <Image source={images.user_pic} style={styles.userPic} />
           </View>
-          {/* Now Playing */}
-          <View style={styles.wrapperPlaying}>
-            <Atoms.Typhograpy.TitleCard title="Now Playing" />
+          <View style={styles.wrapperUserInfo}>
+            <Text style={styles.name}>Angga Risky</Text>
+            <Text style={styles.totalAmount}>IDR 22.523</Text>
+          </View>
+        </View>
+        {/* Now Playing */}
+        <View style={styles.wrapperPlaying}>
+          <Atoms.Typhograpy.TitleCard title="Now Playing" />
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={movies}
+            renderItem={({ item, index }) => {
+              return (
+                <Atoms.Card.CardMovie
+                  onPress={() => navigation.navigate('MovieDetailScreen')}
+                  movie={item}
+                  isFirst={index === 0}
+                  isLast={index === movies.length - 1}
+                />
+              );
+            }}
+          />
+        </View>
+
+        {/* Genre */}
+        <View style={styles.wrapperGenre}>
+          {/* <Text style={styles.genreTitle}>Browse Movie</Text> */}
+          <Atoms.Typhograpy.TitleCard title="Browse Movie" />
+          <View style={styles.genreList}>
             <FlatList
-              showsHorizontalScrollIndicator={false}
               horizontal
-              data={movies}
-              renderItem={({ item, index }) => {
-                return (
-                  <Atoms.Card.CardMovie
-                    onPress={() => navigation.navigate('MovieDetailScreen')}
-                    movie={item}
-                    isFirst={index === 0}
-                    isLast={index === movies.length - 1}
-                  />
-                );
-              }}
+              showsHorizontalScrollIndicator={false}
+              data={genre}
+              renderItem={({ item, index }) => (
+                <Atoms.Card.Genre genre={item} isFirst={index === 0} />
+              )}
             />
           </View>
+        </View>
 
-          {/* Genre */}
-          <View style={styles.wrapperGenre}>
-            {/* <Text style={styles.genreTitle}>Browse Movie</Text> */}
-            <Atoms.Typhograpy.TitleCard title="Browse Movie" />
-            <View style={styles.genreList}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={genre}
-                renderItem={({ item, index }) => (
-                  <Atoms.Card.Genre genre={item} isFirst={index === 0} />
-                )}
-              />
-            </View>
-          </View>
+        {/* Coming Soon */}
+        <View
+          style={[styles.wrapperPlaying, { marginBottom: 30, marginTop: 0 }]}>
+          <Atoms.Typhograpy.TitleCard title="Coming Soon" />
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={movies}
+            renderItem={({ item, index }) => {
+              return (
+                <Atoms.Card.CardComingSoon
+                  movie={item}
+                  isFirst={index === 0}
+                  isLast={index === movies.length - 1}
+                />
+              );
+            }}
+          />
+        </View>
 
-          {/* Coming Soon */}
-          <View
-            style={[styles.wrapperPlaying, { marginBottom: 30, marginTop: 0 }]}>
-            <Atoms.Typhograpy.TitleCard title="Coming Soon" />
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              data={movies}
-              renderItem={({ item, index }) => {
-                return (
-                  <Atoms.Card.CardComingSoon
-                    movie={item}
-                    isFirst={index === 0}
-                    isLast={index === movies.length - 1}
-                  />
-                );
-              }}
+        {/* Coming Soon */}
+        <View
+          style={[styles.wrapperPlaying, { marginBottom: 100, marginTop: 0 }]}>
+          <Atoms.Typhograpy.TitleCard title="Get Lucky Day" />
+          <View style={{ marginHorizontal: theme.defaultMargin }}>
+            <Atoms.Card.CardLucky
+              title="Student Holiday"
+              tnc="Maximal only for two people"
+              discount="50%"
             />
           </View>
-
-          {/* Coming Soon */}
-          <View
-            style={[
-              styles.wrapperPlaying,
-              { marginBottom: 100, marginTop: 0 },
-            ]}>
-            <Atoms.Typhograpy.TitleCard title="Get Lucky Day" />
-            <View style={{ marginHorizontal: theme.defaultMargin }}>
-              <Atoms.Card.CardLucky
-                title="Student Holiday"
-                tnc="Maximal only for two people"
-                discount="50%"
-              />
-            </View>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+        </View>
+      </Moleculs.ContainerScreen>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.secondary4,
-  },
-  safeArea: {
-    flex: 1,
-    backgroundColor: theme.whiteColor,
-  },
   header: {
     paddingHorizontal: 24,
     paddingVertical: 30,

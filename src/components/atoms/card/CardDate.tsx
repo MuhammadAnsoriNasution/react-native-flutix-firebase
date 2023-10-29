@@ -1,29 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import theme from '../../../utils/theme';
 
-const widthDefault =
-  Dimensions.get('window').width / 2 -
-  (theme.defaultMargin + 0.5 * theme.defaultMargin);
-interface Props extends TouchableOpacityProps {
+interface Props {
   status: 'enabled' | 'disabled' | 'selected';
-  label: string;
-  width: number;
-  height: number;
+  isFirst: boolean;
+  isLast: boolean;
 }
-export default function SelecttableCard({
-  status,
-  width = widthDefault,
-  height = 60,
-  label,
-  ...props
-}: Partial<Props>) {
+export default function CardDate({ status, isFirst, isLast }: Props) {
   return (
     <TouchableOpacity
       style={[
@@ -33,18 +18,21 @@ export default function SelecttableCard({
           : status === 'enabled'
           ? styles.isEnabled
           : styles.isSelected,
-        {
-          width: width,
-          height: height,
-        },
-      ]}
-      {...props}>
+        { marginLeft: isFirst ? 24 : 16, marginRight: isLast ? 24 : 0 },
+      ]}>
       <Text
         style={[
-          styles.label,
+          styles.text,
           status === 'disabled' ? styles.textDisabled : styles.textSelected,
         ]}>
-        {label}
+        SUN
+      </Text>
+      <Text
+        style={[
+          styles.text,
+          status === 'disabled' ? styles.textDisabled : styles.textSelected,
+        ]}>
+        22
       </Text>
     </TouchableOpacity>
   );
@@ -52,15 +40,24 @@ export default function SelecttableCard({
 
 const styles = StyleSheet.create({
   container: {
+    width: 70,
+    height: 90,
     display: 'flex',
-    justifyContent: 'center',
+    gap: 6,
     alignItems: 'center',
+    paddingHorizontal: 4,
     borderRadius: 6,
+    justifyContent: 'center',
   },
-  label: {
+  text: {
     fontSize: 16,
     fontWeight: '400',
+    lineHeight: 20,
   },
+  textSelected: {
+    ...theme.styles.blackTextFont,
+  },
+  textDisabled: { ...theme.styles.blackTextFont, color: theme.greyColor2 },
   isSelected: {
     backgroundColor: theme.accentColor2,
   },
@@ -72,8 +69,4 @@ const styles = StyleSheet.create({
     borderColor: theme.greyColor,
     borderWidth: 1,
   },
-  textSelected: {
-    ...theme.styles.blackTextFont,
-  },
-  textDisabled: { ...theme.styles.blackTextFont, color: theme.greyColor2 },
 });

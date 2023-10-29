@@ -1,14 +1,16 @@
-import { View, Text } from 'react-native';
-import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
+import { Text } from 'react-native';
+import { Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
+import theme from '../utils/theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SelectSeatScreen'>;
 
 export default function SelectSeatScreen({}: Props) {
   return (
-    <View>
+    <Moleculs.ContainerScreen bgStatusBar={theme.whiteColor}>
       <Text>SelectSeatScreen</Text>
-    </View>
+    </Moleculs.ContainerScreen>
   );
 }

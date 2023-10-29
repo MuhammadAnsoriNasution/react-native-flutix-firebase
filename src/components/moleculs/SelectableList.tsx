@@ -15,7 +15,7 @@ export default function SelectableList({ title, selectList, onSelect }: Props) {
         {selectList.map(item => (
           <Card.SelecttableCard
             label={item.label}
-            isSelected={item.isSelected}
+            status={item.isSelected ? 'selected' : 'enabled'}
             key={item.label}
             onPress={() => onSelect(item.label)}
           />

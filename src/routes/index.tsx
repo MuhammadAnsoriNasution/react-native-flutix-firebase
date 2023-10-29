@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainScreen">
+      <Stack.Navigator initialRouteName="SplashScreen">
         <Stack.Screen
           name="AccountConfirmationScreen"
           component={Screens.AccountConfirmationScreen}

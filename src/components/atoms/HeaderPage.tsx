@@ -6,15 +6,23 @@ import theme from '../../utils/theme';
 interface Props {
   title?: string;
   onPress: () => void;
+  isLight?: boolean;
 }
-export default function HeaderPage({ title, onPress }: Props) {
+export default function HeaderPage({ title, onPress, isLight }: Props) {
   return (
     <View style={styles.container}>
       <Pressable onPress={onPress} style={styles.goBack}>
-        <IconAntDesign name="arrowleft" size={24} color={theme.blackColor} />
+        <IconAntDesign
+          name="arrowleft"
+          size={24}
+          color={isLight ? theme.whiteColor : theme.blackColor}
+        />
       </Pressable>
       <View style={styles.wrapperTitle}>
-        <Text style={styles.title}>{title}</Text>
+        <Text
+          style={[styles.title, isLight ? styles.textLight : styles.textDark]}>
+          {title}
+        </Text>
       </View>
     </View>
   );
@@ -44,5 +52,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     lineHeight: 28,
+  },
+  textLight: {
+    color: theme.whiteColor,
+  },
+  textDark: {
+    color: theme.blackColor,
   },
 });
