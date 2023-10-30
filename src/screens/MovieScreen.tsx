@@ -49,7 +49,9 @@ export default function MovieScreen({ navigation }: Props) {
 
   return (
     <>
-      <Moleculs.ContainerScreen barStyle="light-content">
+      <Moleculs.ContainerScreen
+        barStyle="light-content"
+        bgBody={theme.secondary4}>
         <View style={styles.header}>
           <View style={styles.wrapperUserPic}>
             <Image source={images.user_pic} style={styles.userPic} />

@@ -10,6 +10,7 @@ interface Props {
   goBack?: () => void;
   bgStatusBar: string;
   barStyle: 'light-content' | 'dark-content';
+  bgBody?: string;
 }
 export default function ContainerScreen({
   children,
@@ -17,6 +18,7 @@ export default function ContainerScreen({
   goBack,
   bgStatusBar = theme.accentColor1,
   barStyle = 'dark-content',
+  bgBody = theme.whiteColor,
 }: Partial<Props>) {
   return (
     <>
@@ -39,7 +41,7 @@ export default function ContainerScreen({
           </>
         )}
         <ScrollView
-          style={styles.container}
+          style={[styles.container, { backgroundColor: bgBody }]}
           showsVerticalScrollIndicator={false}>
           {children}
         </ScrollView>
@@ -58,6 +60,5 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: theme.whiteColor,
   },
 });

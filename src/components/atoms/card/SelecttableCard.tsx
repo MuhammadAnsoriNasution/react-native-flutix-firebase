@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   textSelected: {
-    ...theme.styles.blackTextFont,
+    ...theme.styles.whiteNumberFont,
+    color: theme.blackColor,
   },
-  textDisabled: { ...theme.styles.blackTextFont, color: theme.greyColor2 },
+  textDisabled: { ...theme.styles.whiteNumberFont, color: theme.greyColor2 },
 });
