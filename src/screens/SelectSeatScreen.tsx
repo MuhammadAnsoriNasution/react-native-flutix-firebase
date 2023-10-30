@@ -11,7 +11,10 @@ export default function SelectSeatScreen({ navigation }: Props) {
   const numberOfSeats = [3, 5, 5, 5, 5];
 
   return (
-    <Moleculs.ContainerScreen bgStatusBar={theme.whiteColor} titleHeadePage="">
+    <Moleculs.ContainerScreen
+      bgStatusBar={theme.whiteColor}
+      titleHeadePage=""
+      goBack={() => navigation.goBack()}>
       <Atoms.Gap height={33} />
       <View style={styles.container}>
         <Image source={images.screen} style={styles.screen} />
