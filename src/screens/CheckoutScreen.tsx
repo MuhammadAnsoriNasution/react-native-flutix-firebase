@@ -5,7 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Atoms, Moleculs } from '../components';
 import theme from '../utils/theme';
 import * as images from '../assets/images';
-import ItemOrder from '../components/atoms/ItemOrder';
+
 type Props = NativeStackScreenProps<RootStackParamList, 'CheckoutScreen'>;
 
 export default function CheckoutScreen({}: Props) {
@@ -26,18 +26,22 @@ export default function CheckoutScreen({}: Props) {
         <View style={styles.lineHorizontal} />
         <Atoms.Gap height={22} />
         <View style={styles.containerOrder}>
-          <ItemOrder label="ID Order" value="22081996" />
-          <ItemOrder label="Cinema" value="Paris Van Java" />
-          <ItemOrder label="Date & Time" value="Sat 21, 12:20" />
-          <ItemOrder label="Seat Number" value="B3, B4" />
-          <ItemOrder label="Price" value="Rp 12.500.000 x 2" />
-          <ItemOrder label="Fee" value="Rp 290.000 x 2" />
-          <ItemOrder label="Total" value="Rp 25.106.000" valueSemiBold={true} />
+          <Atoms.ItemOrder label="ID Order" value="22081996" />
+          <Atoms.ItemOrder label="Cinema" value="Paris Van Java" />
+          <Atoms.ItemOrder label="Date & Time" value="Sat 21, 12:20" />
+          <Atoms.ItemOrder label="Seat Number" value="B3, B4" />
+          <Atoms.ItemOrder label="Price" value="Rp 12.500.000 x 2" />
+          <Atoms.ItemOrder label="Fee" value="Rp 290.000 x 2" />
+          <Atoms.ItemOrder
+            label="Total"
+            value="Rp 25.106.000"
+            valueSemiBold={true}
+          />
         </View>
         <Atoms.Gap height={20} />
         <View style={styles.lineHorizontal} />
         <Atoms.Gap height={20} />
-        <ItemOrder
+        <Atoms.ItemOrder
           label="Your Wallet"
           value="Rp 25.106.000"
           valueSemiBold={true}
