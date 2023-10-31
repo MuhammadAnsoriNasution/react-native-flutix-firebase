@@ -12,8 +12,9 @@ export default function SelectSeatScreen({ navigation }: Props) {
 
   return (
     <Moleculs.ContainerScreen
+      posterPath={images.poster}
       bgStatusBar={theme.whiteColor}
-      titleHeadePage=""
+      titleHeadePage={'Avengers\nInfinity War'}
       goBack={() => navigation.goBack()}>
       <Atoms.Gap height={33} />
       <View style={styles.container}>

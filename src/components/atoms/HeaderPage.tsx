@@ -1,14 +1,20 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import theme from '../../utils/theme';
-
 interface Props {
   title?: string;
   onPress: () => void;
   isLight?: boolean;
+  posterPath?: number;
 }
-export default function HeaderPage({ title, onPress, isLight }: Props) {
+export default function HeaderPage({
+  title,
+  onPress,
+  isLight,
+  posterPath,
+}: Props) {
   return (
     <View style={styles.container}>
       <Pressable onPress={onPress} style={styles.goBack}>
@@ -18,11 +24,22 @@ export default function HeaderPage({ title, onPress, isLight }: Props) {
           color={isLight ? theme.whiteColor : theme.blackColor}
         />
       </Pressable>
-      <View style={styles.wrapperTitle}>
+      <View
+        style={[
+          styles.wrapperTitle,
+          { justifyContent: posterPath === undefined ? 'center' : 'flex-end' },
+        ]}>
         <Text
-          style={[styles.title, isLight ? styles.textLight : styles.textDark]}>
+          style={[
+            styles.title,
+            isLight ? styles.textLight : styles.textDark,
+            { textAlign: posterPath === undefined ? 'center' : 'right' },
+          ]}>
           {title}
         </Text>
+        {posterPath !== undefined && (
+          <Image source={posterPath} style={styles.poster} />
+        )}
       </View>
     </View>
   );
@@ -46,6 +63,8 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 16,
   },
   title: {
     ...theme.styles.blackTextFont,
@@ -59,4 +78,5 @@ const styles = StyleSheet.create({
   textDark: {
     color: theme.blackColor,
   },
+  poster: { width: 60, height: 60, borderRadius: 8 },
 });

@@ -11,6 +11,7 @@ interface Props {
   bgStatusBar: string;
   barStyle: 'light-content' | 'dark-content';
   bgBody?: string;
+  posterPath?: number;
 }
 export default function ContainerScreen({
   children,
@@ -19,6 +20,7 @@ export default function ContainerScreen({
   bgStatusBar = theme.accentColor1,
   barStyle = 'dark-content',
   bgBody = theme.whiteColor,
+  posterPath,
 }: Partial<Props>) {
   return (
     <>
@@ -31,6 +33,7 @@ export default function ContainerScreen({
           <>
             <HeaderPage
               title={titleHeadePage}
+              posterPath={posterPath}
               onPress={() => {
                 if (goBack !== undefined) {
                   goBack();
