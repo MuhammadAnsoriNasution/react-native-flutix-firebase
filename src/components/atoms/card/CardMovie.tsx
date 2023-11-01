@@ -41,7 +41,11 @@ export default function CardMovie({ isFirst, isLast, movie, onPress }: Props) {
           style={{ flex: 1 }}>
           <View style={styles.wrapperInfo}>
             <Text style={styles.title}>{movie.title}</Text>
-            <Atoms.RatingStart voteAverage={8} starSize={0} color={''} />
+            <Atoms.RatingStart
+              voteAverage={8}
+              starSize={0}
+              color={theme.whiteColor}
+            />
           </View>
         </LinearGradient>
       </ImageBackground>
