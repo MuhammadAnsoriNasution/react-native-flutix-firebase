@@ -28,6 +28,7 @@ export default function SelectSeatScreen({ navigation }: Props) {
                     <Atoms.Card.SelecttableCard
                       width={40}
                       height={40}
+                      key={`${String.fromCharCode(index + 65)} ${item + 1}`}
                       label={`${String.fromCharCode(index + 65)} ${item + 1}`}
                     />
                   );

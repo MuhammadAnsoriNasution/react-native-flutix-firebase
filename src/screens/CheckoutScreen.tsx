@@ -8,7 +8,7 @@ import * as images from '../assets/images';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CheckoutScreen'>;
 
-export default function CheckoutScreen({}: Props) {
+export default function CheckoutScreen({ navigation }: Props) {
   return (
     <Moleculs.ContainerScreen
       bgStatusBar={theme.whiteColor}
@@ -52,7 +52,7 @@ export default function CheckoutScreen({}: Props) {
           <Atoms.Button.RectButton
             background="green"
             label="Checkout Now"
-            onPress={() => {}}
+            onPress={() => navigation.navigate('SuccessScreen')}
           />
         </View>
       </View>
