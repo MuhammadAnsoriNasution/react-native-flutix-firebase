@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Input, QuestionWithAction } from '../components/atoms';
+import { Atoms } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 import * as images from './../assets/images';
@@ -21,7 +21,7 @@ export default function SignInScreen({ navigation }: Props) {
         <View style={styles.container}>
           <Image source={images.logo} style={styles.logo} />
           <Text style={styles.title}>{'Welcome Back,\nExplorer!'}</Text>
-          <Input.TextInput
+          <Atoms.Input.TextInput
             label="Email Address"
             style={{ marginBottom: 27 }}
             value={formData.email}
@@ -29,7 +29,7 @@ export default function SignInScreen({ navigation }: Props) {
               setFormData(p => ({ password: p.password, email: e }))
             }
           />
-          <Input.TextInput
+          <Atoms.Input.TextInput
             label="Password"
             style={{ marginBottom: 6 }}
             secureTextEntry={true}
@@ -38,14 +38,14 @@ export default function SignInScreen({ navigation }: Props) {
               setFormData(p => ({ email: p.email, password: e }))
             }
           />
-          <QuestionWithAction
+          <Atoms.QuestionWithAction
             question="Forgot Password? "
             onPress={() => console.log('')}
             actionLabel="Get Now"
           />
           <View style={styles.columnCenter}>
-            <Button.ButtonRoundedIcon name="arrowright" disabled={true} />
-            <QuestionWithAction
+            <Atoms.Button.ButtonRoundedIcon name="arrowright" disabled={true} />
+            <Atoms.QuestionWithAction
               actionLabel="Sign Up"
               question="Start fresh now? "
               onPress={() => navigation.navigate('SignUpScreen')}

@@ -10,7 +10,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import * as images from '../assets/images';
 import { Atoms, Moleculs } from '../components';
-import { HeaderPage } from '../components/atoms';
+
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 type Props = NativeStackScreenProps<RootStackParamList, 'MovieDetailScreen'>;
@@ -31,7 +31,10 @@ export default function MovieDetailScreen({ navigation }: Props) {
     <>
       <Moleculs.ContainerScreen barStyle="light-content">
         <ImageBackground source={images.poster} style={styles.image}>
-          <HeaderPage onPress={() => navigation.goBack()} isLight={true} />
+          <Atoms.HeaderPage
+            onPress={() => navigation.goBack()}
+            isLight={true}
+          />
           <LinearGradient
             style={styles.gradientImage}
             start={{ x: 0, y: 1 }}

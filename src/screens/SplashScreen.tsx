@@ -4,7 +4,6 @@ import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as images from '../assets/images';
 import { Atoms } from '../components';
-import { QuestionWithAction } from '../components/atoms';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 
@@ -28,7 +27,7 @@ export default function SplashScreen({ navigation }: Props) {
               onPress={() => navigation.navigate('SignUpScreen')}
               label="Get Started"
             />
-            <QuestionWithAction
+            <Atoms.QuestionWithAction
               question="Already have an account? "
               actionLabel="Sign In"
               onPress={() => navigation.navigate('SignInScreen')}

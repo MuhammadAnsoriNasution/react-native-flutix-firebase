@@ -2,17 +2,17 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, HeaderPage } from '../components/atoms';
+import { Atoms } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 import * as images from '../assets/images';
-import { TextInput } from '../components/atoms/input';
+
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
 export default function SignUpScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={styles.safeArea}>
-      <HeaderPage
+      <Atoms.HeaderPage
         onPress={() => navigation.goBack()}
         title={'Create New\nYour Account'}
       />
@@ -25,12 +25,12 @@ export default function SignUpScreen({ navigation }: Props) {
         </View>
 
         <View style={styles.wrapperInput}>
-          <TextInput label="Full Name" />
-          <TextInput label="Email Address" />
-          <TextInput label="Password" secureTextEntry />
-          <TextInput label="Confirm Password" secureTextEntry />
+          <Atoms.Input.TextInput label="Full Name" />
+          <Atoms.Input.TextInput label="Email Address" />
+          <Atoms.Input.TextInput label="Password" secureTextEntry />
+          <Atoms.Input.TextInput label="Confirm Password" secureTextEntry />
         </View>
-        <Button.ButtonRoundedIcon
+        <Atoms.Button.ButtonRoundedIcon
           name="arrowright"
           onPress={() => navigation.navigate('PreferenceScreen')}
         />
