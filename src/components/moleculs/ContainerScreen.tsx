@@ -27,7 +27,7 @@ export default function ContainerScreen({
       <SafeAreaView
         style={[styles.safeAreAstatusBar, { backgroundColor: bgStatusBar }]}
       />
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={[styles.safeArea, { backgroundColor: bgBody }]}>
         <StatusBar backgroundColor={bgStatusBar} barStyle={barStyle} />
         {titleHeadePage !== undefined && (
           <>

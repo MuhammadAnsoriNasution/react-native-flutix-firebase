@@ -7,15 +7,24 @@ interface Props {
   value: string;
   valueSemiBold?: boolean;
   colorValue?: string;
+  isVertical?: boolean;
 }
 export default function ItemOrder({
   label,
   value,
   valueSemiBold,
   colorValue,
+  isVertical,
 }: Props) {
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          flexDirection: isVertical === true ? 'column' : 'row',
+          gap: isVertical === true ? 2 : 10,
+        },
+      ]}>
       <Text style={styles.label}>{label}</Text>
       <Text
         style={[

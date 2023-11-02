@@ -7,9 +7,9 @@ import theme from '../utils/theme';
 
 type Props = HomeTabScreenProps<'TicketScreen'>;
 
-export default function TicketScreen({}: Props) {
+export default function TicketScreen({ navigation }: Props) {
   return (
-    <Moleculs.ContainerScreen bgBody={theme.greyColor}>
+    <Moleculs.ContainerScreen bgBody={theme.secondary4}>
       <View style={styles.head}>
         <Text style={styles.title}>My Tickets</Text>
         <View style={styles.topBar}>
@@ -24,15 +24,24 @@ export default function TicketScreen({}: Props) {
       </View>
       <Atoms.Gap height={20} />
       <View style={styles.containerTicket}>
-        <Atoms.Card.CardTicket />
-        <Atoms.Card.CardTicket />
-        <Atoms.Card.CardTicket />
-        <Atoms.Card.CardTicket />
-        <Atoms.Card.CardTicket />
-        <Atoms.Card.CardTicket />
-        <Atoms.Card.CardTicket />
-        <Atoms.Card.CardTicket />
-        <Atoms.Card.CardTicket />
+        <Atoms.Card.CardTicket
+          onPress={() => navigation.navigate('TicketDetailScreen')}
+        />
+        <Atoms.Card.CardTicket
+          onPress={() => navigation.navigate('TicketDetailScreen')}
+        />
+        <Atoms.Card.CardTicket
+          onPress={() => navigation.navigate('TicketDetailScreen')}
+        />
+        <Atoms.Card.CardTicket
+          onPress={() => navigation.navigate('TicketDetailScreen')}
+        />
+        <Atoms.Card.CardTicket
+          onPress={() => navigation.navigate('TicketDetailScreen')}
+        />
+        <Atoms.Card.CardTicket
+          onPress={() => navigation.navigate('TicketDetailScreen')}
+        />
       </View>
     </Moleculs.ContainerScreen>
   );

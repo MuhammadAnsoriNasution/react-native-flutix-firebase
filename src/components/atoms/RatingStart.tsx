@@ -11,7 +11,7 @@ interface Props {
 }
 export default function RatingStart({
   voteAverage = 0,
-  starSize = 20,
+  starSize = 16,
   color = theme.whiteColor,
 }: Partial<Props>) {
   const n = Math.round(voteAverage / 2);
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   rating: {
     ...theme.styles.whiteNumberFont,
-    fontWeight: '300',
+    fontWeight: '400',
     fontSize: 12,
   },
 });

@@ -1,17 +1,20 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import * as images from '../../../assets/images';
 import theme from '../../../utils/theme';
-export default function CardTicket() {
+interface Props {
+  onPress: () => void;
+}
+export default function CardTicket({ onPress }: Props) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image source={images.poster} style={styles.images} />
       <View style={styles.detail}>
         <Text style={styles.title}>Avengers: Infinity Wars</Text>
         <Text style={styles.genre}>Action – English</Text>
         <Text style={styles.genre}>CGV Paris van Java Mall</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
