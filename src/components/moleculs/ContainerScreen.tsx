@@ -18,7 +18,7 @@ export default function ContainerScreen({
   titleHeadePage,
   goBack,
   bgStatusBar = theme.accentColor1,
-  barStyle = 'dark-content',
+  barStyle = 'light-content',
   bgBody = theme.whiteColor,
   posterPath,
 }: Partial<Props>) {

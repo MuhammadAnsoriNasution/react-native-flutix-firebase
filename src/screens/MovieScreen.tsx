@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 24,
     paddingVertical: 30,
-    backgroundColor: theme.mainColor,
+    backgroundColor: theme.accentColor1,
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
     display: 'flex',
