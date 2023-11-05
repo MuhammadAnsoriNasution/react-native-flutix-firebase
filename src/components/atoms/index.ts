@@ -7,3 +7,5 @@ export { default as HeaderPage } from './HeaderPage';
 export { default as RatingStart } from './RatingStart';
 export { default as QuestionWithAction } from './QuestionWithAction';
 export { default as ItemOrder } from './ItemOrder';
+export { default as Dashed } from './Dashed';
+export { default as MenuProfile } from './MenuProfile';

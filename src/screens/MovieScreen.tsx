@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import * as images from '../assets/images';
 import { Atoms, Moleculs } from '../components';
@@ -53,9 +60,11 @@ export default function MovieScreen({ navigation }: Props) {
         barStyle="light-content"
         bgBody={theme.secondary4}>
         <View style={styles.header}>
-          <View style={styles.wrapperUserPic}>
+          <TouchableOpacity
+            style={styles.wrapperUserPic}
+            onPress={() => navigation.navigate('ProfileScreen')}>
             <Image source={images.user_pic} style={styles.userPic} />
-          </View>
+          </TouchableOpacity>
           <View style={styles.wrapperUserInfo}>
             <Text style={styles.name}>Angga Risky</Text>
             <Text style={styles.totalAmount}>IDR 22.523</Text>
