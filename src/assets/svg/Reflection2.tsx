@@ -3,7 +3,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg';
 
 interface Props {
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 }
 function Reflection2({ style }: Props) {
   return (
