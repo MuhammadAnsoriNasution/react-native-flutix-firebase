@@ -7,8 +7,10 @@ const mainColor = '#503E9D';
 const mainColor2 = '#5F558B';
 const mainColor3 = '#A99BE3';
 const mainColor4 = '#6F678E';
+const mainColor5 = '#382A74';
 const accentColor1 = '#2C1F63';
 const accentColor2 = '#FBD460';
+const yellow2 = '#FFF2CB';
 const greenColor = '#3E9D9D';
 const redColor = '#FF5C83';
 const blackColor = '#000000';
@@ -69,5 +71,7 @@ export default {
   secondary5,
   mainColor3,
   mainColor4,
+  mainColor5,
+  yellow2,
   styles,
 };

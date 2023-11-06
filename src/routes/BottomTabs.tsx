@@ -7,14 +7,15 @@ import React from 'react';
 import * as Screens from '../screens';
 import { Image, PixelRatio, Platform, StyleSheet, View } from 'react-native';
 
-import { HomeTabParamList } from './types';
+import { HomeTabParamList, RootStackParamList } from './types';
 import theme from '../utils/theme';
 import * as images from '../assets/images';
 import { Atoms } from '../components';
 import fontFamily from '../assets/fonts';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator<HomeTabParamList>();
-
-function BottomTabs() {
+type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
+function BottomTabs({ navigation }: Props) {
   return (
     <Tab.Navigator
       tabBar={props => (
@@ -77,7 +78,7 @@ function BottomTabs() {
         listeners={{
           tabPress: e => {
             e.preventDefault();
-            return null;
+            navigation.navigate('WalletScreen');
           },
         }}
         component={Screens.EmptyScreen}
