@@ -1,6 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import theme from '../../../utils/theme';
+import Reflection2 from '../../../assets/svg/Reflection2';
+import Reflection1 from '../../../assets/svg/Reflection1';
+import Reflection3 from '../../../assets/svg/Reflection3';
 
 interface Props {
   title: string;
@@ -10,6 +13,9 @@ interface Props {
 export default function CardLucky({ title, tnc, discount }: Props) {
   return (
     <View style={styles.container}>
+      <Reflection2 style={{ position: 'absolute', width: '100%' }} />
+      <Reflection1 style={{ position: 'absolute', right: 0, top: 0 }} />
+      <Reflection3 style={{ position: 'absolute', right: 0, top: 0 }} />
       <View style={styles.wrapperTitle}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.tnc}>{tnc}</Text>
@@ -24,6 +30,7 @@ export default function CardLucky({ title, tnc, discount }: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    overflow: 'hidden',
     height: 80,
     position: 'relative',
     display: 'flex',

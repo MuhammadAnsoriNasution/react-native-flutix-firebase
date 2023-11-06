@@ -6,15 +6,25 @@ interface Props {
   label: string;
   onPress: () => void;
   background?: 'green';
+  disabled?: boolean;
 }
-export default function RectButton({ label, onPress, background }: Props) {
+export default function RectButton({
+  label,
+  onPress,
+  background,
+  disabled,
+}: Props) {
   return (
     <Pressable
       style={[
         styles.btn,
         {
           backgroundColor:
-            background !== undefined ? theme.greenColor : theme.mainColor,
+            disabled === true
+              ? theme.greyColor
+              : background !== undefined
+              ? theme.greenColor
+              : theme.mainColor,
         },
       ]}
       onPress={onPress}>

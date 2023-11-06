@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
   wrapperAction: {
+    alignItems: 'center',
     display: 'flex',
     gap: 19,
     width: '100%',
