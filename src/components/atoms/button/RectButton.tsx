@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import theme from '../../../utils/theme';
 
 interface Props {
@@ -15,7 +15,7 @@ export default function RectButton({
   disabled,
 }: Props) {
   return (
-    <Pressable
+    <TouchableOpacity
       style={[
         styles.btn,
         {
@@ -29,7 +29,7 @@ export default function RectButton({
       ]}
       onPress={onPress}>
       <Text style={styles.label}>{label}</Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 }
 

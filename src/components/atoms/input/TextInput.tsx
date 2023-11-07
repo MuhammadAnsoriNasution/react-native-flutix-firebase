@@ -19,6 +19,8 @@ export default function TextInput({
   errorColor,
   ...props
 }: Props) {
+  const [valueLocal, setValueLocal] = useState('');
+
   const [isFocus, setIsFocus] = useState(
     props.value !== '' || props.value !== undefined ? false : true,
   );
@@ -60,9 +62,16 @@ export default function TextInput({
           },
         ]}
         {...props}
+        onChangeText={e => {
+          setValueLocal(e);
+          if (props.onChangeText !== undefined) {
+            props.onChangeText(e);
+          }
+        }}
+        value={valueLocal}
         onFocus={() => setIsFocus(true)}
         onBlur={() => {
-          if (props.value === '' || props.value === undefined) {
+          if (valueLocal === '') {
             setIsFocus(false);
           }
         }}
