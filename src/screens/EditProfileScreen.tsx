@@ -7,10 +7,11 @@ import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 type Props = NativeStackScreenProps<RootStackParamList, 'EditProfileScreen'>;
 
-export default function EditProfileScreen({}: Props) {
+export default function EditProfileScreen({ navigation }: Props) {
   return (
     <Moleculs.ContainerScreen
       titleHeadePage={'Edit Your\nProfile'}
+      goBack={() => navigation.goBack()}
       bgStatusBar={theme.whiteColor}>
       <View style={styles.containerAvatar}>
         <Image source={images.user_pic} style={styles.avatar} />

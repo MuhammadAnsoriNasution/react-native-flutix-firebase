@@ -14,44 +14,11 @@ import { Atoms, Moleculs } from '../components';
 import { HomeTabScreenProps } from '../routes/types';
 import { MovieTypes } from '../types/movie';
 import theme from '../utils/theme';
-
+import { dataMovies } from '../assets/json/data.json';
 type Props = HomeTabScreenProps<'MovieScreen'>;
 
 export default function MovieScreen({ navigation }: Props) {
-  const movies: MovieTypes[] = [
-    {
-      id: 1,
-      title: 'Halo',
-      voteAverage: 0,
-      overview: '',
-      posterPath: '',
-      backdropPath: '',
-    },
-    {
-      id: 2,
-      title: 'Halo',
-      voteAverage: 0,
-      overview: '',
-      posterPath: '',
-      backdropPath: '',
-    },
-    {
-      id: 3,
-      title: 'Halo',
-      voteAverage: 0,
-      overview: '',
-      posterPath: '',
-      backdropPath: '',
-    },
-    {
-      id: 4,
-      title: 'Halo',
-      voteAverage: 0,
-      overview: '',
-      posterPath: '',
-      backdropPath: '',
-    },
-  ];
+  const movies: MovieTypes[] = dataMovies;
   const genre = ['Horor', 'Music', 'Action', 'Drama', 'War', 'Crime'];
 
   return (

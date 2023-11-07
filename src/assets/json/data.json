@@ -1,0 +1,80 @@
+{
+    "transactionWallet":[
+            {
+              "title": "Avengers: Infinity Wars",
+              "amount": "Rp. 650.000",
+              "desc": "CGV Paris van Java Mall",
+              "id": 1
+            },
+            {
+              "title": "Avengers: Infinity Wars",
+              "amount": "Rp. 650.000",
+              "desc": "CGV Paris van Java Mall",
+              "id": 2
+            },
+            {
+              "title": "Avengers: Infinity Wars",
+              "amount": "Rp. 650.000",
+              "desc": "CGV Paris van Java Mall",
+              "id": 3
+            },
+            {
+              "title": "Avengers: Infinity Wars",
+              "amount": "Rp. 650.000",
+              "desc": "CGV Paris van Java Mall",
+              "id": 4
+            },
+            {
+              "title": "Avengers: Infinity Wars",
+              "amount": "Rp. 650.000",
+              "desc": "CGV Paris van Java Mall",
+              "id": 5
+            },
+            {
+              "title": "Avengers: Infinity Wars",
+              "amount": "Rp. 650.000",
+              "desc": "CGV Paris van Java Mall",
+              "id": 6
+            },
+            {
+              "title": "Avengers: Infinity Wars",
+              "amount": "Rp. 650.000",
+              "desc": "CGV Paris van Java Mall",
+              "id": 7
+            }
+    ],
+    "dataMovies":[
+    {
+      "id": 1,
+      "title": "Halo",
+      "voteAverage": 0,
+      "overview": "",
+      "posterPath": "",
+      "backdropPath": ""
+    },
+    {
+      "id": 2,
+      "title": "Halo",
+      "voteAverage": 0,
+      "overview": "",
+      "posterPath": "",
+      "backdropPath": ""
+    },
+    {
+      "id": 3,
+      "title": "Halo",
+      "voteAverage": 0,
+      "overview": "",
+      "posterPath": "",
+      "backdropPath": ""
+    },
+    {
+      "id": 4,
+      "title": "Halo",
+      "voteAverage": 0,
+      "overview": "",
+      "posterPath": "",
+      "backdropPath": ""
+    }
+  ]
+}

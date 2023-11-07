@@ -12,6 +12,7 @@ interface Props {
   barStyle: 'light-content' | 'dark-content';
   bgBody?: string;
   posterPath?: number;
+  fab?: ReactNode;
 }
 export default function ContainerScreen({
   children,
@@ -21,6 +22,7 @@ export default function ContainerScreen({
   barStyle = 'light-content',
   bgBody = theme.whiteColor,
   posterPath,
+  fab,
 }: Partial<Props>) {
   return (
     <>
@@ -48,6 +50,7 @@ export default function ContainerScreen({
           showsVerticalScrollIndicator={false}>
           {children}
         </ScrollView>
+        {fab}
       </SafeAreaView>
     </>
   );
@@ -60,8 +63,10 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: theme.whiteColor,
+    position: 'relative',
   },
   container: {
     flex: 1,
+    position: 'relative',
   },
 });

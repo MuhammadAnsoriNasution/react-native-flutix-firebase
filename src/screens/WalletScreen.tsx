@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as images from '../assets/images';
@@ -7,6 +7,9 @@ import Reflection4 from '../assets/svg/Reflection4';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
+import CardTransactionHistoryWallet from '../components/atoms/card/CardTransactionHistoryWallet';
+import { transactionWallet } from '../assets/json/data.json';
+
 type Props = NativeStackScreenProps<RootStackParamList, 'WalletScreen'>;
 
 export default function WalletScreen({ navigation }: Props) {
@@ -14,6 +17,14 @@ export default function WalletScreen({ navigation }: Props) {
     <Moleculs.ContainerScreen
       goBack={() => navigation.goBack()}
       bgStatusBar={theme.whiteColor}
+      fab={
+        <View style={styles.containerFab}>
+          <Atoms.Button.ButtonRoundedIcon
+            name="wallet"
+            onPress={() => navigation.navigate('TopUpScreen')}
+          />
+        </View>
+      }
       titleHeadePage="My Wallet">
       <View style={styles.container}>
         {/* Card */}
@@ -45,8 +56,18 @@ export default function WalletScreen({ navigation }: Props) {
           </View>
         </View>
         {/* end Card */}
-
+        <Atoms.Gap height={20} />
         <Text>Recent Transactions</Text>
+        <Atoms.Gap height={12} />
+        <FlatList
+          contentContainerStyle={{ display: 'flex', gap: 12 }}
+          nestedScrollEnabled={true}
+          data={transactionWallet}
+          scrollEnabled={false}
+          renderItem={({}) => {
+            return <CardTransactionHistoryWallet />;
+          }}
+        />
       </View>
     </Moleculs.ContainerScreen>
   );
@@ -112,4 +133,12 @@ const styles = StyleSheet.create({
   },
   icCheck: { height: 14, width: 14 },
   containerCardValue: { display: 'flex', flexDirection: 'row', gap: 4 },
+  containerFab: {
+    position: 'absolute',
+    bottom: 40,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
 });
