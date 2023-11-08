@@ -8,15 +8,20 @@ import {
   View,
 } from 'react-native';
 import theme from '../../../utils/theme';
+import { handleChangeFormatRupiah } from '../../../utils/currency';
 
 interface Props extends TextInputProps {
   label: string;
   errorColor?: string;
+  isCurrency?: boolean;
+  isNumber?: boolean;
 }
 export default function TextInput({
   label,
   style,
+  isNumber,
   errorColor,
+  isCurrency,
   ...props
 }: Props) {
   const [valueLocal, setValueLocal] = useState('');
@@ -52,6 +57,7 @@ export default function TextInput({
         ref={refInput}
         style={[
           styles.textinput,
+          isNumber === true ? styles.number : {},
           {
             borderColor:
               errorColor !== undefined
@@ -63,9 +69,13 @@ export default function TextInput({
         ]}
         {...props}
         onChangeText={e => {
-          setValueLocal(e);
+          setValueLocal(
+            isCurrency === true ? handleChangeFormatRupiah(e, 'Rp. ') : e,
+          );
           if (props.onChangeText !== undefined) {
-            props.onChangeText(e);
+            props.onChangeText(
+              isCurrency === true ? e.replace(/[^\d]/g, '') : e,
+            );
           }
         }}
         value={valueLocal}
@@ -84,13 +94,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
   },
-  wrapperInput: {
-    borderWidth: 1,
-    borderColor: theme.greyColor2,
-    padding: 13,
-    borderRadius: 6,
-    zIndex: 0,
-  },
+
   label: {
     ...theme.styles.greyTextFont,
     position: 'absolute',
@@ -108,5 +112,9 @@ const styles = StyleSheet.create({
     padding: 13,
     borderRadius: 6,
     zIndex: 0,
+  },
+  number: {
+    ...theme.styles.whiteNumberFont,
+    color: theme.blackColor,
   },
 });

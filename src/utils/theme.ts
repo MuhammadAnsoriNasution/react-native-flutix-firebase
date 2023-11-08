@@ -17,6 +17,7 @@ const blackColor = '#000000';
 const greyColor = '#E4E4E4';
 const greyColor2 = '#BEBEBE';
 const greyColor3 = '#ADADAD';
+const greyColor4 = '#C4C4C4';
 const secondary = '#F6F6F6';
 const secondary2 = '#DDDCDC';
 const secondary3 = '#E0E0E0';
@@ -72,6 +73,7 @@ export default {
   mainColor3,
   mainColor4,
   mainColor5,
+  greyColor4,
   yellow2,
   styles,
 };

@@ -6,3 +6,5 @@ export { default as CardLucky } from './CardLucky';
 export { default as CardCrew } from './CardCrew';
 export { default as CardDate } from './CardDate';
 export { default as CardTicket } from './CardTicket';
+export { default as CardTopUp } from './CardTopUp';
+export { default as CardTransactionHistoryWallet } from './CardTransactionHistoryWallet';

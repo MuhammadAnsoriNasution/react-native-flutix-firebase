@@ -7,7 +7,7 @@ import Reflection4 from '../assets/svg/Reflection4';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
-import CardTransactionHistoryWallet from '../components/atoms/card/CardTransactionHistoryWallet';
+
 import { transactionWallet } from '../assets/json/data.json';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'WalletScreen'>;
@@ -15,6 +15,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'WalletScreen'>;
 export default function WalletScreen({ navigation }: Props) {
   return (
     <Moleculs.ContainerScreen
+      barStyle="dark-content"
       goBack={() => navigation.goBack()}
       bgStatusBar={theme.whiteColor}
       fab={
@@ -65,7 +66,7 @@ export default function WalletScreen({ navigation }: Props) {
           data={transactionWallet}
           scrollEnabled={false}
           renderItem={({}) => {
-            return <CardTransactionHistoryWallet />;
+            return <Atoms.Card.CardTransactionHistoryWallet />;
           }}
         />
       </View>
