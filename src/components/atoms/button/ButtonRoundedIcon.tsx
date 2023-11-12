@@ -1,15 +1,19 @@
 import React from 'react';
-import { Pressable, PressableProps, StyleSheet } from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import theme from '../../../utils/theme';
 
-interface Props extends PressableProps {
+interface Props extends TouchableOpacityProps {
   name: 'arrowright' | 'wallet';
 }
 
 export default function ButtonRoundedIcon({ name, ...props }: Props) {
   return (
-    <Pressable
+    <TouchableOpacity
       style={[
         styles.button,
         {
@@ -23,7 +27,7 @@ export default function ButtonRoundedIcon({ name, ...props }: Props) {
         size={24}
         color={props.disabled === true ? theme.greyColor2 : theme.whiteColor}
       />
-    </Pressable>
+    </TouchableOpacity>
   );
 }
 

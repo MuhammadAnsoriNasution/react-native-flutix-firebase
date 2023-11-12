@@ -7,14 +7,54 @@ import { Atoms } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 import * as images from './../assets/images';
+import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-toast-message';
+import { regexEmail, regexPassword } from '../utils/regex';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignInScreen'>;
 
 export default function SignInScreen({ navigation }: Props) {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const handleSignIn = () => {
+    if (!regexEmail.test(formData.email)) {
+      Toast.show({
+        type: 'info',
+        text1: 'Info',
+        text2: 'Email not valid',
+      });
+    } else if (!regexPassword.test(formData.password)) {
+      Toast.show({
+        type: 'info',
+        text1: 'Info',
+        text2:
+          'Password must be at least 6 characters long, contain at least one digit, one uppercase character, one lowercase character and one special character [@ # $ % !]',
+      });
+    } else {
+      setLoading(true);
+      auth()
+        .signInWithEmailAndPassword('ansorinasution@gmail.com', 'Test123@')
+        .then(() => {
+          setLoading(false);
+          navigation.replace('MainScreen', { screen: 'MovieScreen' });
+        })
+        .catch(error => {
+          setLoading(false);
+          if (error.code === 'auth/email-already-in-use') {
+            console.log('That email address is already in use!');
+          }
+
+          if (error.code === 'auth/invalid-email') {
+            console.log('That email address is invalid!');
+          }
+
+          console.error(error);
+        });
+    }
+  };
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView>
@@ -44,7 +84,11 @@ export default function SignInScreen({ navigation }: Props) {
             actionLabel="Get Now"
           />
           <View style={styles.columnCenter}>
-            <Atoms.Button.ButtonRoundedIcon name="arrowright" disabled={true} />
+            <Atoms.Button.ButtonRoundedIcon
+              name="arrowright"
+              disabled={loading}
+              onPress={handleSignIn}
+            />
             <Atoms.QuestionWithAction
               actionLabel="Sign Up"
               question="Start fresh now? "

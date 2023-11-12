@@ -24,13 +24,13 @@ export default function SplashScreen({ navigation }: Props) {
           </View>
           <View style={styles.wrapperAction}>
             <Atoms.Button.RectButton
-              onPress={() => navigation.navigate('SignUpScreen')}
+              onPress={() => navigation.replace('SignUpScreen')}
               label="Get Started"
             />
             <Atoms.QuestionWithAction
               question="Already have an account? "
               actionLabel="Sign In"
-              onPress={() => navigation.navigate('SignInScreen')}
+              onPress={() => navigation.replace('SignInScreen')}
             />
           </View>
         </View>
