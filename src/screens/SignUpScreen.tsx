@@ -2,14 +2,17 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as images from '../assets/images';
 import { Atoms } from '../components';
 import { RootStackParamList } from '../routes/types';
+import useSignUpStore from '../store/signUpStore';
+import { regexEmail, regexPassword } from '../utils/regex';
 import theme from '../utils/theme';
-import * as images from '../assets/images';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
 export default function SignUpScreen({ navigation }: Props) {
+  const { account, updateAccount } = useSignUpStore(state => state);
   return (
     <SafeAreaView style={styles.safeArea}>
       <Atoms.HeaderPage
@@ -25,13 +28,37 @@ export default function SignUpScreen({ navigation }: Props) {
         </View>
 
         <View style={styles.wrapperInput}>
-          <Atoms.Input.TextInput label="Full Name" />
-          <Atoms.Input.TextInput label="Email Address" />
-          <Atoms.Input.TextInput label="Password" secureTextEntry />
-          <Atoms.Input.TextInput label="Confirm Password" secureTextEntry />
+          <Atoms.Input.TextInput
+            label="Full Name"
+            value={account.fullName}
+            onChangeText={e => updateAccount('fullName', e)}
+          />
+          <Atoms.Input.TextInput
+            label="Email Address"
+            value={account.email}
+            onChangeText={e => updateAccount('email', e)}
+          />
+          <Atoms.Input.TextInput
+            label="Password"
+            secureTextEntry
+            value={account.password}
+            onChangeText={e => updateAccount('password', e)}
+          />
+          <Atoms.Input.TextInput
+            label="Confirm Password"
+            secureTextEntry
+            value={account.confirmPassword}
+            onChangeText={e => updateAccount('confirmPassword', e)}
+          />
         </View>
         <Atoms.Button.ButtonRoundedIcon
           name="arrowright"
+          disabled={
+            !regexEmail.test(account.email) ||
+            account.fullName === '' ||
+            !regexPassword.test(account.password) ||
+            account.password !== account.confirmPassword
+          }
           onPress={() => navigation.navigate('PreferenceScreen')}
         />
       </View>
