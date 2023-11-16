@@ -6,36 +6,59 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
+import useSignUpStore from '../store/signUpStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PreferenceScreen'>;
 export default function PreferenceScreen({ navigation }: Props) {
+  const { preference, updatePreference } = useSignUpStore(state => state);
+
   const [listGenre, setListGenre] = useState([
-    { label: 'Horor', isSelected: false },
-    { label: 'Music', isSelected: false },
-    { label: 'Action', isSelected: false },
-    { label: 'Drama', isSelected: false },
-    { label: 'War', isSelected: false },
-    { label: 'Chrime', isSelected: false },
+    { label: 'Horor', isSelected: preference.favoriteGenre.includes('Horor') },
+    { label: 'Music', isSelected: preference.favoriteGenre.includes('Music') },
+    {
+      label: 'Action',
+      isSelected: preference.favoriteGenre.includes('Action'),
+    },
+    { label: 'Drama', isSelected: preference.favoriteGenre.includes('Drama') },
+    { label: 'War', isSelected: preference.favoriteGenre.includes('War') },
+    {
+      label: 'Chrime',
+      isSelected: preference.favoriteGenre.includes('Chrime'),
+    },
   ]);
 
   const [listLanguage, setListLanguage] = useState([
-    { label: 'Bahasa', isSelected: false },
-    { label: 'English', isSelected: false },
-    { label: 'Japanese', isSelected: false },
-    { label: 'Korean', isSelected: false },
+    { label: 'Bahasa', isSelected: preference.language === 'Bahasa' },
+    { label: 'English', isSelected: preference.language === 'English' },
+    { label: 'Japanese', isSelected: preference.language === 'Japanese' },
+    { label: 'Korean', isSelected: preference.language === 'Korean' },
   ]);
 
   const selectGenre = (genre: string) => {
     setListGenre(p =>
       p.map(item =>
         item.label === genre
-          ? { ...item, isSelected: !item.isSelected }
-          : { ...item, isSelected: false },
+          ? {
+              ...item,
+              isSelected:
+                preference.favoriteGenre.length <= 3 ? !item.isSelected : false,
+            }
+          : item,
       ),
     );
+
+    if (preference.favoriteGenre.includes(genre)) {
+      updatePreference(
+        'favoriteGenre',
+        preference.favoriteGenre.filter(item => item !== genre),
+      );
+    } else if (preference.favoriteGenre.length <= 3) {
+      updatePreference('favoriteGenre', [...preference.favoriteGenre, genre]);
+    }
   };
 
   const selectLang = (lang: string) => {
+    updatePreference('language', lang);
     setListLanguage(p =>
       p.map(item =>
         item.label === lang
