@@ -1,33 +1,29 @@
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as Screens from '../screens';
+import useFirebaseAuthStore from '../store/FirebaseAuth';
 import BottomTabs from './BottomTabs';
 import * as RootNavigation from './RootNavigation';
 import { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function Routes() {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+  const { setLogout, isLogout } = useFirebaseAuthStore(state => state);
+
+  const handleLogout = () => {
+    auth()
+      .signOut()
+      .then(() => setLogout(false))
+      .catch(() => setLogout(false));
+  };
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(userP => {
-      setUser(userP);
-      if (initializing) {
-        setInitializing(false);
-      }
-    });
-    return subscriber;
-  }, []);
-
-  useEffect(() => {
-    if (user === null) {
+    if (isLogout === true) {
+      handleLogout();
       RootNavigation.navigate('SignInScreen');
-    } else {
-      RootNavigation.navigate('MainScreen', { screen: 'MovieScreen' });
     }
-  }, [user]);
+  }, [isLogout]);
   return (
     <>
       <Stack.Navigator initialRouteName="SplashScreen">

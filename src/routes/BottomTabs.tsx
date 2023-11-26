@@ -5,21 +5,20 @@ import {
 import React from 'react';
 import * as Screens from '../screens';
 import { Image, PixelRatio, Platform, StyleSheet, View } from 'react-native';
-import auth from '@react-native-firebase/auth';
-
 import { HomeTabParamList, RootStackParamList } from './types';
 import theme from '../utils/theme';
 import * as images from '../assets/images';
 import { Atoms } from '../components';
 import fontFamily from '../assets/fonts';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import useFirebaseAuthStore from '../store/FirebaseAuth';
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
 function BottomTabs({}: Props) {
+  const { setLogout } = useFirebaseAuthStore(state => state);
+
   const handleLogout = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
+    setLogout(true);
   };
   return (
     <Tab.Navigator

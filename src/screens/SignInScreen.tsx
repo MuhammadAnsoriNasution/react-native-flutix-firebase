@@ -1,14 +1,13 @@
+import auth from '@react-native-firebase/auth';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Atoms } from '../components';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import Toast from 'react-native-toast-message';
+import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
+import { regexEmail, regexPassword } from '../utils/regex';
 import theme from '../utils/theme';
 import * as images from './../assets/images';
-import auth from '@react-native-firebase/auth';
-import Toast from 'react-native-toast-message';
-import { regexEmail, regexPassword } from '../utils/regex';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignInScreen'>;
 
@@ -69,52 +68,52 @@ export default function SignInScreen({ navigation }: Props) {
     // }
   };
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView>
-        <View style={styles.container}>
-          <Image source={images.logo} style={styles.logo} />
-          <Text style={styles.title}>{'Welcome Back,\nExplorer!'}</Text>
-          <Atoms.Input.TextInput
-            label="Email Address"
-            style={{ marginBottom: 27 }}
-            value={formData.email}
-            onChangeText={e =>
-              setFormData(p => ({ password: p.password, email: e }))
+    <Moleculs.ContainerScreen
+      bgStatusBar={theme.whiteColor}
+      barStyle="dark-content">
+      <View style={styles.container}>
+        <Image source={images.logo} style={styles.logo} />
+        <Text style={styles.title}>{'Welcome Back,\nExplorer!'}</Text>
+        <Atoms.Input.TextInput
+          label="Email Address"
+          style={{ marginBottom: 27 }}
+          value={formData.email}
+          onChangeText={e =>
+            setFormData(p => ({ password: p.password, email: e }))
+          }
+        />
+        <Atoms.Input.TextInput
+          label="Password"
+          style={{ marginBottom: 6 }}
+          secureTextEntry={true}
+          value={formData.password}
+          onChangeText={e =>
+            setFormData(p => ({ email: p.email, password: e }))
+          }
+        />
+        <Atoms.QuestionWithAction
+          question="Forgot Password? "
+          onPress={() => console.log('')}
+          actionLabel="Get Now"
+        />
+        <View style={styles.columnCenter}>
+          <Atoms.Button.ButtonRoundedIcon
+            name="arrowright"
+            disabled={
+              loading ||
+              !regexEmail.test(formData.email) ||
+              !regexPassword.test(formData.password)
             }
-          />
-          <Atoms.Input.TextInput
-            label="Password"
-            style={{ marginBottom: 6 }}
-            secureTextEntry={true}
-            value={formData.password}
-            onChangeText={e =>
-              setFormData(p => ({ email: p.email, password: e }))
-            }
+            onPress={handleSignIn}
           />
           <Atoms.QuestionWithAction
-            question="Forgot Password? "
-            onPress={() => console.log('')}
-            actionLabel="Get Now"
+            actionLabel="Sign Up"
+            question="Start fresh now? "
+            onPress={() => navigation.navigate('SignUpScreen')}
           />
-          <View style={styles.columnCenter}>
-            <Atoms.Button.ButtonRoundedIcon
-              name="arrowright"
-              disabled={
-                loading ||
-                !regexEmail.test(formData.email) ||
-                !regexPassword.test(formData.password)
-              }
-              onPress={handleSignIn}
-            />
-            <Atoms.QuestionWithAction
-              actionLabel="Sign Up"
-              question="Start fresh now? "
-              onPress={() => navigation.navigate('SignUpScreen')}
-            />
-          </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </Moleculs.ContainerScreen>
   );
 }
 
@@ -126,6 +125,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.whiteColor,
   },
   container: {
+    paddingHorizontal: theme.defaultMargin,
+    paddingTop: 30,
     flex: 1,
     flexDirection: 'column',
   },

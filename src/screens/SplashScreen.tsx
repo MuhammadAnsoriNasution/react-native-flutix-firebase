@@ -1,15 +1,37 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as images from '../assets/images';
 import { Atoms } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
-
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 type Props = NativeStackScreenProps<RootStackParamList, 'SplashScreen'>;
 
 export default function SplashScreen({ navigation }: Props) {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(userP => {
+      setUser(userP);
+      if (initializing) {
+        setInitializing(false);
+      }
+    });
+    return subscriber;
+  }, []);
+
+  useEffect(() => {
+    if (user !== null) {
+      const timout = setTimeout(() => {
+        navigation.navigate('MainScreen', { screen: 'MovieScreen' });
+        clearTimeout(timout);
+      }, 3000);
+    }
+  }, [user]);
+
   return (
     <>
       <SafeAreaView style={styles.safeArea}>

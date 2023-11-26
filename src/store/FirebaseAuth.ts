@@ -1,20 +1,19 @@
-import { createWithEqualityFn } from 'zustand/traditional';
 import { shallow } from 'zustand/shallow';
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { createWithEqualityFn } from 'zustand/traditional';
 
 export type StateSignUpStore = {
-  user: FirebaseAuthTypes.User | null;
+  isLogout: boolean;
 };
 
 type Action = {
-  updateUser: (user: StateSignUpStore['user']) => void;
+  setLogout: (user: boolean) => void;
 };
 
-const useSignUpStore = createWithEqualityFn<StateSignUpStore & Action>(
+const useFirebaseAuthStore = createWithEqualityFn<StateSignUpStore & Action>(
   set => ({
-    user: null,
-    updateUser: user => set(prev => ({ ...prev, user: user })),
+    isLogout: false,
+    setLogout: isLogout => set(prev => ({ ...prev, isLogout })),
   }),
   shallow,
 );
-export default useSignUpStore;
+export default useFirebaseAuthStore;
