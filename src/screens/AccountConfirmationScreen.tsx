@@ -9,6 +9,8 @@ import useSignUpStore from '../store/signUpStore';
 import theme from '../utils/theme';
 import auth from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -27,8 +29,31 @@ export default function AccountConfirmationScreen({ navigation }: Props) {
   const handleCreateAccount = () => {
     auth()
       .createUserWithEmailAndPassword(account.email, account.password)
-      .then(ress => {
-        console.log('account success created');
+      .then(async () => {
+        const reference = storage().ref(`/images/${account.email}.png`);
+        await reference.putFile(account.avatarPath);
+        const urDownload = await storage()
+          .ref(`/images/${account.email}.png`)
+          .getDownloadURL();
+
+        firestore()
+          .collection('users')
+          .add({
+            email: account.email,
+            name: account.fullName,
+            balance: account.balance,
+            selectedGenres: preference.favoriteGenre.join(','),
+            selectedLanguage: preference.language,
+            profilePciture: urDownload,
+          })
+          .then(async () => {
+            Toast.show({
+              type: 'success',
+              text1: 'Signup success please login with your account',
+            });
+            navigation.replace('SignInScreen');
+          })
+          .catch(err => console.log(err));
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -42,6 +67,7 @@ export default function AccountConfirmationScreen({ navigation }: Props) {
             text1: 'That email address is invalid!',
           });
         } else {
+          console.log(error);
           Toast.show({
             type: 'error',
             text1: 'Failed to create user',

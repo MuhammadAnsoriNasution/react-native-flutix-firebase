@@ -84,6 +84,9 @@ export default function PreferenceScreen({ navigation }: Props) {
         />
         <View style={styles.wrapperNext}>
           <Atoms.Button.ButtonRoundedIcon
+            disabled={
+              preference.favoriteGenre.length < 4 || preference.language === ''
+            }
             name="arrowright"
             onPress={() => navigation.navigate('AccountConfirmationScreen')}
           />

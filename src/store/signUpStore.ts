@@ -1,12 +1,15 @@
-import { create } from 'zustand';
+import { createWithEqualityFn } from 'zustand/traditional';
+import { shallow } from 'zustand/shallow';
 
 export type StateSignUpStore = {
   account: {
+    id: string;
     fullName: string;
     email: string;
     password: string;
     confirmPassword: string;
     avatarPath: string;
+    balance: string;
   };
   preference: {
     favoriteGenre: string[];
@@ -25,24 +28,29 @@ type Action = {
   ) => void;
 };
 
-const useSignUpStore = create<StateSignUpStore & Action>(set => ({
-  account: {
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    avatarPath: '',
-  },
-  preference: {
-    favoriteGenre: [],
-    language: '',
-  },
-  updateAccount: (key, value) =>
-    set(prev => ({ ...prev, account: { ...prev.account, [key]: value } })),
-  updatePreference: (key, value) =>
-    set(prev => ({
-      ...prev,
-      preference: { ...prev.preference, [key]: value },
-    })),
-}));
+const useSignUpStore = createWithEqualityFn<StateSignUpStore & Action>(
+  set => ({
+    account: {
+      id: '',
+      fullName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      avatarPath: '',
+      balance: '500000',
+    },
+    preference: {
+      favoriteGenre: [],
+      language: '',
+    },
+    updateAccount: (key, value) =>
+      set(prev => ({ ...prev, account: { ...prev.account, [key]: value } })),
+    updatePreference: (key, value) =>
+      set(prev => ({
+        ...prev,
+        preference: { ...prev.preference, [key]: value },
+      })),
+  }),
+  shallow,
+);
 export default useSignUpStore;
