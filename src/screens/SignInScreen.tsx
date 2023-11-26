@@ -20,40 +20,54 @@ export default function SignInScreen({ navigation }: Props) {
     password: '',
   });
   const handleSignIn = () => {
-    if (!regexEmail.test(formData.email)) {
-      Toast.show({
-        type: 'info',
-        text1: 'Info',
-        text2: 'Email not valid',
+    // if (!regexEmail.test(formData.email)) {
+    //   Toast.show({
+    //     type: 'info',
+    //     text1: 'Info',
+    //     text2: 'Email not valid',
+    //   });
+    // } else if (!regexPassword.test(formData.password)) {
+    //   Toast.show({
+    //     type: 'info',
+    //     text1: 'Info',
+    //     text2:
+    //       'Password must be at least 6 characters long, contain at least one digit, one uppercase character, one lowercase character and one special character [@ # $ % !]',
+    //   });
+    // } else {
+    setLoading(true);
+    auth()
+      .signInWithEmailAndPassword(formData.email, formData.password)
+      .then(() => {
+        setLoading(false);
+        navigation.replace('MainScreen', { screen: 'MovieScreen' });
+      })
+      .catch(error => {
+        setLoading(false);
+        if (error.code === 'auth/email-already-in-use') {
+          Toast.show({
+            type: 'error',
+            text1: 'That email address is already in use!',
+          });
+        } else if (error.code === 'auth/invalid-email') {
+          Toast.show({
+            type: 'error',
+            text1: 'That email address is invalid!',
+          });
+        } else if (error.code === 'auth/invalid-login') {
+          Toast.show({
+            type: 'error',
+            text1: 'Unauthorized',
+            text2: 'Please check your email and password',
+          });
+        } else {
+          console.log(error);
+          Toast.show({
+            type: 'error',
+            text1: 'Server busy, try again later!',
+          });
+        }
       });
-    } else if (!regexPassword.test(formData.password)) {
-      Toast.show({
-        type: 'info',
-        text1: 'Info',
-        text2:
-          'Password must be at least 6 characters long, contain at least one digit, one uppercase character, one lowercase character and one special character [@ # $ % !]',
-      });
-    } else {
-      setLoading(true);
-      auth()
-        .signInWithEmailAndPassword('ansorinasution@gmail.com', 'Test123@')
-        .then(() => {
-          setLoading(false);
-          navigation.replace('MainScreen', { screen: 'MovieScreen' });
-        })
-        .catch(error => {
-          setLoading(false);
-          if (error.code === 'auth/email-already-in-use') {
-            console.log('That email address is already in use!');
-          }
-
-          if (error.code === 'auth/invalid-email') {
-            console.log('That email address is invalid!');
-          }
-
-          console.error(error);
-        });
-    }
+    // }
   };
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -86,7 +100,11 @@ export default function SignInScreen({ navigation }: Props) {
           <View style={styles.columnCenter}>
             <Atoms.Button.ButtonRoundedIcon
               name="arrowright"
-              disabled={loading}
+              disabled={
+                loading ||
+                !regexEmail.test(formData.email) ||
+                !regexPassword.test(formData.password)
+              }
               onPress={handleSignIn}
             />
             <Atoms.QuestionWithAction
