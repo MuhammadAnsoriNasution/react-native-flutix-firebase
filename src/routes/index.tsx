@@ -6,10 +6,16 @@ import useFirebaseAuthStore from '../store/FirebaseAuth';
 import BottomTabs from './BottomTabs';
 import * as RootNavigation from './RootNavigation';
 import { RootStackParamList } from './types';
+import useUserStore, {
+  StateUserStore,
+  initialProfile,
+} from '../store/userStore';
+import firestore from '@react-native-firebase/firestore';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function Routes() {
   const { setLogout, isLogout } = useFirebaseAuthStore(state => state);
+  const { updateProfile, profile } = useUserStore(state => state);
 
   const handleLogout = () => {
     auth()
@@ -24,6 +30,31 @@ export default function Routes() {
       RootNavigation.navigate('SignInScreen');
     }
   }, [isLogout]);
+
+  useEffect(() => {
+    if (profile.id !== '') {
+      const subscriber = firestore()
+        .collection('users')
+        .doc(profile.id)
+        .onSnapshot(documentSnapshot => {
+          const data = documentSnapshot?.data() as
+            | StateUserStore['profile']
+            | undefined;
+          if (data !== undefined) {
+            updateProfile(data);
+          } else {
+            updateProfile(initialProfile);
+          }
+        });
+      // Stop listening for updates when no longer required
+      return () => subscriber();
+    }
+  }, [profile.id]);
+  useEffect(() => {
+    if (profile.email !== '') {
+      RootNavigation.navigate('MainScreen', { screen: 'MovieScreen' });
+    }
+  }, [profile.email]);
   return (
     <>
       <Stack.Navigator initialRouteName="SplashScreen">

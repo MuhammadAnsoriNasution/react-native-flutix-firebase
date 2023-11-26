@@ -7,14 +7,16 @@ import { Atoms } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import useUserStore from '../store/userStore';
 type Props = NativeStackScreenProps<RootStackParamList, 'SplashScreen'>;
 
 export default function SplashScreen({ navigation }: Props) {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-
+  const { updateProfile, profile } = useUserStore(state => state);
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(userP => {
+      console.log(userP);
       setUser(userP);
       if (initializing) {
         setInitializing(false);
@@ -25,10 +27,7 @@ export default function SplashScreen({ navigation }: Props) {
 
   useEffect(() => {
     if (user !== null) {
-      const timout = setTimeout(() => {
-        navigation.navigate('MainScreen', { screen: 'MovieScreen' });
-        clearTimeout(timout);
-      }, 3000);
+      updateProfile({ ...profile, id: user.uid });
     }
   }, [user]);
 

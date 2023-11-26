@@ -8,10 +8,12 @@ import { RootStackParamList } from '../routes/types';
 import { regexEmail, regexPassword } from '../utils/regex';
 import theme from '../utils/theme';
 import * as images from './../assets/images';
+import useUserStore from '../store/userStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignInScreen'>;
 
 export default function SignInScreen({ navigation }: Props) {
+  const { updateProfile, profile } = useUserStore(state => state);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -35,9 +37,9 @@ export default function SignInScreen({ navigation }: Props) {
     setLoading(true);
     auth()
       .signInWithEmailAndPassword(formData.email, formData.password)
-      .then(() => {
+      .then(ress => {
+        updateProfile({ ...profile, id: ress.user.uid });
         setLoading(false);
-        navigation.replace('MainScreen', { screen: 'MovieScreen' });
       })
       .catch(error => {
         setLoading(false);

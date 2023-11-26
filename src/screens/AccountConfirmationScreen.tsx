@@ -29,7 +29,7 @@ export default function AccountConfirmationScreen({ navigation }: Props) {
   const handleCreateAccount = () => {
     auth()
       .createUserWithEmailAndPassword(account.email, account.password)
-      .then(async () => {
+      .then(async ress => {
         const reference = storage().ref(`/images/${account.email}.png`);
         await reference.putFile(account.avatarPath);
         const urDownload = await storage()
@@ -38,7 +38,8 @@ export default function AccountConfirmationScreen({ navigation }: Props) {
 
         firestore()
           .collection('users')
-          .add({
+          .doc(ress.user.uid)
+          .set({
             email: account.email,
             name: account.fullName,
             balance: account.balance,
@@ -49,7 +50,8 @@ export default function AccountConfirmationScreen({ navigation }: Props) {
           .then(async () => {
             Toast.show({
               type: 'success',
-              text1: 'Signup success please login with your account',
+              text1: 'Success',
+              text2: 'Signup success please login with your account',
             });
             navigation.replace('SignInScreen');
           })
