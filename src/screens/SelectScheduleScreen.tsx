@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';

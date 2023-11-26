@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import {
   BottomTabBar,
   createBottomTabNavigator,
@@ -6,6 +5,7 @@ import {
 import React from 'react';
 import * as Screens from '../screens';
 import { Image, PixelRatio, Platform, StyleSheet, View } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 import { HomeTabParamList, RootStackParamList } from './types';
 import theme from '../utils/theme';
@@ -15,7 +15,12 @@ import fontFamily from '../assets/fonts';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
-function BottomTabs({ navigation }: Props) {
+function BottomTabs({}: Props) {
+  const handleLogout = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+  };
   return (
     <Tab.Navigator
       tabBar={props => (
@@ -78,7 +83,8 @@ function BottomTabs({ navigation }: Props) {
         listeners={{
           tabPress: e => {
             e.preventDefault();
-            navigation.navigate('WalletScreen');
+            // navigation.navigate('WalletScreen');
+            handleLogout();
           },
         }}
         component={Screens.EmptyScreen}

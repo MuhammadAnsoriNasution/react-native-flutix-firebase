@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import theme from '../../../utils/theme';

@@ -1,15 +1,35 @@
-import { NavigationContainer } from '@react-navigation/native';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Screens from '../screens';
 import BottomTabs from './BottomTabs';
+import * as RootNavigation from './RootNavigation';
 import { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
 export default function Routes() {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(userP => {
+      setUser(userP);
+      if (initializing) {
+        setInitializing(false);
+      }
+    });
+    return subscriber;
+  }, []);
+
+  useEffect(() => {
+    if (user === null) {
+      RootNavigation.navigate('SignInScreen');
+    } else {
+      RootNavigation.navigate('MainScreen', { screen: 'MovieScreen' });
+    }
+  }, [user]);
   return (
-    <NavigationContainer>
+    <>
       <Stack.Navigator initialRouteName="SplashScreen">
         <Stack.Screen
           name="AccountConfirmationScreen"
@@ -125,6 +145,6 @@ export default function Routes() {
           }}
         />
       </Stack.Navigator>
-    </NavigationContainer>
+    </>
   );
 }

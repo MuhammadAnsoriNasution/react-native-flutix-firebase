@@ -6,6 +6,7 @@ import type { StackScreenProps } from '@react-navigation/stack';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 export type RootStackParamList = {
+  WalletScreen: undefined;
   AccountConfirmationScreen: undefined;
   CheckoutScreen: undefined;
   EditProfileScreen: undefined;
@@ -21,7 +22,6 @@ export type RootStackParamList = {
   SuccessScreen: undefined;
   TicketDetailScreen: undefined;
   TopUpScreen: undefined;
-  WalletScreen: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

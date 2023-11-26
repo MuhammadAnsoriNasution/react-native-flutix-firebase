@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as React from 'react';
 import Toast, {
@@ -7,6 +6,8 @@ import Toast, {
   SuccessToast,
 } from 'react-native-toast-message';
 import Routes from './src/routes/index';
+import { NavigationContainer } from '@react-navigation/native';
+import { navigationRef } from './src/routes/RootNavigation';
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Routes />
+        <NavigationContainer ref={navigationRef}>
+          <Routes />
+        </NavigationContainer>
       </QueryClientProvider>
       <Toast
         config={{
