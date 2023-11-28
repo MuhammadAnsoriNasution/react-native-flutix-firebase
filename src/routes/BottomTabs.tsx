@@ -52,6 +52,8 @@ function BottomTabs({}: Props) {
           ),
           backgroundColor: 'transparent',
           borderTopWidth: 0,
+          elevation: 0,
+          shadowOpacity: 0,
         },
         tabBarItemStyle: {
           backgroundColor: theme.whiteColor,
