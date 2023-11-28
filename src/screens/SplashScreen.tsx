@@ -16,7 +16,6 @@ export default function SplashScreen({ navigation }: Props) {
   const { updateProfile, profile } = useUserStore(state => state);
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(userP => {
-      console.log(userP);
       setUser(userP);
       if (initializing) {
         setInitializing(false);
@@ -27,7 +26,10 @@ export default function SplashScreen({ navigation }: Props) {
 
   useEffect(() => {
     if (user !== null) {
-      updateProfile({ ...profile, id: user.uid });
+      const time = setTimeout(() => {
+        updateProfile({ ...profile, id: user.uid });
+        clearTimeout(time);
+      }, 100);
     }
   }, [user]);
 
