@@ -14,12 +14,14 @@ import { HomeTabScreenProps } from '../routes/types';
 import { MovieTypes } from '../types/movie';
 import theme from '../utils/theme';
 import { dataMovies } from '../assets/json/data.json';
+import useUserStore from '../store/userStore';
 type Props = HomeTabScreenProps<'MovieScreen'>;
 
 export default function MovieScreen({ navigation }: Props) {
+  const { profile } = useUserStore(state => state);
   const movies: MovieTypes[] = dataMovies;
   const genre = ['Horor', 'Music', 'Action', 'Drama', 'War', 'Crime'];
-
+  console.log(profile, 'aaaa');
   return (
     <>
       <Moleculs.ContainerScreen
@@ -32,7 +34,7 @@ export default function MovieScreen({ navigation }: Props) {
             <Image source={images.user_pic} style={styles.userPic} />
           </TouchableOpacity>
           <View style={styles.wrapperUserInfo}>
-            <Text style={styles.name}>Angga Risky</Text>
+            <Text style={styles.name}>{profile.fullName}</Text>
             <Text style={styles.totalAmount}>IDR 22.523</Text>
           </View>
         </View>

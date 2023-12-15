@@ -1,22 +1,18 @@
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import * as Screens from '../screens';
 import useFirebaseAuthStore from '../store/FirebaseAuth';
+import useUserStore, { initialProfile } from '../store/userStore';
 import BottomTabs from './BottomTabs';
 import * as RootNavigation from './RootNavigation';
 import { RootStackParamList } from './types';
-import useUserStore, {
-  StateUserStore,
-  initialProfile,
-} from '../store/userStore';
-import firestore from '@react-native-firebase/firestore';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function Routes() {
   const { setLogout, isLogout } = useFirebaseAuthStore(state => state);
   const { updateProfile, profile } = useUserStore(state => state);
-
   const handleLogout = () => {
     auth()
       .signOut()
@@ -37,11 +33,17 @@ export default function Routes() {
         .collection('users')
         .doc(profile.id)
         .onSnapshot(documentSnapshot => {
-          const data = documentSnapshot?.data() as
-            | StateUserStore['profile']
-            | undefined;
+          const data = documentSnapshot?.data();
           if (data !== undefined) {
-            updateProfile(data);
+            updateProfile({
+              id: profile.id,
+              fullName: data.name,
+              email: data.email,
+              avatarPath: data.profilePciture,
+              balance: data.balance,
+              favoriteGenre: data.selectedGenres.split(','),
+              language: data.selectedLanguage,
+            });
           } else {
             updateProfile(initialProfile);
           }
@@ -50,6 +52,7 @@ export default function Routes() {
       return () => subscriber();
     }
   }, [profile.id]);
+
   useEffect(() => {
     if (profile.email !== '') {
       RootNavigation.navigate('MainScreen', { screen: 'MovieScreen' });

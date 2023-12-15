@@ -4,8 +4,6 @@ export const initialProfile = {
   id: '',
   fullName: '',
   email: '',
-  password: '',
-  confirmPassword: '',
   avatarPath: '',
   balance: '',
   favoriteGenre: [],
@@ -16,8 +14,6 @@ export type StateUserStore = {
     id: string;
     fullName: string;
     email: string;
-    password: string;
-    confirmPassword: string;
     avatarPath: string;
     balance: string;
     favoriteGenre: string[];
