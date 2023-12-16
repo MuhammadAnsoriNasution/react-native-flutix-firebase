@@ -1,16 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { shallow } from 'zustand/shallow';
 import { Atoms } from '../components';
 import { RootStackParamList } from '../routes/types';
-import useSignUpStore from '../store/signUpStore';
+import { fCreateAccount } from '../services/firebase';
+import useUserStore from '../store/userStore';
 import theme from '../utils/theme';
-import auth from '@react-native-firebase/auth';
-import Toast from 'react-native-toast-message';
-import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -18,64 +14,18 @@ type Props = NativeStackScreenProps<
 >;
 
 export default function AccountConfirmationScreen({ navigation }: Props) {
-  const { account, preference } = useSignUpStore(
-    state => ({
-      preference: state.preference,
-      account: state.account,
-    }),
-    shallow,
-  );
+  const [loading, setLoading] = useState(false);
+  const { profile } = useUserStore(state => ({
+    profile: state.profile,
+  }));
 
   const handleCreateAccount = () => {
-    auth()
-      .createUserWithEmailAndPassword(account.email, account.password)
-      .then(async ress => {
-        const reference = storage().ref(`/images/${account.email}.png`);
-        await reference.putFile(account.avatarPath);
-        const urDownload = await storage()
-          .ref(`/images/${account.email}.png`)
-          .getDownloadURL();
-
-        firestore()
-          .collection('users')
-          .doc(ress.user.uid)
-          .set({
-            email: account.email,
-            name: account.fullName,
-            balance: account.balance,
-            selectedGenres: preference.favoriteGenre.join(','),
-            selectedLanguage: preference.language,
-            profilePciture: urDownload,
-          })
-          .then(async () => {
-            Toast.show({
-              type: 'success',
-              text1: 'Success',
-              text2: 'Signup success please login with your account',
-            });
-            navigation.replace('SignInScreen');
-          })
-          .catch(err => console.log(err));
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          Toast.show({
-            type: 'error',
-            text1: 'That email address is already in use!',
-          });
-        } else if (error.code === 'auth/invalid-email') {
-          Toast.show({
-            type: 'error',
-            text1: 'That email address is invalid!',
-          });
-        } else {
-          console.log(error);
-          Toast.show({
-            type: 'error',
-            text1: 'Failed to create user',
-          });
-        }
-      });
+    setLoading(true);
+    fCreateAccount({
+      profile,
+      cbSuccess: () => setLoading(false),
+      cbError: () => setLoading(false),
+    });
   };
 
   return (
@@ -86,13 +36,14 @@ export default function AccountConfirmationScreen({ navigation }: Props) {
       />
       <Atoms.Gap height={90} />
       <View style={styles.wrapperAccount}>
-        <Image source={{ uri: account.avatarPath }} style={styles.pic} />
+        <Image source={{ uri: profile.avatarUpload }} style={styles.pic} />
         <Atoms.Gap height={20} />
         <Text style={styles.welcome}>Welcome</Text>
-        <Text style={[styles.welcome, styles.name]}>{account.fullName}</Text>
+        <Text style={[styles.welcome, styles.name]}>{profile.fullName}</Text>
         <Atoms.Gap height={110} />
         <Atoms.Button.RectButton
           background="green"
+          disabled={loading === true}
           onPress={() =>
             // navigation.navigate('MainScreen', { screen: 'MovieScreen' })
             handleCreateAccount()

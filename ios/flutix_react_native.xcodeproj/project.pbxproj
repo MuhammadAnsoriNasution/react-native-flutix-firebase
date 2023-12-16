@@ -23,7 +23,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8597329BF6934804B6D36060 /* Raleway-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E3923438C8F487AA01C2368 /* Raleway-Thin.ttf */; };
 		86578FFEA3FF4B0F962429C7 /* index.ts in Resources */ = {isa = PBXBuildFile; fileRef = A9AB3612DFC041778B8CC83E /* index.ts */; };
-		9CFFB4D92B0120B300ECDECF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CFFB4D82B0120B300ECDECF /* GoogleService-Info.plist */; };
+		9C73F14C2B2DDBC40012FCBC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C73F14B2B2DDBC40012FCBC /* GoogleService-Info.plist */; };
 		A9CD9FC9DAEE4D16A3C491C4 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B85C05365B924752AC19BAD8 /* OpenSans-Regular.ttf */; };
 		AEF75C5C1D474DC6AA979285 /* Raleway-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F005F43D558A4F398FE06310 /* Raleway-ExtraBold.ttf */; };
 		B97207F12A44410198DFCAEF /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F774157FB4C04970B758EE79 /* Raleway-Light.ttf */; };
@@ -68,7 +68,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = flutix_react_native/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		877BEEE8E86A4ADEBA76CF7D /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../src/assets/fonts/Open_Sans/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		9C4E05BA42CC40CFB94F8BA8 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-ExtraLight.ttf"; path = "../src/assets/fonts/Raleway/Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
-		9CFFB4D82B0120B300ECDECF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9C73F14B2B2DDBC40012FCBC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E6FAB8D1BE99D5852A3E970 /* Pods-flutix_react_native-flutix_react_nativeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flutix_react_native-flutix_react_nativeTests.release.xcconfig"; path = "Target Support Files/Pods-flutix_react_native-flutix_react_nativeTests/Pods-flutix_react_native-flutix_react_nativeTests.release.xcconfig"; sourceTree = "<group>"; };
 		A2847823B61D41EBB01264BA /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBold.ttf"; path = "../src/assets/fonts/Open_Sans/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		A9AB3612DFC041778B8CC83E /* index.ts */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = index.ts; path = ../src/assets/fonts/index.ts; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				9CFFB4D82B0120B300ECDECF /* GoogleService-Info.plist */,
+				9C73F14B2B2DDBC40012FCBC /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* flutix_react_native */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* flutix_react_nativeTests */,
@@ -328,7 +328,7 @@
 				32F38E18A0824641AA89C384 /* Raleway-VariableFont_wght.ttf in Resources */,
 				6FFE0B175C5F452CA29CE4DF /* README.txt in Resources */,
 				86578FFEA3FF4B0F962429C7 /* index.ts in Resources */,
-				9CFFB4D92B0120B300ECDECF /* GoogleService-Info.plist in Resources */,
+				9C73F14C2B2DDBC40012FCBC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,7 +710,8 @@
 					"$(inherited)",
 					"-Wl",
 					"-ld_classic",
-					"-Wl -ld_classic ",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -793,7 +794,8 @@
 					"$(inherited)",
 					"-Wl",
 					"-ld_classic",
-					"-Wl -ld_classic ",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;

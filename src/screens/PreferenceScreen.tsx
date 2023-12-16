@@ -6,32 +6,32 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
-import useSignUpStore from '../store/signUpStore';
+import useUserStore from '../store/userStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PreferenceScreen'>;
 export default function PreferenceScreen({ navigation }: Props) {
-  const { preference, updatePreference } = useSignUpStore(state => state);
+  const { profile, updateProfile } = useUserStore(state => state);
 
   const [listGenre, setListGenre] = useState([
-    { label: 'Horor', isSelected: preference.favoriteGenre.includes('Horor') },
-    { label: 'Music', isSelected: preference.favoriteGenre.includes('Music') },
+    { label: 'Horor', isSelected: profile.favoriteGenre.includes('Horor') },
+    { label: 'Music', isSelected: profile.favoriteGenre.includes('Music') },
     {
       label: 'Action',
-      isSelected: preference.favoriteGenre.includes('Action'),
+      isSelected: profile.favoriteGenre.includes('Action'),
     },
-    { label: 'Drama', isSelected: preference.favoriteGenre.includes('Drama') },
-    { label: 'War', isSelected: preference.favoriteGenre.includes('War') },
+    { label: 'Drama', isSelected: profile.favoriteGenre.includes('Drama') },
+    { label: 'War', isSelected: profile.favoriteGenre.includes('War') },
     {
       label: 'Chrime',
-      isSelected: preference.favoriteGenre.includes('Chrime'),
+      isSelected: profile.favoriteGenre.includes('Chrime'),
     },
   ]);
 
   const [listLanguage, setListLanguage] = useState([
-    { label: 'Bahasa', isSelected: preference.language === 'Bahasa' },
-    { label: 'English', isSelected: preference.language === 'English' },
-    { label: 'Japanese', isSelected: preference.language === 'Japanese' },
-    { label: 'Korean', isSelected: preference.language === 'Korean' },
+    { label: 'Bahasa', isSelected: profile.language === 'Bahasa' },
+    { label: 'English', isSelected: profile.language === 'English' },
+    { label: 'Japanese', isSelected: profile.language === 'Japanese' },
+    { label: 'Korean', isSelected: profile.language === 'Korean' },
   ]);
 
   const selectGenre = (genre: string) => {
@@ -41,24 +41,27 @@ export default function PreferenceScreen({ navigation }: Props) {
           ? {
               ...item,
               isSelected:
-                preference.favoriteGenre.length <= 3 ? !item.isSelected : false,
+                profile.favoriteGenre.length <= 3 ? !item.isSelected : false,
             }
           : item,
       ),
     );
 
-    if (preference.favoriteGenre.includes(genre)) {
-      updatePreference(
-        'favoriteGenre',
-        preference.favoriteGenre.filter(item => item !== genre),
-      );
-    } else if (preference.favoriteGenre.length <= 3) {
-      updatePreference('favoriteGenre', [...preference.favoriteGenre, genre]);
+    if (profile.favoriteGenre.includes(genre)) {
+      updateProfile({
+        ...profile,
+        favoriteGenre: profile.favoriteGenre.filter(item => item !== genre),
+      });
+    } else if (profile.favoriteGenre.length <= 3) {
+      updateProfile({
+        ...profile,
+        favoriteGenre: [...profile.favoriteGenre, genre],
+      });
     }
   };
 
   const selectLang = (lang: string) => {
-    updatePreference('language', lang);
+    updateProfile({ ...profile, language: lang });
     setListLanguage(p =>
       p.map(item =>
         item.label === lang
@@ -85,7 +88,7 @@ export default function PreferenceScreen({ navigation }: Props) {
         <View style={styles.wrapperNext}>
           <Atoms.Button.ButtonRoundedIcon
             disabled={
-              preference.favoriteGenre.length < 4 || preference.language === ''
+              profile.favoriteGenre.length < 4 || profile.language === ''
             }
             name="arrowright"
             onPress={() => navigation.navigate('AccountConfirmationScreen')}

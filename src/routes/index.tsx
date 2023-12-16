@@ -43,6 +43,10 @@ export default function Routes() {
               balance: data.balance,
               favoriteGenre: data.selectedGenres.split(','),
               language: data.selectedLanguage,
+              password: '',
+              confirmPassword: '',
+              avatarUpload: profile.avatarUpload,
+              isAuth: true,
             });
           } else {
             updateProfile(initialProfile);
@@ -54,10 +58,11 @@ export default function Routes() {
   }, [profile.id]);
 
   useEffect(() => {
-    if (profile.email !== '') {
+    if (profile.isAuth === true) {
       RootNavigation.navigate('MainScreen', { screen: 'MovieScreen' });
     }
-  }, [profile.email]);
+  }, [profile.isAuth]);
+
   return (
     <>
       <Stack.Navigator initialRouteName="SplashScreen">

@@ -1,6 +1,6 @@
 import { createWithEqualityFn } from 'zustand/traditional';
 import { shallow } from 'zustand/shallow';
-export const initialProfile = {
+export const initialProfile: StateUserStore['profile'] = {
   id: '',
   fullName: '',
   email: '',
@@ -8,7 +8,12 @@ export const initialProfile = {
   balance: '',
   favoriteGenre: [],
   language: '',
+  password: '',
+  confirmPassword: '',
+  avatarUpload: '',
+  isAuth: false,
 };
+
 export type StateUserStore = {
   profile: {
     id: string;
@@ -18,6 +23,10 @@ export type StateUserStore = {
     balance: string;
     favoriteGenre: string[];
     language: string;
+    password: string;
+    confirmPassword: string;
+    avatarUpload: string;
+    isAuth: boolean;
   };
 };
 

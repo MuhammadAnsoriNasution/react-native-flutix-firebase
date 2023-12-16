@@ -13,15 +13,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as images from '../assets/images';
 import { Atoms } from '../components';
 import { RootStackParamList } from '../routes/types';
-import useSignUpStore from '../store/signUpStore';
+
 import { regexEmail, regexPassword } from '../utils/regex';
 import theme from '../utils/theme';
 import { launchImageLibrary } from 'react-native-image-picker';
+import useUserStore from '../store/userStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
 export default function SignUpScreen({ navigation }: Props) {
-  const { account, updateAccount } = useSignUpStore(state => state);
+  const { profile, updateProfile } = useUserStore(state => state);
   const handlePickImage = async () => {
     launchImageLibrary({ mediaType: 'photo' }).then(ress => {
       if (
@@ -29,7 +30,8 @@ export default function SignUpScreen({ navigation }: Props) {
         ress.assets.length > 0 &&
         ress.assets[0].uri !== undefined
       ) {
-        updateAccount('avatarPath', ress.assets[0].uri);
+        console.log(ress.assets[0].uri, 'ini bahan upload');
+        updateProfile({ ...profile, avatarUpload: ress.assets[0].uri });
       }
     });
   };
@@ -47,8 +49,8 @@ export default function SignUpScreen({ navigation }: Props) {
             <View style={styles.wrapperUserPic}>
               <Image
                 source={
-                  account.avatarPath !== ''
-                    ? { uri: account.avatarPath }
+                  profile.avatarUpload !== ''
+                    ? { uri: profile.avatarUpload }
                     : images.user_pic
                 }
                 style={styles.userPic}
@@ -64,35 +66,37 @@ export default function SignUpScreen({ navigation }: Props) {
             <View style={styles.wrapperInput}>
               <Atoms.Input.TextInput
                 label="Full Name"
-                value={account.fullName}
-                onChangeText={e => updateAccount('fullName', e)}
+                value={profile.fullName}
+                onChangeText={e => updateProfile({ ...profile, fullName: e })}
               />
               <Atoms.Input.TextInput
                 label="Email Address"
-                value={account.email}
-                onChangeText={e => updateAccount('email', e)}
+                value={profile.email}
+                onChangeText={e => updateProfile({ ...profile, email: e })}
               />
               <Atoms.Input.TextInput
                 label="Password"
                 secureTextEntry
-                value={account.password}
-                onChangeText={e => updateAccount('password', e)}
+                value={profile.password}
+                onChangeText={e => updateProfile({ ...profile, password: e })}
               />
               <Atoms.Input.TextInput
                 label="Confirm Password"
                 secureTextEntry
-                value={account.confirmPassword}
-                onChangeText={e => updateAccount('confirmPassword', e)}
+                value={profile.confirmPassword}
+                onChangeText={e =>
+                  updateProfile({ ...profile, confirmPassword: e })
+                }
               />
             </View>
             <Atoms.Button.ButtonRoundedIcon
               name="arrowright"
               disabled={
-                !regexEmail.test(account.email) ||
-                account.fullName === '' ||
-                !regexPassword.test(account.password) ||
-                account.password !== account.confirmPassword ||
-                account.avatarPath === ''
+                !regexEmail.test(profile.email) ||
+                profile.fullName === '' ||
+                !regexPassword.test(profile.password) ||
+                profile.password !== profile.confirmPassword ||
+                profile.avatarUpload === ''
               }
               onPress={() => navigation.navigate('PreferenceScreen')}
             />

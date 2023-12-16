@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   FlatList,
   Image,
@@ -9,19 +9,28 @@ import {
 } from 'react-native';
 
 import * as images from '../assets/images';
+import { dataMovies } from '../assets/json/data.json';
 import { Atoms, Moleculs } from '../components';
 import { HomeTabScreenProps } from '../routes/types';
+import { fUploadFile } from '../services/firebase';
+import useUserStore from '../store/userStore';
 import { MovieTypes } from '../types/movie';
 import theme from '../utils/theme';
-import { dataMovies } from '../assets/json/data.json';
-import useUserStore from '../store/userStore';
+
 type Props = HomeTabScreenProps<'MovieScreen'>;
 
 export default function MovieScreen({ navigation }: Props) {
   const { profile } = useUserStore(state => state);
   const movies: MovieTypes[] = dataMovies;
   const genre = ['Horor', 'Music', 'Action', 'Drama', 'War', 'Crime'];
-  console.log(profile, 'aaaa');
+
+  useEffect(() => {
+    if (profile.avatarUpload !== '') {
+      fUploadFile({ profile, cbSuccess: () => {}, cbError: () => {} });
+    }
+  }, [profile.avatarUpload]);
+
+  console.log(profile.avatarPath);
   return (
     <>
       <Moleculs.ContainerScreen
@@ -31,7 +40,15 @@ export default function MovieScreen({ navigation }: Props) {
           <TouchableOpacity
             style={styles.wrapperUserPic}
             onPress={() => navigation.navigate('ProfileScreen')}>
-            <Image source={images.user_pic} style={styles.userPic} />
+            <Image
+              resizeMode="cover"
+              source={
+                profile.avatarPath === ''
+                  ? images.user_pic
+                  : { uri: profile.avatarPath }
+              }
+              style={styles.userPic}
+            />
           </TouchableOpacity>
           <View style={styles.wrapperUserInfo}>
             <Text style={styles.name}>{profile.fullName}</Text>
@@ -124,6 +141,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   wrapperUserPic: {
+    overflow: 'hidden',
     borderWidth: 2,
     borderColor: theme.mainColor2,
     borderRadius: 60,
@@ -132,8 +150,10 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   userPic: {
+    borderRadius: 100,
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
   },
   wrapperUserInfo: {
     display: 'flex',
