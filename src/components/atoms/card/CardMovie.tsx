@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Atoms } from '../..';
-import * as images from '../../../assets/images';
 import { MovieTypes } from '../../../types/movie';
 import { colorconvert } from '../../../utils/colorconvert';
+import { imageBaseUrl } from '../../../utils/config';
 import theme from '../../../utils/theme';
 interface Props {
   movie: MovieTypes;
@@ -27,7 +27,7 @@ export default function CardMovie({ isFirst, isLast, movie, onPress }: Props) {
         { marginLeft: isFirst ? 24 : 16, marginRight: isLast ? 24 : 0 },
       ]}>
       <ImageBackground
-        source={images.poster}
+        source={{ uri: `${imageBaseUrl}w780${movie.backdrop_path}` }}
         resizeMode="cover"
         style={{ flex: 1, position: 'relative' }}>
         <LinearGradient
@@ -41,7 +41,7 @@ export default function CardMovie({ isFirst, isLast, movie, onPress }: Props) {
           <View style={styles.wrapperInfo}>
             <Text style={styles.title}>{movie.title}</Text>
             <Atoms.RatingStart
-              voteAverage={8}
+              voteAverage={movie.vote_average}
               starSize={0}
               color={theme.whiteColor}
             />

@@ -9,19 +9,16 @@ import {
 } from 'react-native';
 
 import * as images from '../assets/images';
-import { dataMovies } from '../assets/json/data.json';
 import { Atoms, Moleculs } from '../components';
 import { HomeTabScreenProps } from '../routes/types';
 import { fUploadFile } from '../services/firebase';
 import useUserStore from '../store/userStore';
-import { MovieTypes } from '../types/movie';
 import theme from '../utils/theme';
 
 type Props = HomeTabScreenProps<'MovieScreen'>;
 
 export default function MovieScreen({ navigation }: Props) {
   const { profile } = useUserStore(state => state);
-  const movies: MovieTypes[] = dataMovies;
   const genre = ['Horor', 'Music', 'Action', 'Drama', 'War', 'Crime'];
 
   useEffect(() => {
@@ -30,7 +27,6 @@ export default function MovieScreen({ navigation }: Props) {
     }
   }, [profile.avatarUpload]);
 
-  console.log(profile.avatarPath);
   return (
     <>
       <Moleculs.ContainerScreen
@@ -52,28 +48,11 @@ export default function MovieScreen({ navigation }: Props) {
           </TouchableOpacity>
           <View style={styles.wrapperUserInfo}>
             <Text style={styles.name}>{profile.fullName}</Text>
-            <Text style={styles.totalAmount}>IDR 22.523</Text>
+            <Text style={styles.totalAmount}>{profile.balance}</Text>
           </View>
         </View>
         {/* Now Playing */}
-        <View style={styles.wrapperPlaying}>
-          <Atoms.Typhograpy.TitleCard title="Now Playing" />
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            data={movies}
-            renderItem={({ item, index }) => {
-              return (
-                <Atoms.Card.CardMovie
-                  onPress={() => navigation.navigate('MovieDetailScreen')}
-                  movie={item}
-                  isFirst={index === 0}
-                  isLast={index === movies.length - 1}
-                />
-              );
-            }}
-          />
-        </View>
+        <Moleculs.NowPlaying navigation={navigation} />
 
         {/* Genre */}
         <View style={styles.wrapperGenre}>
@@ -92,24 +71,7 @@ export default function MovieScreen({ navigation }: Props) {
         </View>
 
         {/* Coming Soon */}
-        <View
-          style={[styles.wrapperPlaying, { marginBottom: 30, marginTop: 0 }]}>
-          <Atoms.Typhograpy.TitleCard title="Coming Soon" />
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            data={movies}
-            renderItem={({ item, index }) => {
-              return (
-                <Atoms.Card.CardComingSoon
-                  movie={item}
-                  isFirst={index === 0}
-                  isLast={index === movies.length - 1}
-                />
-              );
-            }}
-          />
-        </View>
+        <Moleculs.ComingSoon navigation={navigation} />
 
         {/* Coming Soon */}
         <View

@@ -47,34 +47,34 @@
     {
       "id": 1,
       "title": "Halo",
-      "voteAverage": 0,
+      "vote_average": 0,
       "overview": "",
-      "posterPath": "",
-      "backdropPath": ""
+      "poster_path": "",
+      "backdrop_path": ""
     },
     {
       "id": 2,
       "title": "Halo",
-      "voteAverage": 0,
+      "vote_average": 0,
       "overview": "",
-      "posterPath": "",
-      "backdropPath": ""
+      "poster_path": "",
+      "backdrop_path": ""
     },
     {
       "id": 3,
       "title": "Halo",
-      "voteAverage": 0,
+      "vote_average": 0,
       "overview": "",
-      "posterPath": "",
-      "backdropPath": ""
+      "poster_path": "",
+      "backdrop_path": ""
     },
     {
       "id": 4,
       "title": "Halo",
-      "voteAverage": 0,
+      "vote_average": 0,
       "overview": "",
-      "posterPath": "",
-      "backdropPath": ""
+      "poster_path": "",
+      "backdrop_path": ""
     }
   ]
 }

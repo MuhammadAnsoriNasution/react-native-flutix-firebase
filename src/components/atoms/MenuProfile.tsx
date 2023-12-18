@@ -1,14 +1,12 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Dashed from './Dashed';
-import * as images from '../../assets/images';
 interface Props {
   label: string;
   icon: number;
   onPress?: () => void;
 }
 export default function MenuProfile({ label, icon, onPress }: Props) {
-  console.log(typeof images.edit_profile);
   return (
     <TouchableOpacity style={styles.menu} onPress={onPress}>
       <Image source={icon} style={styles.menuIcon} />

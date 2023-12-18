@@ -1,22 +1,29 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
-import * as images from '../../../assets/images';
 import { MovieTypes } from '../../../types/movie';
+import { imageBaseUrl } from '../../../utils/config';
 interface Props {
   movie: MovieTypes;
   isFirst: boolean;
   isLast: boolean;
+  onPress: () => void;
 }
 
-export default function CardComingSoon({ movie, isFirst, isLast }: Props) {
+export default function CardComingSoon({
+  movie,
+  isFirst,
+  isLast,
+  onPress,
+}: Props) {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         styles.container,
         { marginLeft: isFirst ? 24 : 16, marginRight: isLast ? 24 : 0 },
       ]}>
       <ImageBackground
-        source={images.droppath}
+        source={{ uri: `${imageBaseUrl}w500${movie.poster_path}` }}
         style={{ flex: 1 }}
         resizeMode="cover"
       />
