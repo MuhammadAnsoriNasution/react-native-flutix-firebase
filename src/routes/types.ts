@@ -11,7 +11,9 @@ export type RootStackParamList = {
   CheckoutScreen: undefined;
   EditProfileScreen: undefined;
   MainScreen: NavigatorScreenParams<HomeTabParamList>;
-  MovieDetailScreen: undefined;
+  MovieDetailScreen: {
+    movieId: string;
+  };
   PreferenceScreen: undefined;
   ProfileScreen: undefined;
   SelectScheduleScreen: undefined;

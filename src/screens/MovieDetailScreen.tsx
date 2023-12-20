@@ -1,36 +1,32 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import {
-  FlatList,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as images from '../assets/images';
-import { Atoms, Moleculs } from '../components';
-
+import { Atoms, Moleculs, Organism } from '../components';
+import { useQuery } from '@tanstack/react-query';
 import { RootStackParamList } from '../routes/types';
+import { getMovieDetail } from '../services/movies';
+import { imageBaseUrl } from '../utils/config';
 import theme from '../utils/theme';
 type Props = NativeStackScreenProps<RootStackParamList, 'MovieDetailScreen'>;
 
-export default function MovieDetailScreen({ navigation }: Props) {
-  const dataCrew = [
-    {
-      name: 'Robbie Maggot',
-    },
-    {
-      name: 'Robert Downey Jr',
-    },
-    { name: 'Chris Hemsworth' },
-    { name: 'Josh Thanos' },
-    { name: 'TomHolland' },
-  ];
+export default function MovieDetailScreen({ navigation, route }: Props) {
+  const query = useQuery({
+    queryFn: () => getMovieDetail(route.params.movieId),
+    queryKey: ['movie-detail', route.params.movieId],
+  });
+
   return (
     <>
       <Moleculs.ContainerScreen barStyle="light-content">
-        <ImageBackground source={images.poster} style={styles.image}>
+        <ImageBackground
+          source={
+            query.data !== undefined
+              ? { uri: `${imageBaseUrl}w780${query.data.backdrop_path}` }
+              : images.poster
+          }
+          style={styles.image}>
           <Atoms.HeaderPage
             onPress={() => navigation.goBack()}
             isLight={true}
@@ -44,40 +40,21 @@ export default function MovieDetailScreen({ navigation }: Props) {
         </ImageBackground>
 
         <View style={styles.wrapperDetail}>
-          <Text style={styles.title}>Avengers: Infinity Wars</Text>
-          <Text style={styles.genre}>Action – English</Text>
+          <Text style={styles.title}>{query.data?.title ?? '-'}</Text>
+          <Text style={styles.genre}>
+            {query.data?.genres.map(item => item.name).join(', ')} –{' '}
+            {query.data?.spoken_languages.map(item => item.name).join(', ')}
+          </Text>
           <Atoms.RatingStart
-            voteAverage={8}
+            voteAverage={query.data?.vote_average ?? 0}
             starSize={0}
             color={theme.greyColor3}
           />
         </View>
-        <View style={styles.wrapperCastAndCrew}>
-          <Atoms.Typhograpy.TitleCard title="Cast & Crew" />
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={dataCrew}
-            renderItem={({ item, index }) => {
-              return (
-                <Atoms.Card.CardCrew
-                  name={item.name}
-                  isFirst={index === 0}
-                  isLast={index + 1 === dataCrew.length}
-                />
-              );
-            }}
-          />
-        </View>
+        <Organism.Cast movieId={route.params.movieId} />
         <View style={styles.wrapperStoryLine}>
           <Atoms.Typhograpy.TitleCard title="Storyline" />
-          <Text style={styles.storyLine}>
-            The near future, a time when both hope and hard ships drive humanity
-            to look to the stars and beyond while a mysterious. Nick Fury is
-            compelled to launch the Avengers Initiative when Loki poses a threat
-            to planet Earth. His squad of superheroes put their minds together
-            to accomplish the task.
-          </Text>
+          <Text style={styles.storyLine}>{query.data?.overview ?? ''}</Text>
         </View>
         <View style={styles.wrapperContinue}>
           <Atoms.Button.RectButton

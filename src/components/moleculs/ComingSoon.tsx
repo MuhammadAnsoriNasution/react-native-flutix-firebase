@@ -21,7 +21,8 @@ export default function ComingSoon({ navigation }: Props) {
     queryFn: getMovies,
     queryKey: ['movies'],
   });
-  const movies: MovieTypes[] = query.data?.results ?? [];
+  const movies: MovieTypes[] =
+    query.data?.results.filter((item, index) => index >= 10) ?? [];
 
   return (
     <View style={[styles.wrapperPlaying, { marginBottom: 30, marginTop: 0 }]}>
@@ -33,7 +34,11 @@ export default function ComingSoon({ navigation }: Props) {
         renderItem={({ item, index }) => {
           return (
             <Atoms.Card.CardComingSoon
-              onPress={() => navigation.navigate('MovieDetailScreen')}
+              onPress={() =>
+                navigation.navigate('MovieDetailScreen', {
+                  movieId: item.id.toString(),
+                })
+              }
               movie={item}
               isFirst={index === 0}
               isLast={index === movies.length - 1}

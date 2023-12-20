@@ -14,6 +14,7 @@ import { HomeTabScreenProps } from '../routes/types';
 import { fUploadFile } from '../services/firebase';
 import useUserStore from '../store/userStore';
 import theme from '../utils/theme';
+import { formatterCurrency } from '../utils/currency';
 
 type Props = HomeTabScreenProps<'MovieScreen'>;
 
@@ -48,7 +49,9 @@ export default function MovieScreen({ navigation }: Props) {
           </TouchableOpacity>
           <View style={styles.wrapperUserInfo}>
             <Text style={styles.name}>{profile.fullName}</Text>
-            <Text style={styles.totalAmount}>{profile.balance}</Text>
+            <Text style={styles.totalAmount}>
+              {formatterCurrency({ nominal: parseFloat(profile.balance) })}
+            </Text>
           </View>
         </View>
         {/* Now Playing */}

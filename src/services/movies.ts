@@ -1,4 +1,5 @@
-import { MovieTypes } from '../types/movie';
+import { CreditTypes } from '../types/credit';
+import { MovieDetailType, MovieTypes } from '../types/movie';
 import axiosInstance from '../utils/axiosInstance';
 
 export async function getMovies() {
@@ -15,11 +16,13 @@ export async function getMovies() {
 }
 
 export async function getMovieDetail(movieId: string) {
-  return await axiosInstance.get(`/movie/${movieId}`).then(ress => ress.data);
+  return await axiosInstance
+    .get<MovieDetailType>(`/movie/${movieId}`)
+    .then(ress => ress.data);
 }
 
 export async function getCredit(movieId: string) {
   return await axiosInstance
-    .get(`/movie/${movieId}/credits`)
+    .get<CreditTypes>(`/movie/${movieId}/credits`)
     .then(ress => ress.data);
 }

@@ -5,7 +5,7 @@ export const initialProfile: StateUserStore['profile'] = {
   fullName: '',
   email: '',
   avatarPath: '',
-  balance: '',
+  balance: '500000',
   favoriteGenre: [],
   language: '',
   password: '',

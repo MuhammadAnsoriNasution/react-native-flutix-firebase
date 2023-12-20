@@ -1,21 +1,32 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
-import * as images from '../../../assets/images';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { CastTypes } from '../../../types/credit';
+import { imageBaseUrl } from '../../../utils/config';
 import theme from '../../../utils/theme';
+import * as images from '../../../assets/images';
 interface Props {
   isFirst: boolean;
   isLast: boolean;
-  name: string;
+  cast: CastTypes;
 }
-export default function CardCrew({ isFirst, isLast, name }: Props) {
+export default function CardCrew({ isFirst, isLast, cast }: Props) {
   return (
     <View
       style={[
         styles.container,
         { marginLeft: isFirst ? 24 : 16, marginRight: isLast ? 24 : 0 },
       ]}>
-      <Image source={images.droppath} style={styles.image} />
-      <Text style={styles.name}>{name}</Text>
+      <Image
+        source={
+          cast.profile_path === undefined ||
+          cast.profile_path === null ||
+          cast.profile_path === ''
+            ? images.user_pic
+            : { uri: `${imageBaseUrl}w185${cast.profile_path ?? ''}` }
+        }
+        style={styles.image}
+      />
+      <Text style={styles.name}>{cast.name}</Text>
     </View>
   );
 }
