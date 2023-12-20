@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { Atoms } from '../..';
 import { getCredit } from '../../../services/movies';
 import theme from '../../../utils/theme';
@@ -17,20 +17,24 @@ export default function Cast({ movieId }: Props) {
   return (
     <View style={styles.wrapperCastAndCrew}>
       <Atoms.Typhograpy.TitleCard title="Cast & Crew" />
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={dataCrew}
-        renderItem={({ item, index }) => {
-          return (
-            <Atoms.Card.CardCrew
-              cast={item}
-              isFirst={index === 0}
-              isLast={index + 1 === dataCrew.length}
-            />
-          );
-        }}
-      />
+      {queryCredit.isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={dataCrew}
+          renderItem={({ item, index }) => {
+            return (
+              <Atoms.Card.CardCrew
+                cast={item}
+                isFirst={index === 0}
+                isLast={index + 1 === dataCrew.length}
+              />
+            );
+          }}
+        />
+      )}
     </View>
   );
 }

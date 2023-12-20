@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import * as images from '../assets/images';
-import { Atoms, Moleculs } from '../components';
+import { Atoms, Moleculs, Organism } from '../components';
 import { HomeTabScreenProps } from '../routes/types';
 import { fUploadFile } from '../services/firebase';
 import useUserStore from '../store/userStore';
@@ -55,7 +55,7 @@ export default function MovieScreen({ navigation }: Props) {
           </View>
         </View>
         {/* Now Playing */}
-        <Moleculs.NowPlaying navigation={navigation} />
+        <Organism.NowPlaying navigation={navigation} />
 
         {/* Genre */}
         <View style={styles.wrapperGenre}>
@@ -74,7 +74,7 @@ export default function MovieScreen({ navigation }: Props) {
         </View>
 
         {/* Coming Soon */}
-        <Moleculs.ComingSoon navigation={navigation} />
+        <Organism.ComingSoon navigation={navigation} />
 
         {/* Coming Soon */}
         <View

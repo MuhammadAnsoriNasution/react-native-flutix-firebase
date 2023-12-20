@@ -1,13 +1,15 @@
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import { Atoms } from '..';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { HomeTabParamList, RootStackParamList } from '../../routes/types';
+
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useQuery } from '@tanstack/react-query';
-import { getMovies } from '../../services/movies';
-import { MovieTypes } from '../../types/movie';
+import { HomeTabParamList, RootStackParamList } from '../../../routes/types';
+import { getMovies } from '../../../services/movies';
+import { MovieTypes } from '../../../types/movie';
+import { Atoms } from '../..';
 
 type Props = {
   navigation: CompositeNavigationProp<
@@ -27,25 +29,29 @@ export default function NowPlaying({ navigation }: Props) {
   return (
     <View style={styles.wrapperPlaying}>
       <Atoms.Typhograpy.TitleCard title="Now Playing" />
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        data={movies}
-        renderItem={({ item, index }) => {
-          return (
-            <Atoms.Card.CardMovie
-              onPress={() =>
-                navigation.navigate('MovieDetailScreen', {
-                  movieId: item.id.toString(),
-                })
-              }
-              movie={item}
-              isFirst={index === 0}
-              isLast={index === movies.length - 1}
-            />
-          );
-        }}
-      />
+      {query.isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          data={movies}
+          renderItem={({ item, index }) => {
+            return (
+              <Atoms.Card.CardMovie
+                onPress={() =>
+                  navigation.navigate('MovieDetailScreen', {
+                    movieId: item.id.toString(),
+                  })
+                }
+                movie={item}
+                isFirst={index === 0}
+                isLast={index === movies.length - 1}
+              />
+            );
+          }}
+        />
+      )}
     </View>
   );
 }
