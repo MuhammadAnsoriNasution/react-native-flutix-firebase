@@ -1,13 +1,21 @@
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import theme from '../../utils/theme';
 interface Props {
   title?: string;
   onPress: () => void;
   isLight?: boolean;
-  posterPath?: number;
+  posterPath?: string;
 }
+const width = Dimensions.get('screen').width;
 export default function HeaderPage({
   title,
   onPress,
@@ -29,15 +37,19 @@ export default function HeaderPage({
           { justifyContent: posterPath === undefined ? 'center' : 'flex-end' },
         ]}>
         <Text
+          numberOfLines={2}
           style={[
             styles.title,
             isLight ? styles.textLight : styles.textDark,
-            { textAlign: posterPath === undefined ? 'center' : 'right' },
+            {
+              textAlign: posterPath === undefined ? 'center' : 'right',
+              maxWidth: width - theme.defaultMargin - 200,
+            },
           ]}>
           {title}
         </Text>
         {posterPath !== undefined && (
-          <Image source={posterPath} style={styles.poster} />
+          <Image source={{ uri: posterPath }} style={styles.poster} />
         )}
       </View>
     </View>

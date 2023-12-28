@@ -4,35 +4,38 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
+import useBookStore from '../store/bookStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SelectScheduleScreen'>;
-const data = [
-  { id: 1, value: 22 },
-  { id: 2, value: 22 },
-  { id: 3, value: 22 },
-  { id: 4, value: 22 },
-  { id: 5, value: 22 },
-  { id: 6, value: 22 },
-  { id: 7, value: 22 },
-  { id: 8, value: 22 },
-  { id: 9, value: 22 },
-  { id: 10, value: 22 },
-];
+const data = Array.from({ length: 7 }, (value, index) => index).map(item => {
+  const date = new Date();
+  date.setDate(date.getDate() + item);
+  return {
+    id: date,
+    label: date,
+  };
+});
+
+const jam = Array.from({ length: 8 }, (value, index) => index).map(
+  (item, index) => 10 + index * 2,
+);
+
 const listCinema = [
   {
     title: 'Paris Van Java',
-    data: data,
+    data: jam,
   },
   {
     title: 'Cihampelas Walk',
-    data: data,
+    data: jam,
   },
   {
     title: 'Bandung Electronic Center',
-    data: data,
+    data: jam,
   },
 ];
 export default function SelectScheduleScreen({ navigation }: Props) {
+  const { schedule, updateSchedule } = useBookStore(state => state);
   return (
     <Moleculs.ContainerScreen
       bgStatusBar={theme.whiteColor}
@@ -41,12 +44,24 @@ export default function SelectScheduleScreen({ navigation }: Props) {
       <View style={styles.containerCard}>
         <Atoms.Typhograpy.TitleCard title="Choose Date" />
         <FlatList
+          showsHorizontalScrollIndicator={false}
           horizontal
           data={data}
-          renderItem={({ index }) => {
+          renderItem={({ item, index }) => {
             return (
               <Atoms.Card.CardDate
-                status="disabled"
+                onPress={() =>
+                  updateSchedule({
+                    ...schedule,
+                    date: item.id.getDate().toString(),
+                  })
+                }
+                date={item.label}
+                status={
+                  item.id.getDate().toString() === schedule.date
+                    ? 'selected'
+                    : 'enabled'
+                }
                 isLast={index === data.length - 1}
                 isFirst={index === 0}
               />
@@ -56,15 +71,16 @@ export default function SelectScheduleScreen({ navigation }: Props) {
       </View>
       <Atoms.Gap height={24} />
       <View style={styles.containerCinema}>
-        {listCinema.map(item => {
+        {listCinema.map(cinema => {
           return (
-            <View style={styles.containerCard} key={item.title}>
+            <View style={styles.containerCard} key={cinema.title}>
               <Atoms.Typhograpy.TitleCard title="Paris Van Java" />
               <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal
-                data={data}
-                renderItem={({ index }) => {
+                data={cinema.data}
+                renderItem={({ index, item }) => {
+                  const date = new Date();
                   return (
                     <View
                       style={{
@@ -73,8 +89,22 @@ export default function SelectScheduleScreen({ navigation }: Props) {
                           index === data.length - 1 ? theme.defaultMargin : 0,
                       }}>
                       <Atoms.Card.SelecttableCard
-                        label="12 : 20"
-                        status="disabled"
+                        onPress={() =>
+                          updateSchedule({
+                            ...schedule,
+                            jam: item.toString(),
+                            cinema: cinema.title,
+                          })
+                        }
+                        label={`${item < 10 ? `0${item}` : item}:00`}
+                        status={
+                          item === parseInt(schedule.jam) &&
+                          cinema.title === schedule.cinema
+                            ? 'selected'
+                            : item > date.getHours()
+                            ? 'enabled'
+                            : 'disabled'
+                        }
                         height={50}
                         width={90}
                       />
@@ -88,6 +118,7 @@ export default function SelectScheduleScreen({ navigation }: Props) {
       </View>
       <View style={styles.wrapperBtnNext}>
         <Atoms.Button.ButtonRoundedIcon
+          disabled={schedule.cinema === '' || schedule.date === ''}
           onPress={() => navigation.navigate('SelectSeatScreen')}
           name="arrowright"
         />

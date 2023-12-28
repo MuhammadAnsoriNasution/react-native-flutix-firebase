@@ -9,9 +9,11 @@ import { RootStackParamList } from '../routes/types';
 import { getMovieDetail } from '../services/movies';
 import { imageBaseUrl } from '../utils/config';
 import theme from '../utils/theme';
+import useBookStore from '../store/bookStore';
 type Props = NativeStackScreenProps<RootStackParamList, 'MovieDetailScreen'>;
 
 export default function MovieDetailScreen({ navigation, route }: Props) {
+  const updateMovieStore = useBookStore(state => state.updateMovie);
   const query = useQuery({
     queryFn: () => getMovieDetail(route.params.movieId),
     queryKey: ['movie-detail', route.params.movieId],
@@ -59,7 +61,10 @@ export default function MovieDetailScreen({ navigation, route }: Props) {
         <View style={styles.wrapperContinue}>
           <Atoms.Button.RectButton
             label="Continue to Book"
-            onPress={() => navigation.navigate('SelectScheduleScreen')}
+            onPress={() => {
+              updateMovieStore(query.data);
+              navigation.navigate('SelectScheduleScreen');
+            }}
           />
         </View>
       </Moleculs.ContainerScreen>

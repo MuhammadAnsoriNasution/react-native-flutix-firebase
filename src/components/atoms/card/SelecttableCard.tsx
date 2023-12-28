@@ -16,12 +16,14 @@ interface Props extends TouchableOpacityProps {
   label: string;
   width: number;
   height: number;
+  onPress: () => void;
 }
 export default function SelecttableCard({
   status,
   width = widthDefault,
   height = 60,
   label,
+  onPress,
   ...props
 }: Partial<Props>) {
   return (
@@ -38,6 +40,7 @@ export default function SelecttableCard({
           height: height,
         },
       ]}
+      onPress={status !== 'disabled' ? onPress : undefined}
       {...props}>
       <Text
         style={[

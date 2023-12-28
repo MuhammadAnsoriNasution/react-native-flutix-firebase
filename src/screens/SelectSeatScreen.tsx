@@ -5,31 +5,54 @@ import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 import * as images from '../assets/images';
+import useBookStore from '../store/bookStore';
+import { imageBaseUrl } from '../utils/config';
 type Props = NativeStackScreenProps<RootStackParamList, 'SelectSeatScreen'>;
 
 export default function SelectSeatScreen({ navigation }: Props) {
   const numberOfSeats = [3, 5, 5, 5, 5];
+  const { updateSeat, seat: seatStore, movie } = useBookStore(state => state);
+
+  const handleSelect = (seatLabel: string) => {
+    const check = seatStore.find(item => item === seatLabel);
+    updateSeat(
+      check !== undefined
+        ? seatStore.filter(item => item !== seatLabel)
+        : seatStore.concat([seatLabel]),
+    );
+  };
 
   return (
     <Moleculs.ContainerScreen
-      posterPath={images.poster}
+      posterPath={`${imageBaseUrl}w500${movie?.poster_path}`}
       bgStatusBar={theme.whiteColor}
-      titleHeadePage={'Avengers\nInfinity War'}
+      titleHeadePage={movie?.title}
       goBack={() => navigation.goBack()}>
       <Atoms.Gap height={33} />
       <View style={styles.container}>
         <Image source={images.screen} style={styles.screen} />
         <View style={styles.containerSeat}>
-          {numberOfSeats.map((seat, index) => {
+          {numberOfSeats.map((seat, indexSeat) => {
             return (
-              <View style={styles.containerRowSheat}>
-                {Array.from(Array(seat).keys()).map(item => {
+              <View style={styles.containerRowSheat} key={indexSeat}>
+                {Array.from(Array(seat).keys()).map((item, index) => {
+                  const seatLabel = `${String.fromCharCode(indexSeat + 65)} ${
+                    item + 1
+                  }`;
                   return (
                     <Atoms.Card.SelecttableCard
+                      onPress={() => handleSelect(seatLabel)}
                       width={40}
                       height={40}
-                      key={`${String.fromCharCode(index + 65)} ${item + 1}`}
-                      label={`${String.fromCharCode(index + 65)} ${item + 1}`}
+                      status={
+                        seatStore.includes(seatLabel)
+                          ? 'selected'
+                          : index === 0
+                          ? 'disabled'
+                          : 'enabled'
+                      }
+                      key={seatLabel}
+                      label={seatLabel}
                     />
                   );
                 })}
@@ -45,6 +68,7 @@ export default function SelectSeatScreen({ navigation }: Props) {
         <View style={styles.containerbtnNext}>
           <Atoms.Button.ButtonRoundedIcon
             name="arrowright"
+            disabled={seatStore.length < 1}
             onPress={() => navigation.navigate('CheckoutScreen')}
           />
         </View>

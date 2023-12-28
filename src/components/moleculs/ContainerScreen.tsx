@@ -11,7 +11,7 @@ interface Props {
   bgStatusBar: string;
   barStyle: 'light-content' | 'dark-content';
   bgBody?: string;
-  posterPath?: number;
+  posterPath?: string;
   fab?: ReactNode;
 }
 export default function ContainerScreen({

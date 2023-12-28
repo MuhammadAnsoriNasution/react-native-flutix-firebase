@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
 import theme from '../../utils/theme';
 
@@ -30,7 +30,11 @@ export default function ItemOrder({
         style={[
           styles.value,
           valueSemiBold === true ? styles.fontSemiBold : {},
-          { color: colorValue !== undefined ? colorValue : theme.blackColor },
+          {
+            color: colorValue !== undefined ? colorValue : theme.blackColor,
+            maxWidth: Dimensions.get('screen').width - 160,
+            textAlign: 'right',
+          },
         ]}>
         {value}
       </Text>

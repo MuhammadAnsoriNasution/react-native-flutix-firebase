@@ -1,24 +1,42 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
-import React from 'react';
-import { RootStackParamList } from '../routes/types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { Atoms, Moleculs } from '../components';
+import { RootStackParamList } from '../routes/types';
+import useBookStore from '../store/bookStore';
+import { imageBaseUrl } from '../utils/config';
+import { daysName } from '../utils/formatterdate';
 import theme from '../utils/theme';
-import * as images from '../assets/images';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CheckoutScreen'>;
 
 export default function CheckoutScreen({ navigation }: Props) {
+  const { seat: seatStore, movie, schedule } = useBookStore(state => state);
+  const dateTime = new Date();
+  dateTime.setDate(parseInt(schedule.date));
+  const valueDateTime = `${daysName[dateTime.getDay()]
+    .split('')
+    .splice(0, 3)
+    .join('')} ${schedule.date}, ${schedule.jam}:00`;
   return (
     <Moleculs.ContainerScreen
       bgStatusBar={theme.whiteColor}
-      titleHeadePage={'Checkout\nMovie'}>
+      titleHeadePage={'Checkout\nMovie'}
+      goBack={() => navigation.goBack()}>
       <View style={styles.container}>
         <View style={styles.containerDetailMovie}>
-          <Image source={images.poster} style={styles.poster} />
+          <Image
+            source={{ uri: `${imageBaseUrl}w500${movie?.poster_path}` }}
+            style={styles.poster}
+          />
           <View style={styles.detailMovie}>
-            <Text style={styles.title}>Avengers: Infinity Wars</Text>
-            <Text style={styles.genre}>Action – English</Text>
+            <Text style={styles.title} numberOfLines={1}>
+              {movie?.title}
+            </Text>
+            <Text style={styles.genre}>
+              {movie?.genres.map(gen => gen.name).join(', ')} –{' '}
+              {movie?.original_language}
+            </Text>
             <Atoms.RatingStart voteAverage={7} color={theme.greyColor3} />
           </View>
         </View>
@@ -27,11 +45,11 @@ export default function CheckoutScreen({ navigation }: Props) {
         <Atoms.Gap height={22} />
         <View style={styles.containerOrder}>
           <Atoms.ItemOrder label="ID Order" value="22081996" />
-          <Atoms.ItemOrder label="Cinema" value="Paris Van Java" />
-          <Atoms.ItemOrder label="Date & Time" value="Sat 21, 12:20" />
-          <Atoms.ItemOrder label="Seat Number" value="B3, B4" />
+          <Atoms.ItemOrder label="Cinema" value={schedule.cinema} />
+          <Atoms.ItemOrder label="Date & Time" value={valueDateTime} />
+          <Atoms.ItemOrder label="Seat Number" value={seatStore.join(', ')} />
           <Atoms.ItemOrder label="Price" value="Rp 12.500.000 x 2" />
-          <Atoms.ItemOrder label="Fee" value="Rp 290.000 x 2" />
+          <Atoms.ItemOrder label="Fee" value="Rp 290.000" />
           <Atoms.ItemOrder
             label="Total"
             value="Rp 25.106.000"
@@ -78,6 +96,7 @@ const styles = StyleSheet.create({
   },
   detailMovie: {
     display: 'flex',
+    flex: 1,
     flexDirection: 'column',
     gap: 6,
   },

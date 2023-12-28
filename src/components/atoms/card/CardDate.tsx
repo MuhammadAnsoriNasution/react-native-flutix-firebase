@@ -1,15 +1,25 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import theme from '../../../utils/theme';
+import { daysName } from '../../../utils/formatterdate';
 
 interface Props {
   status: 'enabled' | 'disabled' | 'selected';
   isFirst: boolean;
   isLast: boolean;
+  date: Date;
+  onPress?: () => void;
 }
-export default function CardDate({ status, isFirst, isLast }: Props) {
+export default function CardDate({
+  status,
+  isFirst,
+  isLast,
+  date,
+  onPress,
+}: Props) {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         styles.container,
         status === 'disabled'
@@ -24,14 +34,14 @@ export default function CardDate({ status, isFirst, isLast }: Props) {
           styles.text,
           status === 'disabled' ? styles.textDisabled : styles.textSelected,
         ]}>
-        SUN
+        {daysName[date.getDay()].split('').splice(0, 3)}
       </Text>
       <Text
         style={[
           styles.text,
           status === 'disabled' ? styles.textDisabled : styles.textSelected,
         ]}>
-        22
+        {date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}
       </Text>
     </TouchableOpacity>
   );
