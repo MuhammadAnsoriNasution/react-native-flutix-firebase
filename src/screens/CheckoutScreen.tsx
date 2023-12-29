@@ -1,14 +1,14 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { BackHandler, Image, StyleSheet, Text, View } from 'react-native';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
 import useBookStore from '../store/bookStore';
+import useUserStore from '../store/userStore';
 import { imageBaseUrl } from '../utils/config';
+import { formatterCurrency } from '../utils/currency';
 import { daysName } from '../utils/formatterdate';
 import theme from '../utils/theme';
-import { formatterCurrency } from '../utils/currency';
-import useUserStore from '../store/userStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CheckoutScreen'>;
 
@@ -23,6 +23,9 @@ export default function CheckoutScreen({ navigation }: Props) {
     .join('')} ${schedule.date}, ${schedule.jam}:00`;
   const total = 30000 * seatStore.length + 1500 * seatStore.length;
 
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => false);
+  }, []);
   return (
     <Moleculs.ContainerScreen
       bgStatusBar={theme.whiteColor}
@@ -50,7 +53,7 @@ export default function CheckoutScreen({ navigation }: Props) {
         <View style={styles.lineHorizontal} />
         <Atoms.Gap height={22} />
         <View style={styles.containerOrder}>
-          <Atoms.ItemOrder label="ID Order" value="22081996" />
+          <Atoms.ItemOrder label="ID Order" value={schedule.bookingCode} />
           <Atoms.ItemOrder label="Cinema" value={schedule.cinema} />
           <Atoms.ItemOrder label="Date & Time" value={valueDateTime} />
           <Atoms.ItemOrder label="Seat Number" value={seatStore.join(', ')} />

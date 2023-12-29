@@ -30,17 +30,11 @@ export default function CardDate({
         { marginLeft: isFirst ? 24 : 16, marginRight: isLast ? 24 : 0 },
       ]}>
       <Text
-        style={[
-          styles.text,
-          status === 'disabled' ? styles.textDisabled : styles.textSelected,
-        ]}>
+        style={[styles.text, status === 'disabled' ? styles.textDisabled : {}]}>
         {daysName[date.getDay()].split('').splice(0, 3)}
       </Text>
       <Text
-        style={[
-          styles.text,
-          status === 'disabled' ? styles.textDisabled : styles.textSelected,
-        ]}>
+        style={[styles.text, status === 'disabled' ? styles.textDisabled : {}]}>
         {date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}
       </Text>
     </TouchableOpacity>
@@ -62,11 +56,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     lineHeight: 20,
+    ...theme.styles.yellowNumberFont,
+    color: theme.blackColor,
   },
-  textSelected: {
-    ...theme.styles.blackTextFont,
-  },
-  textDisabled: { ...theme.styles.blackTextFont, color: theme.greyColor2 },
+  textDisabled: { color: theme.greyColor2 },
   isSelected: {
     backgroundColor: theme.accentColor2,
   },

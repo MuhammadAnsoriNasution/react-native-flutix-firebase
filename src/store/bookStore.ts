@@ -8,6 +8,7 @@ export type StateBookStore = {
     date: string;
     jam: string;
     cinema: string;
+    bookingCode: string;
   };
   seat: string[];
 };
@@ -25,6 +26,7 @@ const useBookStore = createWithEqualityFn<StateBookStore & Action>(
       date: '',
       jam: '',
       cinema: '',
+      bookingCode: '',
     },
     updateMovie: movie => {
       set(prev => ({ ...prev, movie }));

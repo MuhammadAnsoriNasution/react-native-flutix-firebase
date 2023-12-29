@@ -1,10 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 import useBookStore from '../store/bookStore';
+import { generateRandomString } from '../utils/randomString';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SelectScheduleScreen'>;
 const data = Array.from({ length: 7 }, (value, index) => index).map(item => {
@@ -36,6 +37,11 @@ const listCinema = [
 ];
 export default function SelectScheduleScreen({ navigation }: Props) {
   const { schedule, updateSchedule } = useBookStore(state => state);
+
+  useEffect(() => {
+    updateSchedule({ ...schedule, bookingCode: generateRandomString(12) });
+  }, []);
+
   return (
     <Moleculs.ContainerScreen
       bgStatusBar={theme.whiteColor}
@@ -87,7 +93,7 @@ export default function SelectScheduleScreen({ navigation }: Props) {
                       style={{
                         marginLeft: index === 0 ? theme.defaultMargin : 16,
                         marginRight:
-                          index === data.length - 1 ? theme.defaultMargin : 0,
+                          index === data.length ? theme.defaultMargin : 0,
                       }}>
                       <Atoms.Card.SelecttableCard
                         onPress={() =>
