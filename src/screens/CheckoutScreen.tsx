@@ -90,7 +90,9 @@ export default function CheckoutScreen({ navigation }: Props) {
         <Atoms.Gap height={36} />
         <View style={styles.containerBtn}>
           <Atoms.Button.RectButton
-            background={parseInt(profile.balance) >= total ? 'green' : 'red'}
+            background={
+              parseInt(profile.balance) >= total ? 'green' : undefined
+            }
             label={
               parseInt(profile.balance) >= total
                 ? 'Checkout Now'
