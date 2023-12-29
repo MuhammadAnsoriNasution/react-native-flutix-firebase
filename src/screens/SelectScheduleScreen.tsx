@@ -39,6 +39,7 @@ export default function SelectScheduleScreen({ navigation }: Props) {
   return (
     <Moleculs.ContainerScreen
       bgStatusBar={theme.whiteColor}
+      barStyle="dark-content"
       titleHeadePage=""
       goBack={() => navigation.goBack()}>
       <View style={styles.containerCard}>

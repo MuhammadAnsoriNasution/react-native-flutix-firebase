@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   title: {
     ...theme.styles.blackTextFont,
     fontSize: 24,
+    marginHorizontal: theme.defaultMargin,
   },
   genre: {
     ...theme.styles.greyTextFont,

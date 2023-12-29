@@ -26,6 +26,7 @@ export default function SelectSeatScreen({ navigation }: Props) {
     <Moleculs.ContainerScreen
       posterPath={`${imageBaseUrl}w500${movie?.poster_path}`}
       bgStatusBar={theme.whiteColor}
+      barStyle="dark-content"
       titleHeadePage={movie?.title}
       goBack={() => navigation.goBack()}>
       <Atoms.Gap height={33} />
@@ -36,7 +37,7 @@ export default function SelectSeatScreen({ navigation }: Props) {
             return (
               <View style={styles.containerRowSheat} key={indexSeat}>
                 {Array.from(Array(seat).keys()).map((item, index) => {
-                  const seatLabel = `${String.fromCharCode(indexSeat + 65)} ${
+                  const seatLabel = `${String.fromCharCode(indexSeat + 65)}${
                     item + 1
                   }`;
                   return (

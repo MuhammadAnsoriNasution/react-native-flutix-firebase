@@ -7,21 +7,27 @@ import useBookStore from '../store/bookStore';
 import { imageBaseUrl } from '../utils/config';
 import { daysName } from '../utils/formatterdate';
 import theme from '../utils/theme';
+import { formatterCurrency } from '../utils/currency';
+import useUserStore from '../store/userStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CheckoutScreen'>;
 
 export default function CheckoutScreen({ navigation }: Props) {
   const { seat: seatStore, movie, schedule } = useBookStore(state => state);
+  const { profile } = useUserStore(state => state);
   const dateTime = new Date();
   dateTime.setDate(parseInt(schedule.date));
   const valueDateTime = `${daysName[dateTime.getDay()]
     .split('')
     .splice(0, 3)
     .join('')} ${schedule.date}, ${schedule.jam}:00`;
+  const total = 30000 * seatStore.length + 1500 * seatStore.length;
+
   return (
     <Moleculs.ContainerScreen
       bgStatusBar={theme.whiteColor}
       titleHeadePage={'Checkout\nMovie'}
+      barStyle="dark-content"
       goBack={() => navigation.goBack()}>
       <View style={styles.container}>
         <View style={styles.containerDetailMovie}>
@@ -48,11 +54,17 @@ export default function CheckoutScreen({ navigation }: Props) {
           <Atoms.ItemOrder label="Cinema" value={schedule.cinema} />
           <Atoms.ItemOrder label="Date & Time" value={valueDateTime} />
           <Atoms.ItemOrder label="Seat Number" value={seatStore.join(', ')} />
-          <Atoms.ItemOrder label="Price" value="Rp 12.500.000 x 2" />
-          <Atoms.ItemOrder label="Fee" value="Rp 290.000" />
+          <Atoms.ItemOrder
+            label="Price"
+            value={`Rp. 30.000 X ${seatStore.length}`}
+          />
+          <Atoms.ItemOrder
+            label="Fee"
+            value={`Rp 1.500 X ${seatStore.length}`}
+          />
           <Atoms.ItemOrder
             label="Total"
-            value="Rp 25.106.000"
+            value={formatterCurrency({ nominal: total, prefix: 'Rp. ' })}
             valueSemiBold={true}
           />
         </View>
@@ -61,15 +73,26 @@ export default function CheckoutScreen({ navigation }: Props) {
         <Atoms.Gap height={20} />
         <Atoms.ItemOrder
           label="Your Wallet"
-          value="Rp 25.106.000"
+          value={formatterCurrency({
+            nominal: parseInt(profile.balance),
+            prefix: 'Rp. ',
+          })}
           valueSemiBold={true}
-          colorValue={theme.greenColor}
+          colorValue={
+            parseInt(profile.balance) >= total
+              ? theme.greenColor
+              : theme.redColor
+          }
         />
         <Atoms.Gap height={36} />
         <View style={styles.containerBtn}>
           <Atoms.Button.RectButton
-            background="green"
-            label="Checkout Now"
+            background={parseInt(profile.balance) >= total ? 'green' : 'red'}
+            label={
+              parseInt(profile.balance) >= total
+                ? 'Checkout Now'
+                : 'Top Up My Wallet'
+            }
             onPress={() => navigation.navigate('SuccessScreen')}
           />
         </View>

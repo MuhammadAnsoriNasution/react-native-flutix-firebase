@@ -5,7 +5,7 @@ import theme from '../../../utils/theme';
 interface Props {
   label: string;
   onPress: () => void;
-  background?: 'green';
+  background?: 'green' | 'red';
   disabled?: boolean;
 }
 export default function RectButton({
@@ -22,8 +22,10 @@ export default function RectButton({
           backgroundColor:
             disabled === true
               ? theme.greyColor
-              : background !== undefined
+              : background === 'green'
               ? theme.greenColor
+              : background === 'red'
+              ? theme.redColor
               : theme.mainColor,
         },
       ]}
