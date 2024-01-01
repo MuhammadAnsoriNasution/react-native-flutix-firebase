@@ -1,8 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import { BackHandler, Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
+import { UpdateProfileService } from '../services/firebase';
+import { SaveTicketService } from '../services/ticket';
+import { SaveTransactionService } from '../services/transaction';
 import useBookStore from '../store/bookStore';
 import useUserStore from '../store/userStore';
 import { imageBaseUrl } from '../utils/config';
@@ -13,19 +16,62 @@ import theme from '../utils/theme';
 type Props = NativeStackScreenProps<RootStackParamList, 'CheckoutScreen'>;
 
 export default function CheckoutScreen({ navigation }: Props) {
-  const { seat: seatStore, movie, schedule } = useBookStore(state => state);
+  const {
+    seat: seatStore,
+    movie,
+    reset,
+    schedule,
+    updateSchedule,
+  } = useBookStore(state => state);
   const { profile } = useUserStore(state => state);
-  const dateTime = new Date();
-  dateTime.setDate(parseInt(schedule.date));
+  const dateTime = new Date(schedule.date);
+  dateTime.setHours(parseInt(schedule.jam));
+
   const valueDateTime = `${daysName[dateTime.getDay()]
-    .split('')
+    ?.split('')
     .splice(0, 3)
-    .join('')} ${schedule.date}, ${schedule.jam}:00`;
+    .join('')} ${dateTime.getDate()}, ${schedule.jam}:00`;
   const total = 30000 * seatStore.length + 1500 * seatStore.length;
 
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => false);
-  }, []);
+    if (schedule.userId !== '') {
+      Promise.all([
+        UpdateProfileService({
+          profile: {
+            ...profile,
+            balance: `${parseInt(profile.balance) - schedule.total} `,
+          },
+        }),
+
+        SaveTicketService({
+          ticket: {
+            movieID: movie?.id.toString() ?? '',
+            userId: profile.id,
+            theaterName: schedule.cinema,
+            time: dateTime.getTime().toString(),
+            bookingCode: schedule.bookingCode,
+            seats: seatStore.join(', '),
+            name: profile.fullName,
+            totalPrice: schedule.total.toString(),
+          },
+        }),
+
+        SaveTransactionService({
+          booking: {
+            userID: profile.id,
+            title: movie?.title ?? '',
+            subTitle: schedule.cinema,
+            amount: `-${schedule.total}`,
+            time: new Date().getTime().toString(),
+            picture: movie?.backdrop_path ?? '',
+          },
+        }),
+      ]).then(() => {
+        reset();
+        navigation.navigate('SuccessScreen');
+      });
+    }
+  }, [schedule.userId]);
   return (
     <Moleculs.ContainerScreen
       bgStatusBar={theme.whiteColor}
@@ -98,7 +144,9 @@ export default function CheckoutScreen({ navigation }: Props) {
                 ? 'Checkout Now'
                 : 'Top Up My Wallet'
             }
-            onPress={() => navigation.navigate('SuccessScreen')}
+            onPress={() => {
+              updateSchedule({ ...schedule, total: total, userId: profile.id });
+            }}
           />
         </View>
       </View>

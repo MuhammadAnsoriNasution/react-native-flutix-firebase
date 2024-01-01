@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { Atoms } from '../..';
-import { getCredit } from '../../../services/movies';
+import { getCreditService } from '../../../services/movies';
 import theme from '../../../utils/theme';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 export default function Cast({ movieId }: Props) {
   const queryCredit = useQuery({
-    queryFn: () => getCredit(movieId),
+    queryFn: () => getCreditService(movieId),
     queryKey: ['movie-detail-credit', movieId],
   });
   const dataCrew = queryCredit.data?.cast ?? [];

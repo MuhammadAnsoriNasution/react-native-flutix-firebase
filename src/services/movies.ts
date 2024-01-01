@@ -15,13 +15,13 @@ export async function getMovies() {
     .then(ress => ress.data);
 }
 
-export async function getMovieDetail(movieId: string) {
+export async function getMovieDetailService(movieId: string) {
   return await axiosInstance
     .get<MovieDetailType>(`/movie/${movieId}`)
     .then(ress => ress.data);
 }
 
-export async function getCredit(movieId: string) {
+export async function getCreditService(movieId: string) {
   return await axiosInstance
     .get<CreditTypes>(`/movie/${movieId}/credits`)
     .then(ress => ress.data);

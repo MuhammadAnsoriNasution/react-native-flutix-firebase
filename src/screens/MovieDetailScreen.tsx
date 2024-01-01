@@ -6,7 +6,7 @@ import * as images from '../assets/images';
 import { Atoms, Moleculs, Organism } from '../components';
 import { useQuery } from '@tanstack/react-query';
 import { RootStackParamList } from '../routes/types';
-import { getMovieDetail } from '../services/movies';
+import { getMovieDetailService } from '../services/movies';
 import { imageBaseUrl } from '../utils/config';
 import theme from '../utils/theme';
 import useBookStore from '../store/bookStore';
@@ -15,7 +15,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'MovieDetailScreen'>;
 export default function MovieDetailScreen({ navigation, route }: Props) {
   const updateMovieStore = useBookStore(state => state.updateMovie);
   const query = useQuery({
-    queryFn: () => getMovieDetail(route.params.movieId),
+    queryFn: () => getMovieDetailService(route.params.movieId),
     queryKey: ['movie-detail', route.params.movieId],
   });
 

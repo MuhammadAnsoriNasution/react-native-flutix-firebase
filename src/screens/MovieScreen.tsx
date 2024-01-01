@@ -11,7 +11,7 @@ import {
 import * as images from '../assets/images';
 import { Atoms, Moleculs, Organism } from '../components';
 import { HomeTabScreenProps } from '../routes/types';
-import { fUploadFile } from '../services/firebase';
+import { UploadFileService } from '../services/firebase';
 import useUserStore from '../store/userStore';
 import theme from '../utils/theme';
 import { formatterCurrency } from '../utils/currency';
@@ -24,7 +24,7 @@ export default function MovieScreen({ navigation }: Props) {
 
   useEffect(() => {
     if (profile.avatarUpload !== '') {
-      fUploadFile({ profile, cbSuccess: () => {}, cbError: () => {} });
+      UploadFileService({ profile });
     }
   }, [profile.avatarUpload]);
 

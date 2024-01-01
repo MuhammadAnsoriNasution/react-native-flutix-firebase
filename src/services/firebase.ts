@@ -4,14 +4,10 @@ import storage from '@react-native-firebase/storage';
 import Toast from 'react-native-toast-message';
 import { StateUserStore } from '../store/userStore';
 
-export async function fUploadFile({
+export async function UploadFileService({
   profile,
-  cbSuccess,
-  cbError,
 }: {
   profile: StateUserStore['profile'];
-  cbSuccess: () => void;
-  cbError: () => void;
 }) {
   const reference = storage().ref(`/images/${profile.email}.png`);
   await reference.putFile(profile.avatarUpload);
@@ -19,17 +15,13 @@ export async function fUploadFile({
     .ref(`/images/${profile.email}.png`)
     .getDownloadURL();
   profile.avatarPath = urDownload;
-  fUpdateProfile({ profile, cbError, cbSuccess });
+  return UpdateProfileService({ profile });
 }
 
-export async function fUpdateProfile({
+export async function UpdateProfileService({
   profile,
-  cbSuccess,
-  cbError,
 }: {
   profile: StateUserStore['profile'];
-  cbSuccess: () => void;
-  cbError: () => void;
 }) {
   firestore()
     .collection('users')
@@ -41,15 +33,12 @@ export async function fUpdateProfile({
       selectedGenres: profile.favoriteGenre.join(','),
       selectedLanguage: profile.language,
       profilePciture: profile.avatarPath,
-    })
-    .then(async () => {
-      cbSuccess();
-    })
-    .catch(() => cbError());
+    });
 }
 
-export const fCreateAccount = ({
+export const CreateAccountService = ({
   profile,
+  cbSuccess,
 }: {
   profile: StateUserStore['profile'];
   cbSuccess: () => void;
@@ -59,10 +48,9 @@ export const fCreateAccount = ({
     .createUserWithEmailAndPassword(profile.email, profile.password)
     .then(async ress => {
       profile.id = ress.user.uid;
-      fUpdateProfile({
+      cbSuccess();
+      UpdateProfileService({
         profile,
-        cbError: () => {},
-        cbSuccess: () => {},
       });
     })
     .catch(error => {

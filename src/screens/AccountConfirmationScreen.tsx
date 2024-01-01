@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Atoms } from '../components';
 import { RootStackParamList } from '../routes/types';
-import { fCreateAccount } from '../services/firebase';
+import { CreateAccountService } from '../services/firebase';
 import useUserStore from '../store/userStore';
 import theme from '../utils/theme';
 
@@ -21,7 +21,7 @@ export default function AccountConfirmationScreen({ navigation }: Props) {
 
   const handleCreateAccount = () => {
     setLoading(true);
-    fCreateAccount({
+    CreateAccountService({
       profile,
       cbSuccess: () => setLoading(false),
       cbError: () => setLoading(false),

@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
-import theme from '../utils/theme';
 import useBookStore from '../store/bookStore';
 import { generateRandomString } from '../utils/randomString';
+import theme from '../utils/theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SelectScheduleScreen'>;
 const data = Array.from({ length: 7 }, (value, index) => index).map(item => {
@@ -60,14 +60,12 @@ export default function SelectScheduleScreen({ navigation }: Props) {
                 onPress={() =>
                   updateSchedule({
                     ...schedule,
-                    date: item.id.getDate().toString(),
+                    date: item.id.toString(),
                   })
                 }
                 date={item.label}
                 status={
-                  item.id.getDate().toString() === schedule.date
-                    ? 'selected'
-                    : 'enabled'
+                  item.id.toString() === schedule.date ? 'selected' : 'enabled'
                 }
                 isLast={index === data.length - 1}
                 isFirst={index === 0}
@@ -108,7 +106,7 @@ export default function SelectScheduleScreen({ navigation }: Props) {
                           item === parseInt(schedule.jam) &&
                           cinema.title === schedule.cinema
                             ? 'selected'
-                            : item > date.getHours()
+                            : item > date.getHours() && schedule.date !== ''
                             ? 'enabled'
                             : 'disabled'
                         }

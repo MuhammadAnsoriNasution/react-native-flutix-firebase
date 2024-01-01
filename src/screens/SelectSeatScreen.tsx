@@ -1,12 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import * as images from '../assets/images';
 import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
-import theme from '../utils/theme';
-import * as images from '../assets/images';
 import useBookStore from '../store/bookStore';
 import { imageBaseUrl } from '../utils/config';
+import theme from '../utils/theme';
 type Props = NativeStackScreenProps<RootStackParamList, 'SelectSeatScreen'>;
 
 export default function SelectSeatScreen({ navigation }: Props) {
@@ -70,7 +70,9 @@ export default function SelectSeatScreen({ navigation }: Props) {
           <Atoms.Button.ButtonRoundedIcon
             name="arrowright"
             disabled={seatStore.length < 1}
-            onPress={() => navigation.navigate('CheckoutScreen')}
+            onPress={() => {
+              navigation.navigate('CheckoutScreen');
+            }}
           />
         </View>
       </View>
