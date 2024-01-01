@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import * as Screens from '../screens';
 import useFirebaseAuthStore from '../store/FirebaseAuth';
-import useUserStore from '../store/userStore';
+import useUserStore, { initialProfile } from '../store/userStore';
 import BottomTabs from './BottomTabs';
 import * as RootNavigation from './RootNavigation';
 import { RootStackParamList } from './types';
@@ -49,7 +49,8 @@ export default function Routes() {
               isAuth: true,
             });
           } else {
-            // updateProfile(initialProfile);
+            handleLogout();
+            updateProfile(initialProfile);
           }
         });
       // Stop listening for updates when no longer required
