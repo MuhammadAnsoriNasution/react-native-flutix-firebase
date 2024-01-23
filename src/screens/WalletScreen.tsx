@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -8,11 +8,26 @@ import { Atoms, Moleculs } from '../components';
 import { RootStackParamList } from '../routes/types';
 import theme from '../utils/theme';
 
-import { transactionWallet } from '../assets/json/data.json';
+import { getTransactionService } from '../services/transaction';
+import useUserStore from '../store/userStore';
+import { TransactionTypes } from '../types/transaction';
+import { formatterCurrency } from '../utils/currency';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'WalletScreen'>;
 
 export default function WalletScreen({ navigation }: Props) {
+  const profile = useUserStore(state => state.profile);
+  const [listTransaction, setListTransaction] = useState<TransactionTypes[]>(
+    [],
+  );
+
+  useLayoutEffect(() => {
+    getTransactionService(profile.id).then(ress => {
+      var data = ress.docs.map(item => item.data()) as TransactionTypes[];
+      setListTransaction(data);
+    });
+  }, []);
+
   return (
     <Moleculs.ContainerScreen
       barStyle="dark-content"
@@ -37,20 +52,22 @@ export default function WalletScreen({ navigation }: Props) {
             <View style={styles.circle2} />
           </View>
           <Atoms.Gap height={24} />
-          <Text style={styles.amount}>IDR 904.592.934</Text>
+          <Text style={styles.amount}>
+            IDR {formatterCurrency({ nominal: parseInt(profile.balance) })}
+          </Text>
           <Atoms.Gap height={23} />
           <View style={styles.detailCard}>
             <View style={styles.containerCardHolder}>
               <Text style={styles.title}>Card Holder</Text>
               <View style={styles.containerCardValue}>
-                <Text style={styles.name}>Angga Risky</Text>
+                <Text style={styles.name}>{profile.fullName}</Text>
                 <Image source={images.ic_check} style={styles.icCheck} />
               </View>
             </View>
             <View style={styles.containerCardId}>
               <Text style={styles.title}>Card ID</Text>
               <View style={styles.containerCardValue}>
-                <Text style={styles.name}>BWAFLUTIX</Text>
+                <Text style={styles.name}>{profile.id.slice(0, 10)}</Text>
                 <Image source={images.ic_check} style={styles.icCheck} />
               </View>
             </View>
@@ -63,10 +80,15 @@ export default function WalletScreen({ navigation }: Props) {
         <FlatList
           contentContainerStyle={{ display: 'flex', gap: 12 }}
           nestedScrollEnabled={true}
-          data={transactionWallet}
+          data={listTransaction}
           scrollEnabled={false}
-          renderItem={({}) => {
-            return <Atoms.Card.CardTransactionHistoryWallet />;
+          renderItem={({ item }) => {
+            return (
+              <Atoms.Card.CardTransactionHistoryWallet
+                key={item.time}
+                transaction={item}
+              />
+            );
           }}
         />
       </View>

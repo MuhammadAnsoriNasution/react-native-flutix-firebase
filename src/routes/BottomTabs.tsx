@@ -2,24 +2,23 @@ import {
   BottomTabBar,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import * as Screens from '../screens';
 import { Image, PixelRatio, Platform, StyleSheet, View } from 'react-native';
-import { HomeTabParamList, RootStackParamList } from './types';
-import theme from '../utils/theme';
+import fontFamily from '../assets/fonts';
 import * as images from '../assets/images';
 import { Atoms } from '../components';
-import fontFamily from '../assets/fonts';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import useFirebaseAuthStore from '../store/FirebaseAuth';
+import * as Screens from '../screens';
+import theme from '../utils/theme';
+import { HomeTabParamList, RootStackParamList } from './types';
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
-function BottomTabs({}: Props) {
-  const { setLogout } = useFirebaseAuthStore(state => state);
+function BottomTabs({ navigation }: Props) {
+  // const { setLogout } = useFirebaseAuthStore(state => state);
 
-  const handleLogout = () => {
-    setLogout(true);
-  };
+  // const handleLogout = () => {
+  //   setLogout(true);
+  // };
   return (
     <Tab.Navigator
       tabBar={props => (
@@ -84,8 +83,8 @@ function BottomTabs({}: Props) {
         listeners={{
           tabPress: e => {
             e.preventDefault();
-            // navigation.navigate('WalletScreen');
-            handleLogout();
+            navigation.navigate('WalletScreen');
+            // handleLogout();
           },
         }}
         component={Screens.EmptyScreen}

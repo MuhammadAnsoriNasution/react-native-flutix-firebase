@@ -1,15 +1,37 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import React from 'react';
 import * as images from '../../../assets/images';
 import theme from '../../../utils/theme';
-export default function CardTransactionHistoryWallet() {
+import { TransactionTypes } from '../../../types/transaction';
+import { imageBaseUrl } from '../../../utils/config';
+import { formatterCurrency } from '../../../utils/currency';
+const width = Dimensions.get('screen').width;
+interface Props {
+  transaction: TransactionTypes;
+}
+export default function CardTransactionHistoryWallet({ transaction }: Props) {
   return (
     <View style={styles.container}>
-      <Image source={images.droppath} style={styles.image} />
+      <Image
+        source={
+          transaction.title === ''
+            ? images.bg_topup
+            : { uri: imageBaseUrl + 'w500' + transaction.picture }
+        }
+        style={styles.image}
+      />
       <View style={styles.containerDetail}>
-        <Text style={styles.title}>Avengers: Infinity Wars</Text>
-        <Text style={styles.amount}>Rp. 650.000</Text>
-        <Text style={styles.desc}>CGV Paris van Java Mall</Text>
+        <Text style={styles.title} numberOfLines={2}>
+          {transaction.title}
+        </Text>
+        <Text
+          style={[
+            styles.amount,
+            parseInt(transaction.amount) < 0 ? styles.redColor : {},
+          ]}>
+          IDR {formatterCurrency({ nominal: parseInt(transaction.amount) })}
+        </Text>
+        <Text style={styles.desc}>{transaction.subTitle}</Text>
       </View>
     </View>
   );
@@ -35,11 +57,15 @@ const styles = StyleSheet.create({
   title: {
     ...theme.styles.blackTextFont,
     fontSize: 18,
+    width: width - 134,
   },
   amount: {
     ...theme.styles.whiteNumberFont,
     color: theme.greenColor,
     fontSize: 12,
+  },
+  redColor: {
+    color: theme.redColor,
   },
   desc: {
     ...theme.styles.whiteNumberFont,

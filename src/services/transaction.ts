@@ -21,3 +21,10 @@ export async function SaveTransactionService({
     picture: booking.picture,
   });
 }
+
+export async function getTransactionService(userID: string) {
+  return await firestore()
+    .collection('transactions')
+    .where('userID', '==', userID)
+    .get();
+}
