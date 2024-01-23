@@ -83,7 +83,7 @@ function BottomTabs({ navigation }: Props) {
         listeners={{
           tabPress: e => {
             e.preventDefault();
-            navigation.navigate('WalletScreen');
+            navigation.navigate('TopUpScreen');
             // handleLogout();
           },
         }}

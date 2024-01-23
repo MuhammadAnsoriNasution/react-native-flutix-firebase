@@ -28,6 +28,7 @@ export default function TopUpScreen({ navigation }: Props) {
           ].map(item => {
             return (
               <Atoms.Card.CardTopUp
+                key={item}
                 amount={item}
                 width={width / 3}
                 isSelected

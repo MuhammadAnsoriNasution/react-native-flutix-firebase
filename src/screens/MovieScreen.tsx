@@ -49,9 +49,11 @@ export default function MovieScreen({ navigation }: Props) {
           </TouchableOpacity>
           <View style={styles.wrapperUserInfo}>
             <Text style={styles.name}>{profile.fullName}</Text>
-            <Text style={styles.totalAmount}>
-              {formatterCurrency({ nominal: parseFloat(profile.balance) })}
-            </Text>
+            <TouchableOpacity onPress={() => navigation.push('WalletScreen')}>
+              <Text style={styles.totalAmount}>
+                {formatterCurrency({ nominal: parseFloat(profile.balance) })}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
         {/* Now Playing */}
