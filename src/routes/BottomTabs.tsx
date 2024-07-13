@@ -7,6 +7,7 @@ import React from 'react';
 import { Image, PixelRatio, Platform, StyleSheet, View } from 'react-native';
 import fontFamily from '../assets/fonts';
 import * as images from '../assets/images';
+import BgBottomBar from '../assets/svg/BgBottomBar';
 import { Atoms } from '../components';
 import * as Screens from '../screens';
 import theme from '../utils/theme';
@@ -27,6 +28,7 @@ function BottomTabs({ navigation }: Props) {
         </View>
       )}
       screenOptions={({ route }) => ({
+        tabBarBackground: () => <BgBottomBar />,
         tabBarIcon: ({ focused }) => {
           let Icon = images.ic_movie_grey;
           if (route.name === 'MovieScreen') {
@@ -55,7 +57,7 @@ function BottomTabs({ navigation }: Props) {
           shadowOpacity: 0,
         },
         tabBarItemStyle: {
-          backgroundColor: theme.whiteColor,
+          // backgroundColor: theme.redColor,
           paddingBottom: 14,
           margin: 0,
         },
@@ -89,12 +91,7 @@ function BottomTabs({ navigation }: Props) {
         }}
         component={Screens.EmptyScreen}
         options={{
-          tabBarButton: props => (
-            <Atoms.Button.FloatTabButton
-              bgColor={theme.whiteColor}
-              {...props}
-            />
-          ),
+          tabBarButton: props => <Atoms.Button.FloatTabButton {...props} />,
         }}
       />
       <Tab.Screen

@@ -3,16 +3,14 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import theme from '../../../utils/theme';
-import TabClipBg from '../TabClipBg';
 
 type Props = BottomTabBarButtonProps & {
   bgColor?: string;
 };
 
-export default function FloatTabButton({ bgColor, ...props }: Props) {
+export default function FloatTabButton({ ...props }: Props) {
   return (
     <View style={styles.container}>
-      <TabClipBg color={bgColor} style={styles.background} />
       <TouchableOpacity style={styles.button} onPress={props.onPress}>
         <IconEntypo name="wallet" size={24} color={theme.whiteColor} />
       </TouchableOpacity>
